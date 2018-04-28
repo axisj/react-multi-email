@@ -15,8 +15,10 @@
     "@types/react-router-dom": "^4.2.6",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "file-loader": "^1.1.11",
     "node-sass": "^4.8.3",
-    "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
+    "react-app-rewire-css-modules":
+      "github:codebandits/react-app-rewire-css-modules",
     "react-app-rewire-hot-loader": "^1.0.1",
     "react-app-rewired": "^1.5.0",
     "react-ga": "^2.5.0",
@@ -35,8 +37,10 @@
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
-    "build": "react-app-rewired build --scripts-version react-scripts-ts",
-    "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
+    "build":
+      "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs",
+    "test":
+      "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "eject": "react-scripts-ts eject",
     "postinstall": "npm run build"

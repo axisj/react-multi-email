@@ -1,33 +1,34 @@
 import * as React from 'react';
 import { Segment, Label, Icon } from 'semantic-ui-react';
-import * as isEmail from 'validator/lib/isEmail';
-// import styled from 'styled-components';
+import isEmail from './isEmail';
 
-interface IEmailAddressProps {
+interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: Function;
   style?: object;
 }
 
-interface IEmailAddressState {
+interface IReactMultiEmailState {
   focused?: boolean;
   emails?: string[];
   inputValue?: string;
 }
 
-class Index extends React.Component<IEmailAddressProps> {
+class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
   state = {
     focused: false,
     emails: [],
     inputValue: '',
   };
 
+  private emailInput: HTMLInputElement;
+
   static getDerivedStateFromProps(
-    nextProps: IEmailAddressProps,
-    prevState: IEmailAddressState,
+    nextProps: IReactMultiEmailProps,
+    prevState: IReactMultiEmailState,
   ) {
     if (prevState.emails !== nextProps.emails) {
-      return { emails: nextProps.emails, inputValue: '', focused: false };
+      return { emails: nextProps.emails || [], inputValue: '', focused: false };
     }
     return null;
   }
@@ -44,7 +45,7 @@ class Index extends React.Component<IEmailAddressProps> {
         });
 
         do {
-          if (isEmail(arr[0])) {
+          if (isEmail('' + arr[0])) {
             const newEmail: string = '' + arr.shift();
             if (
               !this.state.emails.find(s => {
@@ -115,7 +116,7 @@ class Index extends React.Component<IEmailAddressProps> {
         style={style}
         className={'email-address-input ' + (focused ? 'focused' : '')}
         onClick={(e: any) => {
-          this.refs['emailInput']['focus']();
+          this.emailInput.focus();
         }}
       >
         {emails.map((email: string, index: number) => (
@@ -125,7 +126,11 @@ class Index extends React.Component<IEmailAddressProps> {
           </Label>
         ))}
         <input
-          ref="emailInput"
+          ref={ref => {
+            if (ref) {
+              this.emailInput = ref;
+            }
+          }}
           type="text"
           value={inputValue}
           onFocus={(e: any) => this.setState({ focused: true })}
@@ -145,4 +150,4 @@ class Index extends React.Component<IEmailAddressProps> {
   }
 }
 
-export default Index;
+export default ReactMultiEmail;
