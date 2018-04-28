@@ -1,0 +1,44 @@
+{
+  "name": "react-multi-email",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.2",
+    "@types/react": "^16.3.10",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-router": "^4.0.23",
+    "@types/react-router-dom": "^4.2.6",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "node-sass": "^4.8.3",
+    "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
+    "react-app-rewire-hot-loader": "^1.0.1",
+    "react-app-rewired": "^1.5.0",
+    "react-ga": "^2.5.0",
+    "react-hot-loader": "^4.1.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts-ts": "2.15.1",
+    "sass-loader": "^7.0.1",
+    "semantic-ui-react": "^0.79.1",
+    "semantic-ui-scss": "^1.0.0",
+    "styled-components": "^3.2.5",
+    "styled-normalize": "^4.0.0",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "^2.8.1",
+    "typescript-styled-plugin": "^0.6.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start --scripts-version react-scripts-ts",
+    "build": "react-app-rewired build --scripts-version react-scripts-ts",
+    "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "eject": "react-scripts-ts eject",
+    "postinstall": "npm run build"
+  }
+}

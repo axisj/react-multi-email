@@ -1,0 +1,188 @@
+/*!
+ * Copyright (c) 2017. tom@axisj.com
+ * - github.com/thomasjang
+ * - www.axisj.com
+ */
+
+$hack_ie67: '.';
+
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  // Internet Explorer 10+
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  // Safari and Chrome
+}
+
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      @if $prefix-for-webkit {
+        -webkit-#{$property}: $value;
+      }
+    } @else if $prefix == moz {
+      @if $prefix-for-mozilla {
+        -moz-#{$property}: $value;
+      }
+    } @else if $prefix == ms {
+      @if $prefix-for-microsoft {
+        -ms-#{$property}: $value;
+      }
+    } @else if $prefix == o {
+      @if $prefix-for-opera {
+        -o-#{$property}: $value;
+      }
+    } @else if $prefix == spec {
+      @if $prefix-for-spec {
+        #{$property}: $value;
+      }
+    } @else {
+      @warn 'Unrecognized prefix: #{$prefix}';
+    }
+  }
+}
+
+@mixin box-shadow($shadows...) {
+  @include prefixer(box-shadow, $shadows, spec);
+}
+
+@mixin background-size($lengths...) {
+  @include prefixer(background-size, $lengths, spec);
+}
+
+@mixin ax-border-radius($border-radius, $direction: '', $adjust: 0) {
+  @if (type_of($border-radius) == 'list') {
+    @if ($direction == '') {
+      border-top-left-radius: nth($border-radius, 1) + $adjust;
+      border-top-right-radius: nth($border-radius, 2) + $adjust;
+      border-bottom-right-radius: nth($border-radius, 3) + $adjust;
+      border-bottom-left-radius: nth($border-radius, 4) + $adjust;
+    } @else if ($direction == 'top') {
+      border-top-left-radius: nth($border-radius, 1) + $adjust;
+      border-top-right-radius: nth($border-radius, 2) + $adjust;
+    } @else if ($direction == 'bottom') {
+      border-bottom-right-radius: nth($border-radius, 3) + $adjust;
+      border-bottom-left-radius: nth($border-radius, 4) + $adjust;
+    } @else if ($direction == 'left') {
+      border-top-left-radius: nth($border-radius, 1) + $adjust;
+      border-bottom-left-radius: nth($border-radius, 4) + $adjust;
+    } @else if ($direction == 'right') {
+      border-top-right-radius: nth($border-radius, 2) + $adjust;
+      border-bottom-right-radius: nth($border-radius, 3) + $adjust;
+    }
+  } @else {
+    @if ($direction == '') {
+      border-radius: $border-radius + $adjust;
+    } @else if ($direction == 'top') {
+      border-top-left-radius: $border-radius + $adjust;
+      border-top-right-radius: $border-radius + $adjust;
+    } @else if ($direction == 'bottom') {
+      border-bottom-left-radius: $border-radius + $adjust;
+      border-bottom-right-radius: $border-radius + $adjust;
+    } @else if ($direction == 'left') {
+      border-top-left-radius: $border-radius + $adjust;
+      border-bottom-left-radius: $border-radius + $adjust;
+    } @else if ($direction == 'right') {
+      border-top-right-radius: $border-radius + $adjust;
+      border-bottom-right-radius: $border-radius + $adjust;
+    }
+  }
+}
+
+@mixin ax-background($pos, $g1: null, $g2: null) {
+  $pos-type: type-of(nth($pos, 1));
+
+  // If $pos is missing from mixin, reassign vars and add default position
+  @if ($pos-type == color) or (nth($pos, 1) == 'transparent') {
+    $g2: $g1;
+    $g1: $pos;
+    $pos: to top;
+  } @else if ($g1 == null) {
+    $g1: $pos;
+    $pos: to top;
+  }
+
+  // @debug($g1);
+  @if (length($g1) == 2) {
+    $g2: nth($g1, 2);
+    $g1: nth($g1, 1);
+    @include linear-gradient($pos, $g1, $g2);
+  } @else if (length($g1) == 3) {
+    @include linear-gradient(nth($g1, 1), nth($g1, 2), nth($g1, 3));
+  } @else {
+    @if (type_of(nth($g2, 1)) == color) {
+      $g2: nth($g2, 1);
+    }
+    @include linear-gradient($pos, $g1, $g2);
+  }
+}
+
+@mixin W($s: 1, $e: 100) {
+  @for $i from $s through $e {
+    &.W#{$i} {
+      width: #{$i}px;
+    }
+  }
+  @for $i from $s through $e {
+    &.W#{$i*10} {
+      width: #{$i * 10}px;
+    }
+  }
+}
+
+@mixin H($s: 1, $e: 100) {
+  @for $i from $s through $e {
+    &.H#{$i} {
+      height: #{$i}px;
+    }
+  }
+  @for $i from $s through $e {
+    &.H#{$i*10} {
+      height: #{$i * 10}px;
+    }
+  }
+}
+
+@mixin media-medium-and-up {
+  @media #{$medium-and-up} {
+    @content;
+  }
+}
+
+@mixin media-large-and-up {
+  @media #{$large-and-up} {
+    @content;
+  }
+}
+
+@mixin media-extra-large-and-up {
+  @media #{$extra-large-and-up} {
+    @content;
+  }
+}
+
+@mixin media-small-and-down {
+  @media #{$small-and-down} {
+    @content;
+  }
+}
+
+@mixin media-medium-and-down {
+  @media #{$medium-and-down} {
+    @content;
+  }
+}
+
+@mixin media-medium-only {
+  @media #{$medium-only} {
+    @content;
+  }
+}

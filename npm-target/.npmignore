@@ -1,0 +1,13 @@
+/.git
+/.idea
+
+/test
+/jquery
+karma.conf.js
+
+.gitignore
+
+deploy.sh
+bower.json
+
+/Gruntfile.js

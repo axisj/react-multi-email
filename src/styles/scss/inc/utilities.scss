@@ -1,0 +1,560 @@
+$output-bourbon-deprecation-warnings: false !default;
+
+/// @type cubic-bezier
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+$ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+$ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+$prefix-for-webkit: true !default;
+$prefix-for-mozilla: true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera: true !default;
+$prefix-for-spec: true !default;
+
+@mixin disable-prefix-for-all() {
+  $prefix-for-webkit: false !global;
+  $prefix-for-mozilla: false !global;
+  $prefix-for-microsoft: false !global;
+  $prefix-for-opera: false !global;
+  $prefix-for-spec: false !global;
+}
+
+// Opacity
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  // IE8 filter
+  $opacity-ie: ($opacity * 100);
+  filter: alpha(opacity=$opacity-ie);
+}
+
+@mixin keyframes($name) {
+  $original-prefix-for-webkit: $prefix-for-webkit;
+  $original-prefix-for-mozilla: $prefix-for-mozilla;
+  $original-prefix-for-microsoft: $prefix-for-microsoft;
+  $original-prefix-for-opera: $prefix-for-opera;
+  $original-prefix-for-spec: $prefix-for-spec;
+
+  @if $original-prefix-for-webkit {
+    @include disable-prefix-for-all();
+    $prefix-for-webkit: true !global;
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $original-prefix-for-mozilla {
+    @include disable-prefix-for-all();
+    $prefix-for-mozilla: true !global;
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  $prefix-for-webkit: $original-prefix-for-webkit !global;
+  $prefix-for-mozilla: $original-prefix-for-mozilla !global;
+  $prefix-for-microsoft: $original-prefix-for-microsoft !global;
+  $prefix-for-opera: $original-prefix-for-opera !global;
+  $prefix-for-spec: $original-prefix-for-spec !global;
+
+  @if $original-prefix-for-spec {
+    @keyframes #{$name} {
+      @content;
+    }
+  }
+}
+
+///// bourbon support
+
+// Adds keyframes blocks for supported prefixes, removing redundant prefixes in the block's content
+@mixin keyframes($name) {
+  $original-prefix-for-webkit: $prefix-for-webkit;
+  $original-prefix-for-mozilla: $prefix-for-mozilla;
+  $original-prefix-for-microsoft: $prefix-for-microsoft;
+  $original-prefix-for-opera: $prefix-for-opera;
+  $original-prefix-for-spec: $prefix-for-spec;
+
+  @if $original-prefix-for-webkit {
+    @include disable-prefix-for-all();
+    $prefix-for-webkit: true !global;
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $original-prefix-for-mozilla {
+    @include disable-prefix-for-all();
+    $prefix-for-mozilla: true !global;
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  $prefix-for-webkit: $original-prefix-for-webkit !global;
+  $prefix-for-mozilla: $original-prefix-for-mozilla !global;
+  $prefix-for-microsoft: $original-prefix-for-microsoft !global;
+  $prefix-for-opera: $original-prefix-for-opera !global;
+  $prefix-for-spec: $original-prefix-for-spec !global;
+
+  @if $original-prefix-for-spec {
+    @keyframes #{$name} {
+      @content;
+    }
+  }
+}
+
+@mixin transform($property: none) {
+  // none | <transform-function>
+  @include prefixer(transform, $property, webkit moz ms o spec);
+}
+
+@mixin transform-origin($axes: 50%) {
+  // x-axis - left | center | right  | length | %
+  // y-axis - top  | center | bottom | length | %
+  // z-axis -                          length
+  @include prefixer(transform-origin, $axes, webkit moz ms o spec);
+}
+
+@mixin transform-style($style: flat) {
+  @include prefixer(transform-style, $style, webkit moz ms o spec);
+}
+
+@mixin display($value) {
+  // flex | inline-flex
+  @if $value == 'flex' {
+    // 2009
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+
+    // 2012
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox; // 2011 (IE 10)
+    display: flex;
+  } @else if $value == 'inline-flex' {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: inline-box;
+
+    display: -webkit-inline-flex;
+    display: -moz-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  } @else {
+    display: $value;
+  }
+}
+
+// 2009 - box-flex (integer)
+// 2011 - flex (decimal | width decimal)
+// 2012 - flex (integer integer width)
+@mixin flex($value) {
+  // Grab flex-grow for older browsers.
+  $flex-grow: nth($value, 1);
+
+  // 2009
+  @include prefixer(box-flex, $flex-grow, webkit moz spec);
+
+  // 2011 (IE 10), 2012
+  @include prefixer(flex, $value, webkit moz ms spec);
+}
+
+// 2009 - box-orient ( horizontal | vertical | inline-axis | block-axis)
+//      - box-direction (normal | reverse)
+// 2011 - flex-direction (row | row-reverse | column | column-reverse)
+// 2012 - flex-direction (row | row-reverse | column | column-reverse)
+@mixin flex-direction($value: row) {
+  // Alt values.
+  $value-2009: $value;
+  $value-2011: $value;
+  $direction: normal;
+
+  @if $value == row {
+    $value-2009: horizontal;
+  } @else if $value == 'row-reverse' {
+    $value-2009: horizontal;
+    $direction: reverse;
+  } @else if $value == column {
+    $value-2009: vertical;
+  } @else if $value == 'column-reverse' {
+    $value-2009: vertical;
+    $direction: reverse;
+  }
+
+  // 2009
+  @include prefixer(box-orient, $value-2009, webkit moz spec);
+  @include prefixer(box-direction, $direction, webkit moz spec);
+
+  // 2012
+  @include prefixer(flex-direction, $value, webkit moz spec);
+
+  // 2011 (IE 10)
+  -ms-flex-direction: $value;
+}
+
+// 2009 - box-lines (single | multiple)
+// 2011 - flex-wrap (nowrap | wrap | wrap-reverse)
+// 2012 - flex-wrap (nowrap | wrap | wrap-reverse)
+@mixin flex-wrap($value: nowrap) {
+  // Alt values
+  $alt-value: $value;
+  @if $value == nowrap {
+    $alt-value: single;
+  } @else if $value == wrap {
+    $alt-value: multiple;
+  } @else if $value == 'wrap-reverse' {
+    $alt-value: multiple;
+  }
+
+  @include prefixer(box-lines, $alt-value, webkit moz spec);
+  @include prefixer(flex-wrap, $value, webkit moz ms spec);
+}
+
+// 2009 - TODO: parse values into flex-direction/flex-wrap
+// 2011 - TODO: parse values into flex-direction/flex-wrap
+// 2012 - flex-flow (flex-direction || flex-wrap)
+@mixin flex-flow($value) {
+  @include prefixer(flex-flow, $value, webkit moz spec);
+}
+
+// 2009 - box-ordinal-group (integer)
+// 2011 - flex-order (integer)
+// 2012 - order (integer)
+@mixin order($int: 0) {
+  // 2009
+  @include prefixer(box-ordinal-group, $int, webkit moz spec);
+
+  // 2012
+  @include prefixer(order, $int, webkit moz spec);
+
+  // 2011 (IE 10)
+  -ms-flex-order: $int;
+}
+
+// 2012 - flex-grow (number)
+@mixin flex-grow($number: 0) {
+  @include prefixer(flex-grow, $number, webkit moz spec);
+  -ms-flex-positive: $number;
+}
+
+// 2012 - flex-shrink (number)
+@mixin flex-shrink($number: 1) {
+  @include prefixer(flex-shrink, $number, webkit moz spec);
+  -ms-flex-negative: $number;
+}
+
+// 2012 - flex-basis (number)
+@mixin flex-basis($width: auto) {
+  @include prefixer(flex-basis, $width, webkit moz spec);
+  -ms-flex-preferred-size: $width;
+}
+
+// Shorthand mixin. Supports multiple parentheses-deliminated values for each variable.
+// Example: @include transition (all 2s ease-in-out);
+//          @include transition (opacity 1s ease-in 2s, width 2s ease-out);
+//          @include transition-property (transform, opacity);
+
+@mixin transition($properties...) {
+  // Fix for vendor-prefix transform property
+  $needs-prefixes: false;
+  $webkit: ();
+  $moz: ();
+  $spec: ();
+
+  // Create lists for vendor-prefixed transform
+  @each $list in $properties {
+    @if nth($list, 1) == 'transform' {
+      $needs-prefixes: true;
+      $list1: -webkit-transform;
+      $list2: -moz-transform;
+      $list3: ();
+
+      @each $var in $list {
+        $list3: join($list3, $var);
+
+        @if $var != 'transform' {
+          $list1: join($list1, $var);
+          $list2: join($list2, $var);
+        }
+      }
+
+      $webkit: append($webkit, $list1);
+      $moz: append($moz, $list2);
+      $spec: append($spec, $list3);
+    } @else {
+      $webkit: append($webkit, $list, comma);
+      $moz: append($moz, $list, comma);
+      $spec: append($spec, $list, comma);
+    }
+  }
+
+  @if $needs-prefixes {
+    -webkit-transition: $webkit;
+    -moz-transition: $moz;
+    transition: $spec;
+  } @else {
+    @if length($properties) >= 1 {
+      @include prefixer(transition, $properties, webkit moz spec);
+    } @else {
+      $properties: all 0.15s ease-out 0s;
+      @include prefixer(transition, $properties, webkit moz spec);
+    }
+  }
+}
+
+@mixin transition-property($properties...) {
+  -webkit-transition-property: transition-property-names($properties, 'webkit');
+  -moz-transition-property: transition-property-names($properties, 'moz');
+  transition-property: transition-property-names($properties, false);
+}
+
+@mixin transition-duration($times...) {
+  @include prefixer(transition-duration, $times, webkit moz spec);
+}
+
+@mixin transition-timing-function($motions...) {
+  // ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier()
+  @include prefixer(transition-timing-function, $motions, webkit moz spec);
+}
+
+@mixin transition-delay($times...) {
+  @include prefixer(transition-delay, $times, webkit moz spec);
+}
+
+// http://www.w3.org/TR/css3-animations/#the-animation-name-property-
+// Each of these mixins support comma separated lists of values, which allows different transitions for individual properties to be described in a single style rule. Each value in the list corresponds to the value at that same position in the other properties.
+
+@mixin animation($animations...) {
+  @include prefixer(animation, $animations, webkit moz spec);
+}
+
+@mixin animation-name($names...) {
+  @include prefixer(animation-name, $names, webkit moz spec);
+}
+
+@mixin animation-duration($times...) {
+  @include prefixer(animation-duration, $times, webkit moz spec);
+}
+
+@mixin animation-timing-function($motions...) {
+  // ease | linear | ease-in | ease-out | ease-in-out
+  @include prefixer(animation-timing-function, $motions, webkit moz spec);
+}
+
+@mixin animation-iteration-count($values...) {
+  // infinite | <number>
+  @include prefixer(animation-iteration-count, $values, webkit moz spec);
+}
+
+@mixin animation-direction($directions...) {
+  // normal | alternate
+  @include prefixer(animation-direction, $directions, webkit moz spec);
+}
+
+@mixin animation-play-state($states...) {
+  // running | paused
+  @include prefixer(animation-play-state, $states, webkit moz spec);
+}
+
+@mixin animation-delay($times...) {
+  @include prefixer(animation-delay, $times, webkit moz spec);
+}
+
+@mixin animation-fill-mode($modes...) {
+  // none | forwards | backwards | both
+  @include prefixer(animation-fill-mode, $modes, webkit moz spec);
+}
+
+@mixin linear-gradient(
+  $pos,
+  $g1,
+  $g2: null,
+  $g3: null,
+  $g4: null,
+  $g5: null,
+  $g6: null,
+  $g7: null,
+  $g8: null,
+  $g9: null,
+  $g10: null,
+  $fallback: null
+) {
+  // Detect what type of value exists in $pos
+  $pos-type: type-of(nth($pos, 1));
+  $pos-spec: null;
+  $pos-degree: null;
+
+  // If $pos is missing from mixin, reassign vars and add default position
+  @if ($pos-type == color) or (nth($pos, 1) == 'transparent') {
+    $g10: $g9;
+    $g9: $g8;
+    $g8: $g7;
+    $g7: $g6;
+    $g6: $g5;
+    $g5: $g4;
+    $g4: $g3;
+    $g3: $g2;
+    $g2: $g1;
+    $g1: $pos;
+    $pos: null;
+  }
+
+  @if $pos {
+    $positions: _linear-positions-parser($pos);
+    $pos-degree: nth($positions, 1);
+    $pos-spec: nth($positions, 2);
+  }
+
+  $full: $g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9, $g10;
+
+  // Set $g1 as the default fallback color
+  $fallback-color: nth($g1, 1);
+
+  // If $fallback is a color use that color as the fallback color
+  @if (type-of($fallback) == color) or ($fallback == 'transparent') {
+    $fallback-color: $fallback;
+  }
+
+  background-color: $fallback-color;
+  background-image: -webkit-linear-gradient(
+    $pos-degree $full
+  ); // Safari 5.1+, Chrome
+  background-image: unquote('linear-gradient(#{$pos-spec}#{$full})');
+}
+
+@function _linear-positions-parser($pos) {
+  $user-deprecation-warnings-setting: $output-bourbon-deprecation-warnings;
+  $output-bourbon-deprecation-warnings: false !global;
+
+  $type: type-of(nth($pos, 1));
+  $spec: null;
+  $degree: null;
+  $side: null;
+  $corner: null;
+  $length: length($pos);
+  // Parse Side and corner positions
+  @if ($length > 1) {
+    @if nth($pos, 1) == 'to' {
+      // Newer syntax
+      $side: nth($pos, 2);
+
+      @if $length == 2 {
+        // eg. to top
+        // Swap for backwards compatibility
+        $degree: _position-flipper(nth($pos, 2));
+      } @else if $length == 3 {
+        // eg. to top left
+        $corner: nth($pos, 3);
+      }
+    } @else if $length == 2 {
+      // Older syntax ("top left")
+      $side: _position-flipper(nth($pos, 1));
+      $corner: _position-flipper(nth($pos, 2));
+    }
+
+    @if ('#{$side} #{$corner}' == 'left top') or
+      ('#{$side} #{$corner}' == 'top left')
+    {
+      $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
+    } @else if
+      ('#{$side} #{$corner}' == 'right top') or
+      ('#{$side} #{$corner}' == 'top right')
+    {
+      $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
+    } @else if
+      ('#{$side} #{$corner}' == 'right bottom') or
+      ('#{$side} #{$corner}' == 'bottom right')
+    {
+      $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
+    } @else if
+      ('#{$side} #{$corner}' == 'left bottom') or
+      ('#{$side} #{$corner}' == 'bottom left')
+    {
+      $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
+    }
+    $spec: to $side $corner;
+  } @else if $length == 1 {
+    // Swap for backwards compatibility
+    @if $type == string {
+      $degree: $pos;
+      $spec: to _position-flipper($pos);
+    } @else {
+      $degree: -270 - $pos; //rotate the gradient opposite from spec
+      $spec: $pos;
+    }
+  }
+  $degree: unquote($degree + ',');
+  $spec: unquote($spec + ',');
+
+  $output-bourbon-deprecation-warnings: $user-deprecation-warnings-setting !global;
+
+  @return $degree $spec;
+}
+
+@function _position-flipper($pos) {
+  @return if($pos == left, right, null) if($pos == right, left, null)
+    if($pos == top, bottom, null) if($pos == bottom, top, null);
+}
+
+/// border-radius
+@mixin border-top-radius($radii) {
+  border-top-left-radius: $radii;
+  border-top-right-radius: $radii;
+}
+
+@mixin border-right-radius($radii) {
+  border-bottom-right-radius: $radii;
+  border-top-right-radius: $radii;
+}
+
+@mixin border-bottom-radius($radii) {
+  border-bottom-left-radius: $radii;
+  border-bottom-right-radius: $radii;
+}
+
+@mixin border-left-radius($radii) {
+  border-bottom-left-radius: $radii;
+  border-top-left-radius: $radii;
+}
+
+/// perspective
+@mixin perspective($depth: none) {
+  @include prefixer(perspective, $depth, webkit moz spec);
+}
+
+@mixin perspective-origin($value: 50% 50%) {
+  @include prefixer(perspective-origin, $value, webkit moz spec);
+}
+
+//// ellipsis
+@mixin ellipsis($width: 100%) {
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "lato-webfont",
+  "version": "1.1.2",
+  "homepage": "https://github.com/hakger/lato-webfont",
+  "authors": [
+    "Hubert Kowalski <h.kowalski@hakger.pl>"
+  ],
+  "description": "Lato Webfont optimized for Bower, gulp-flatten and wiredep",
+  "main": [
+    "./css/lato-webfont.css",
+    "./less/lato-webfont.less",
+    "./scss/lato-webfont.scss",
+    "./fonts/*"
+  ],
+  "keywords": [
+    "lato",
+    "webfont",
+    "font",
+    "gulp",
+    "gulp-flatten",
+    "css",
+    "sass",
+    "less",
+    "fontkit"
+  ],
+  "license": [
+    "OFL-1.1",
+    "MIT"
+  ],
+  "ignore": [
+    "**/.*"
+  ],
+  "_release": "1.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.2",
+    "commit": "fad59e7bf16137992f76d41d38f35398602e0217"
+  },
+  "_source": "https://github.com/hakger/lato-webfont.git",
+  "_target": "^1.1.2",
+  "_originalSource": "lato-webfont",
+  "_direct": true
+}

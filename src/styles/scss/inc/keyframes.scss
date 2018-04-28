@@ -1,0 +1,90 @@
+// FADE
+@include keyframes(FADE_IN) {
+  from {
+    @include opacity(0.1);
+  }
+  to {
+    @include opacity(1);
+  }
+}
+
+@include keyframes(FADE_OUT) {
+  from {
+    @include opacity(1);
+  }
+  to {
+    @include opacity(0);
+    display: none;
+  }
+}
+
+@include keyframes(SPIN) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(359deg));
+  }
+}
+
+@include keyframes(LOADING) {
+  0% {
+    @include opacity(1);
+  }
+  60% {
+    @include opacity(0.2);
+  }
+  100% {
+    @include opacity(1);
+  }
+}
+
+@include keyframes(shake) {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20%,
+  60% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  40%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.shake {
+  @include animation(shake 0.5s);
+}
+
+@include keyframes(pulse) {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  @include animation(pulse 0.5s);
+}
+
+@include keyframes(FADE_IN_DOWN) {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
