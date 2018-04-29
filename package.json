@@ -41,7 +41,7 @@
     "build":
       "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
     "dist-module":
-      "tsc src/react-multi-email/*.tsx --outDir dist --jsx react && cp .src/react-multi-email/style.css ./dist/style.css && cp ./README.md ./dist/README.md",
+      "tsc src/react-multi-email/*.tsx --outDir dist --jsx react && cp ./src/react-multi-email/style.css ./dist/style.css && cp ./README.md ./dist/README.md",
     "test":
       "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
