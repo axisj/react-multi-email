@@ -24,8 +24,8 @@ class CustomizeStyle extends React.Component<IProps, IState> {
               <ReactMultiEmail
                 style={{ minHeight: '100px' }}
                 emails={emails}
-                onChange={(emails: string[]) => {
-                  this.setState({ emails: emails });
+                onChange={_emails => {
+                  this.setState({ emails: _emails });
                 }}
                 getLabel={(
                   email: string,

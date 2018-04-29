@@ -38,6 +38,17 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     let inputValue: string = '';
     const re = /[ ,;]/g;
 
+    const addEmails = (email: string) => {
+      const emails: string[] = this.state.emails;
+      for (let i = 0, l = emails.length; i < l; i++) {
+        if (emails[i] === email) {
+          return false;
+        }
+      }
+      validEmails.push(email);
+      return true;
+    };
+
     if (value !== '') {
       if (re.test(value)) {
         let arr = value.split(re).filter(n => {
@@ -46,14 +57,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
         do {
           if (isEmail('' + arr[0])) {
-            const newEmail: string = '' + arr.shift();
-            if (
-              !this.state.emails.find(s => {
-                return s === newEmail;
-              })
-            ) {
-              validEmails.push(newEmail);
-            }
+            addEmails('' + arr.shift());
           } else {
             if (arr.length === 1) {
               /// 마지막 아이템이면 inputValue로 남겨두기
@@ -66,13 +70,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
       } else {
         if (isEnter) {
           if (isEmail(value)) {
-            if (
-              !this.state.emails.find(s => {
-                return s === value;
-              })
-            ) {
-              validEmails.push(value);
-            }
+            addEmails(value);
           } else {
             inputValue = value;
           }
