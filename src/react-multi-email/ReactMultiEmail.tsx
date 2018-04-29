@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Segment, Label, Icon } from 'semantic-ui-react';
 import isEmail from './isEmail';
 
 interface IReactMultiEmailProps {
   emails?: string[];
-  onChange?: Function;
+  onChange?: (emails: any) => void;
   style?: object;
+  getLabel: Function;
 }
 
 interface IReactMultiEmailState {
@@ -109,22 +109,21 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
   render() {
     const { focused, emails, inputValue } = this.state;
-    const { style } = this.props;
+    const { style, getLabel } = this.props;
+
+    // removeEmail
 
     return (
       <div
+        className={'react-multi-email ' + (focused ? 'focused' : '')}
         style={style}
-        className={'email-address-input ' + (focused ? 'focused' : '')}
         onClick={(e: any) => {
           this.emailInput.focus();
         }}
       >
-        {emails.map((email: string, index: number) => (
-          <Label key={index}>
-            {email}
-            <Icon name="delete" onClick={() => this.removeEmail(index)} />
-          </Label>
-        ))}
+        {emails.map((email: string, index: number) =>
+          getLabel(email, index, this.removeEmail),
+        )}
         <input
           ref={ref => {
             if (ref) {
