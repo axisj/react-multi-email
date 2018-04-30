@@ -11,9 +11,6 @@ module.exports = function override(config, env) {
 
     // (config, env, babelPlugins = [])
     config = overrideTsLoader(config, env);
-
-    // babel-polyfill
-    config.entry = ['babel-polyfill', ...config.entry];
   }
 
   // sass-loader

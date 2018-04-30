@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var isEmail_1 = require("./isEmail");
 var ReactMultiEmail = /** @class */ (function (_super) {
@@ -19,7 +19,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.state = {
             focused: false,
             emails: [],
-            inputValue: ''
+            inputValue: '',
         };
         _this.findEmailAddress = function (value, isEnter) {
             var validEmails = [];
@@ -41,7 +41,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                         return n !== '' && n !== undefined && n !== null;
                     });
                     do {
-                        if (isEmail_1["default"]('' + arr[0])) {
+                        if (isEmail_1.default('' + arr[0])) {
                             addEmails('' + arr.shift());
                         }
                         else {
@@ -57,7 +57,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }
                 else {
                     if (isEnter) {
-                        if (isEmail_1["default"](value)) {
+                        if (isEmail_1.default(value)) {
                             addEmails(value);
                         }
                         else {
@@ -71,7 +71,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             }
             _this.setState({
                 emails: _this.state.emails.concat(validEmails),
-                inputValue: inputValue
+                inputValue: inputValue,
             });
             if (validEmails.length && _this.props.onChange) {
                 _this.props.onChange(_this.state.emails.concat(validEmails));
@@ -83,7 +83,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.removeEmail = function (index) {
             _this.state.emails.splice(index, 1);
             _this.setState({
-                emails: _this.state.emails
+                emails: _this.state.emails,
             });
             if (_this.props.onChange) {
                 _this.props.onChange(_this.state.emails);
@@ -123,4 +123,4 @@ var ReactMultiEmail = /** @class */ (function (_super) {
     };
     return ReactMultiEmail;
 }(React.Component));
-exports["default"] = ReactMultiEmail;
+exports.default = ReactMultiEmail;

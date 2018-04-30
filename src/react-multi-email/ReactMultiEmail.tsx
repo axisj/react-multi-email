@@ -1,14 +1,14 @@
 import * as React from 'react';
 import isEmail from './isEmail';
 
-interface IReactMultiEmailProps {
+export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: any) => void;
   style?: object;
   getLabel: Function;
 }
 
-interface IReactMultiEmailState {
+export interface IReactMultiEmailState {
   focused?: boolean;
   emails?: string[];
   inputValue?: string;
