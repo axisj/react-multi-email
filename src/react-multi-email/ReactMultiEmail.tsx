@@ -3,9 +3,13 @@ import isEmail from './isEmail';
 
 export interface IReactMultiEmailProps {
   emails?: string[];
-  onChange?: (emails: any) => void;
+  onChange?: (emails: string[]) => void;
   style?: object;
-  getLabel: Function;
+  getLabel: (
+    email: string,
+    index: number,
+    removeEmail: (index: number) => void,
+  ) => void;
 }
 
 export interface IReactMultiEmailState {
