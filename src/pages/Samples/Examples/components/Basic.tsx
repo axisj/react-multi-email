@@ -23,7 +23,7 @@ class Basic extends React.Component<IProps, IState> {
 
               <ReactMultiEmail
                 emails={emails}
-                onChange={_emails => {
+                onChange={(_emails: string[]) => {
                   this.setState({ emails: _emails });
                 }}
                 getLabel={(

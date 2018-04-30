@@ -1,7 +1,6 @@
 {
   "name": "react-multi-email",
   "version": "0.1.2",
-  "private": true,
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
@@ -15,8 +14,7 @@
     "@types/react-router-dom": "^4.2.6",
     "@types/react-syntax-highlighter": "0.0.5",
     "axios": "^0.18.0",
-    "babel-cli": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
+    "better-npm-run": "^0.1.0",
     "file-loader": "^1.1.11",
     "node-sass": "^4.8.3",
     "raw-loader": "^0.5.1",
@@ -44,12 +42,16 @@
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
     "build":
       "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
-    "dist-module":
-      "tsc src/react-multi-email/*.tsx --outDir dist --jsx react && cp ./src/react-multi-email/style.css ./dist/style.css && cp ./src/react-multi-email/index.d.ts ./dist/index.d.ts && cp ./README.md ./dist/README.md",
+    "dist-module": "better-npm-run build:es5 && better-npm-run build:es6",
     "test":
       "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "eject": "react-scripts-ts eject",
-    "postinstall": "npm run build"
+    "publish": "cd dist && npm publish"
+  },
+  "betterScripts": {
+    "build:es5":
+      "rm -rf ./dist/commonjs && tsc src/react-multi-email/*.tsx --declaration --outDir dist/commonjs --jsx react --module commonjs --target es5 --moduleResolution node && cp ./src/react-multi-email/style.css ./dist/commonjs/style.css && cp ./README.md ./dist/README.md",
+    "build:es6":
+      "rm -rf ./dist/es6 && tsc src/react-multi-email/*.tsx --declaration --outDir dist/es6 --jsx react --module es6 --target es6 --moduleResolution node && cp ./src/react-multi-email/style.css ./dist/es6/style.css && cp ./README.md ./dist/README.md"
   }
 }
