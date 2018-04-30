@@ -29,7 +29,7 @@ class Basic extends React.Component<IProps, IState> {
                 getLabel={(
                   email: string,
                   index: number,
-                  removeEmail: Function,
+                  removeEmail: (index: number) => void,
                 ) => {
                   return (
                     <Label key={index}>

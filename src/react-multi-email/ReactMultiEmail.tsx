@@ -3,9 +3,13 @@ import isEmail from './isEmail';
 
 export interface IReactMultiEmailProps {
   emails?: string[];
-  onChange?: (emails: any) => void;
+  onChange?: (emails: string[]) => void;
   style?: object;
-  getLabel: Function;
+  getLabel: (
+    email: string,
+    index: number,
+    removeEmail: (index: number) => void,
+  ) => void;
 }
 
 export interface IReactMultiEmailState {
@@ -136,6 +140,11 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
             this.findEmailAddress(e.target.value, true);
           }}
           onChange={(e: any) => this.onChangeInputValue(e.target.value)}
+          onKeyDown={(e: any) => {
+            if (e.which === 8 && !e.target.value) {
+              this.removeEmail(this.state.emails.length - 1);
+            }
+          }}
           onKeyUp={(e: any) => {
             if (e.which === 13) {
               this.findEmailAddress(e.target.value, true);
