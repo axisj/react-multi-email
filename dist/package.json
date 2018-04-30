@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "React multi email input",
   "main": "index.js",
   "repository": "https://github.com/axui/react-multi-email",

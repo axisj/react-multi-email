@@ -1,23 +1,25 @@
-$lato-font-path: "./scss/fonts/lato-webfont/fonts";
-@import "../fonts/lato-webfont/scss/lato-webfont";
+$lato-font-path: './scss/fonts/lato-webfont/fonts';
+@import '../fonts/lato-webfont/scss/lato-webfont';
 
-$montserrat-font-path: "./scss/fonts/montserrat/fonts";
-@import "../fonts/montserrat/montserrat-webfont";
+$montserrat-font-path: './scss/fonts/montserrat/fonts';
+@import '../fonts/montserrat/montserrat-webfont';
 
+/*
 $notosans-font-path: "./scss/fonts/NotoSansKR-Hestia/fonts";
 @import "../fonts/NotoSansKR-Hestia/scss/NotoSansKR";
 
 @import "../fonts/sgcon/style";
+*/
 
-$icons-font-path: "./scss/semantic-ui/icons/";
-$flags-image-path: "./scss/semantic-ui/images/";
+$icons-font-path: './scss/semantic-ui/icons/';
+$flags-image-path: './scss/semantic-ui/images/';
 
 //Font
 $body-font-size: 13px;
 $import-google-fonts: false;
-$font-url: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin,latin-ext";
-$font-name: "Lato";
-$font-family: $font-name, "meiryo", "Noto Sans Korean", sans-serif;
+$font-url: 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin,latin-ext';
+$font-name: 'Lato';
+$font-family: $font-name, 'meiryo', 'Noto Sans Korean', sans-serif;
 
 // Colors
 // Body
@@ -95,56 +97,56 @@ $inverted-brown: #d67c1c;
 $inverted-grey: #dcddde;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ import
-@import "~semantic-ui-scss/scss/variables/global";
-@import "~semantic-ui-scss/scss/mixins/mix";
+@import '~semantic-ui-scss/scss/variables/global';
+@import '~semantic-ui-scss/scss/mixins/mix';
 
-@import "~semantic-ui-scss/scss/globals/reset";
-@import "~semantic-ui-scss/scss/globals/site";
+@import '~semantic-ui-scss/scss/globals/reset';
+@import '~semantic-ui-scss/scss/globals/site';
 
-@import "~semantic-ui-scss/scss/elements/button";
-@import "~semantic-ui-scss/scss/elements/container";
-@import "~semantic-ui-scss/scss/elements/divider";
-@import "~semantic-ui-scss/scss/elements/flag";
-@import "~semantic-ui-scss/scss/elements/header";
-@import "~semantic-ui-scss/scss/elements/icon";
-@import "~semantic-ui-scss/scss/elements/image";
-@import "~semantic-ui-scss/scss/elements/input";
-@import "~semantic-ui-scss/scss/elements/label";
-@import "~semantic-ui-scss/scss/elements/list";
-@import "~semantic-ui-scss/scss/elements/loader";
-@import "~semantic-ui-scss/scss/elements/rail";
-@import "~semantic-ui-scss/scss/elements/reveal";
-@import "~semantic-ui-scss/scss/elements/segment";
-@import "~semantic-ui-scss/scss/elements/step";
+@import '~semantic-ui-scss/scss/elements/button';
+@import '~semantic-ui-scss/scss/elements/container';
+@import '~semantic-ui-scss/scss/elements/divider';
+@import '~semantic-ui-scss/scss/elements/flag';
+@import '~semantic-ui-scss/scss/elements/header';
+@import '~semantic-ui-scss/scss/elements/icon';
+@import '~semantic-ui-scss/scss/elements/image';
+@import '~semantic-ui-scss/scss/elements/input';
+@import '~semantic-ui-scss/scss/elements/label';
+@import '~semantic-ui-scss/scss/elements/list';
+@import '~semantic-ui-scss/scss/elements/loader';
+@import '~semantic-ui-scss/scss/elements/rail';
+@import '~semantic-ui-scss/scss/elements/reveal';
+@import '~semantic-ui-scss/scss/elements/segment';
+@import '~semantic-ui-scss/scss/elements/step';
 
-@import "~semantic-ui-scss/scss/collections/breadcrumb";
-@import "~semantic-ui-scss/scss/collections/form";
-@import "~semantic-ui-scss/scss/collections/grid";
-@import "~semantic-ui-scss/scss/collections/menu";
-@import "~semantic-ui-scss/scss/collections/message";
-@import "~semantic-ui-scss/scss/collections/table";
+@import '~semantic-ui-scss/scss/collections/breadcrumb';
+@import '~semantic-ui-scss/scss/collections/form';
+@import '~semantic-ui-scss/scss/collections/grid';
+@import '~semantic-ui-scss/scss/collections/menu';
+@import '~semantic-ui-scss/scss/collections/message';
+@import '~semantic-ui-scss/scss/collections/table';
 
-@import "~semantic-ui-scss/scss/views/ad";
-@import "~semantic-ui-scss/scss/views/card";
-@import "~semantic-ui-scss/scss/views/comment";
-@import "~semantic-ui-scss/scss/views/feed";
-@import "~semantic-ui-scss/scss/views/item";
-@import "~semantic-ui-scss/scss/views/statistic";
+@import '~semantic-ui-scss/scss/views/ad';
+@import '~semantic-ui-scss/scss/views/card';
+@import '~semantic-ui-scss/scss/views/comment';
+@import '~semantic-ui-scss/scss/views/feed';
+@import '~semantic-ui-scss/scss/views/item';
+@import '~semantic-ui-scss/scss/views/statistic';
 
-@import "~semantic-ui-scss/scss/modules/accordion";
-@import "~semantic-ui-scss/scss/modules/checkbox";
-@import "~semantic-ui-scss/scss/modules/dimmer";
-@import "~semantic-ui-scss/scss/modules/dropdown";
-@import "~semantic-ui-scss/scss/modules/embed";
-@import "~semantic-ui-scss/scss/modules/modal";
-@import "~semantic-ui-scss/scss/modules/nag";
-@import "~semantic-ui-scss/scss/modules/popup";
-@import "~semantic-ui-scss/scss/modules/progress";
-@import "~semantic-ui-scss/scss/modules/rating";
-@import "~semantic-ui-scss/scss/modules/search";
-@import "~semantic-ui-scss/scss/modules/shape";
-@import "~semantic-ui-scss/scss/modules/sidebar";
-@import "~semantic-ui-scss/scss/modules/sticky";
-@import "~semantic-ui-scss/scss/modules/tab";
-@import "~semantic-ui-scss/scss/modules/transition";
-@import "~semantic-ui-scss/scss/modules/video";
+@import '~semantic-ui-scss/scss/modules/accordion';
+@import '~semantic-ui-scss/scss/modules/checkbox';
+@import '~semantic-ui-scss/scss/modules/dimmer';
+@import '~semantic-ui-scss/scss/modules/dropdown';
+@import '~semantic-ui-scss/scss/modules/embed';
+@import '~semantic-ui-scss/scss/modules/modal';
+@import '~semantic-ui-scss/scss/modules/nag';
+@import '~semantic-ui-scss/scss/modules/popup';
+@import '~semantic-ui-scss/scss/modules/progress';
+@import '~semantic-ui-scss/scss/modules/rating';
+@import '~semantic-ui-scss/scss/modules/search';
+@import '~semantic-ui-scss/scss/modules/shape';
+@import '~semantic-ui-scss/scss/modules/sidebar';
+@import '~semantic-ui-scss/scss/modules/sticky';
+@import '~semantic-ui-scss/scss/modules/tab';
+@import '~semantic-ui-scss/scss/modules/transition';
+@import '~semantic-ui-scss/scss/modules/video';

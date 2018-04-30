@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "react": "^16.3.2",
@@ -13,20 +13,24 @@
     "@types/react-dom": "^16.0.5",
     "@types/react-router": "^4.0.23",
     "@types/react-router-dom": "^4.2.6",
+    "@types/react-syntax-highlighter": "0.0.5",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "file-loader": "^1.1.11",
     "node-sass": "^4.8.3",
+    "raw-loader": "^0.5.1",
     "react-app-rewire-css-modules":
       "github:codebandits/react-app-rewire-css-modules",
     "react-app-rewire-hot-loader": "^1.0.1",
     "react-app-rewired": "^1.5.0",
     "react-ga": "^2.5.0",
+    "react-github-button": "^0.1.11",
     "react-hot-loader": "^4.1.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.15.1",
+    "react-syntax-highlighter": "^7.0.2",
     "sass-loader": "^7.0.1",
     "semantic-ui-react": "^0.79.1",
     "semantic-ui-scss": "^1.0.0",
@@ -41,7 +45,7 @@
     "build":
       "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
     "dist-module":
-      "tsc src/react-multi-email/*.tsx --outDir dist --jsx react && cp ./src/react-multi-email/style.css ./dist/style.css && cp ./README.md ./dist/README.md",
+      "tsc src/react-multi-email/*.tsx --outDir dist --jsx react && cp ./src/react-multi-email/style.css ./dist/style.css && cp ./src/react-multi-email/index.d.ts ./dist/index.d.ts && cp ./README.md ./dist/README.md",
     "test":
       "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
