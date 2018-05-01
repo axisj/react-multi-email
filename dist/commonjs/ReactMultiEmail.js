@@ -115,7 +115,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }, type: "text", value: inputValue, onFocus: function (e) { return _this.setState({ focused: true }); }, onBlur: function (e) {
                     _this.setState({ focused: false });
                     _this.findEmailAddress(e.target.value, true);
-                }, onChange: function (e) { return _this.onChangeInputValue(e.target.value); }, onKeyUp: function (e) {
+                }, onChange: function (e) { return _this.onChangeInputValue(e.target.value); }, onKeyDown: function (e) {
+                    if (e.which === 8 && !e.target.value) {
+                        _this.removeEmail(_this.state.emails.length - 1);
+                    }
+                }, onKeyUp: function (e) {
                     if (e.which === 13) {
                         _this.findEmailAddress(e.target.value, true);
                     }
