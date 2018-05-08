@@ -18,7 +18,8 @@
     "file-loader": "^1.1.11",
     "node-sass": "^4.8.3",
     "raw-loader": "^0.5.1",
-    "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
+    "react-app-rewire-css-modules":
+      "github:codebandits/react-app-rewire-css-modules",
     "react-app-rewire-hot-loader": "^1.0.1",
     "react-app-rewired": "^1.5.0",
     "react-ga": "^2.5.0",
@@ -39,14 +40,21 @@
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
-    "build": "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
-    "dist-module": "better-npm-run build:es5 && better-npm-run build:es6",
-    "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
+    "build":
+      "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
+    "dist-module":
+      "better-npm-run build:common && better-npm-run build:es5 && better-npm-run build:es6",
+    "test":
+      "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "publish": "cd dist && npm publish"
   },
   "betterScripts": {
-    "build:es5": "rm -rf ./dist/commonjs && tsc src/react-multi-email/*.tsx --declaration --outDir dist/commonjs --jsx react --module commonjs --target es5 --moduleResolution node && cp ./src/react-multi-email/style.css ./dist/commonjs/style.css && cp ./README.md ./dist/README.md",
-    "build:es6": "rm -rf ./dist/es6 && tsc src/react-multi-email/*.tsx --declaration --outDir dist/es6 --jsx react --module es6 --target es6 --moduleResolution node && cp ./src/react-multi-email/style.css ./dist/es6/style.css && cp ./README.md ./dist/README.md"
+    "build:common":
+      "cp ./src/react-multi-email/style.css ./dist/style.css && cp ./README.md ./dist/README.md",
+    "build:es5":
+      "rm -rf ./dist/commonjs && tsc src/react-multi-email/*.tsx --declaration --outDir dist/commonjs --jsx react --module commonjs --target es5 --moduleResolution node",
+    "build:es6":
+      "rm -rf ./dist/es6 && tsc src/react-multi-email/*.tsx --declaration --outDir dist/es6 --jsx react --module es6 --target es6 --moduleResolution node"
   }
 }
