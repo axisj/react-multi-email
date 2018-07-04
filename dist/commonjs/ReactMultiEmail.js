@@ -92,7 +92,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         return _this;
     }
     ReactMultiEmail.getDerivedStateFromProps = function (nextProps, prevState) {
-        if (prevState.emails !== nextProps.emails) {
+        if (JSON.stringify(prevState.emails) !== JSON.stringify(nextProps.emails)) {
             return { emails: nextProps.emails || [], inputValue: '', focused: false };
         }
         return null;
