@@ -14,6 +14,7 @@ export interface IReactMultiEmailProps {
 
 export interface IReactMultiEmailState {
   focused?: boolean;
+  propsEmails?: string[];
   emails?: string[];
   inputValue?: string;
 }
@@ -31,8 +32,13 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     nextProps: IReactMultiEmailProps,
     prevState: IReactMultiEmailState,
   ) {
-    if (JSON.stringify(prevState.emails) !== JSON.stringify(nextProps.emails)) {
-      return { emails: nextProps.emails || [], inputValue: '', focused: false };
+    if (prevState.propsEmails !== nextProps.emails) {
+      return {
+        propsEmails: nextProps.emails || [],
+        emails: nextProps.emails || [],
+        inputValue: '',
+        focused: false,
+      };
     }
     return null;
   }
