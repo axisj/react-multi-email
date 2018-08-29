@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "React multi email input",
   "jsnext:main": "es6/index.js",
   "main": "commonjs/index.js",

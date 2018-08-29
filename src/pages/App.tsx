@@ -3,9 +3,8 @@ import 'styles/globals';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { NoMatch, ErrorBoundary } from 'components';
-
-import { PROJECT_ROUTES } from 'routes';
-import Index from './Samples/Index';
+import 'styles/globals';
+import Samples from './samples';
 
 class App extends React.Component {
   render() {
@@ -13,7 +12,7 @@ class App extends React.Component {
       <ErrorBoundary>
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={Index} />
+            <Route exact path="/" component={Samples} />
             <Route component={NoMatch} />
           </Switch>
         </BrowserRouter>
