@@ -32,3 +32,29 @@
   vertical-align: baseline !important;
   padding: 0.4em 0.1em !important;
 }
+
+.react-multi-email [data-tag] {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: baseline;
+  margin: 0 0.14285714em;
+  background-color: #f3f3f3;
+  background-image: none;
+  padding: 0.5833em 0.833em;
+  color: rgba(0, 0, 0, 0.6);
+  text-transform: none;
+  font-weight: 600;
+  border: 0 solid transparent;
+  border-radius: 0.28571429rem;
+  -webkit-transition: background 0.1s ease;
+  -o-transition: background 0.1s ease;
+  transition: background 0.1s ease;
+  font-size: 0.8rem;
+}
+.react-multi-email [data-tag]:first-child {
+  margin-left: 0;
+}
+.react-multi-email [data-tag] [data-tag-handle] {
+  margin-left: 0.833em;
+  cursor: pointer;
+}
