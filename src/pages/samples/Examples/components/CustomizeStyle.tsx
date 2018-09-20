@@ -17,6 +17,11 @@ class CustomizeStyle extends React.Component<IProps, IState> {
       <>
         <h3>Email</h3>
         <ReactMultiEmail
+          placeholder={
+            <>
+              <b>I</b> am <u style={{ color: '#a0f2ff' }}>placeholder</u> !
+            </>
+          }
           style={{ minHeight: '100px' }}
           emails={emails}
           onChange={(_emails: string[]) => {

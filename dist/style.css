@@ -16,11 +16,27 @@
   -webkit-transition: box-shadow 0.1s ease, border-color 0.1s ease;
   transition: box-shadow 0.1s ease, border-color 0.1s ease;
   font-size: 13px;
+  position: relative;
 }
-
+.react-multi-email > span[data-placeholder] {
+  display: none;
+  position: absolute;
+  left: 0.5em;
+  top: 0.4em;
+  padding: 0.4em;
+  line-height: 1.21428571em;
+}
 .react-multi-email.focused {
   border-color: #85b7d9;
   background: #fff;
+}
+
+.react-multi-email.empty > span[data-placeholder] {
+  display: inline;
+  color: #ccc;
+}
+.react-multi-email.focused > span[data-placeholder] {
+  display: none;
 }
 
 .react-multi-email > input {

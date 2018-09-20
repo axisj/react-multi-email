@@ -10,6 +10,8 @@ export interface IReactMultiEmailProps {
     index: number,
     removeEmail: (index: number) => void,
   ) => void;
+  className?: string;
+  placeholder?: string | React.ReactNode;
 }
 
 export interface IReactMultiEmailState {
@@ -117,18 +119,21 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
   render() {
     const { focused, emails, inputValue } = this.state;
-    const { style, getLabel } = this.props;
+    const { style, getLabel, className = '', placeholder } = this.props;
 
     // removeEmail
 
     return (
       <div
-        className={'react-multi-email ' + (focused ? 'focused' : '')}
+        className={`${className} react-multi-email ${
+          focused ? 'focused' : ''
+        } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
         style={style}
-        onClick={(e: any) => {
+        onClick={() => {
           this.emailInput.focus();
         }}
       >
+        {placeholder ? <span data-placeholder>{placeholder}</span> : null}
         {emails.map((email: string, index: number) =>
           getLabel(email, index, this.removeEmail),
         )}
@@ -140,7 +145,11 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
           }}
           type="text"
           value={inputValue}
-          onFocus={(e: any) => this.setState({ focused: true })}
+          onFocus={() =>
+            this.setState({
+              focused: true,
+            })
+          }
           onBlur={(e: any) => {
             this.setState({ focused: false });
             this.findEmailAddress(e.target.value, true);

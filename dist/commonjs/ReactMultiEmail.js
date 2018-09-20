@@ -105,11 +105,12 @@ var ReactMultiEmail = /** @class */ (function (_super) {
     ReactMultiEmail.prototype.render = function () {
         var _this = this;
         var _a = this.state, focused = _a.focused, emails = _a.emails, inputValue = _a.inputValue;
-        var _b = this.props, style = _b.style, getLabel = _b.getLabel;
+        var _b = this.props, style = _b.style, getLabel = _b.getLabel, _c = _b.className, className = _c === void 0 ? '' : _c, placeholder = _b.placeholder;
         // removeEmail
-        return (React.createElement("div", { className: 'react-multi-email ' + (focused ? 'focused' : ''), style: style, onClick: function (e) {
+        return (React.createElement("div", { className: className + " react-multi-email " + (focused ? 'focused' : '') + " " + (inputValue === '' && emails.length === 0 ? 'empty' : ''), style: style, onClick: function () {
                 _this.emailInput.focus();
             } },
+            placeholder ? React.createElement("span", { "data-placeholder": true }, placeholder) : null,
             emails.map(function (email, index) {
                 return getLabel(email, index, _this.removeEmail);
             }),
@@ -117,7 +118,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                     if (ref) {
                         _this.emailInput = ref;
                     }
-                }, type: "text", value: inputValue, onFocus: function (e) { return _this.setState({ focused: true }); }, onBlur: function (e) {
+                }, type: "text", value: inputValue, onFocus: function () {
+                    return _this.setState({
+                        focused: true,
+                    });
+                }, onBlur: function (e) {
                     _this.setState({ focused: false });
                     _this.findEmailAddress(e.target.value, true);
                 }, onChange: function (e) { return _this.onChangeInputValue(e.target.value); }, onKeyDown: function (e) {

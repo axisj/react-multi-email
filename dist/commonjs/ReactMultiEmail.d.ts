@@ -4,6 +4,8 @@ export interface IReactMultiEmailProps {
     onChange?: (emails: string[]) => void;
     style?: object;
     getLabel: (email: string, index: number, removeEmail: (index: number) => void) => void;
+    className?: string;
+    placeholder?: string | React.ReactNode;
 }
 export interface IReactMultiEmailState {
     focused?: boolean;

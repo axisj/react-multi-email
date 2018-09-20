@@ -90,17 +90,20 @@ class ReactMultiEmail extends React.Component {
     }
     render() {
         const { focused, emails, inputValue } = this.state;
-        const { style, getLabel } = this.props;
+        const { style, getLabel, className = '', placeholder } = this.props;
         // removeEmail
-        return (React.createElement("div", { className: 'react-multi-email ' + (focused ? 'focused' : ''), style: style, onClick: (e) => {
+        return (React.createElement("div", { className: `${className} react-multi-email ${focused ? 'focused' : ''} ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`, style: style, onClick: () => {
                 this.emailInput.focus();
             } },
+            placeholder ? React.createElement("span", { "data-placeholder": true }, placeholder) : null,
             emails.map((email, index) => getLabel(email, index, this.removeEmail)),
             React.createElement("input", { ref: ref => {
                     if (ref) {
                         this.emailInput = ref;
                     }
-                }, type: "text", value: inputValue, onFocus: (e) => this.setState({ focused: true }), onBlur: (e) => {
+                }, type: "text", value: inputValue, onFocus: () => this.setState({
+                    focused: true,
+                }), onBlur: (e) => {
                     this.setState({ focused: false });
                     this.findEmailAddress(e.target.value, true);
                 }, onChange: (e) => this.onChangeInputValue(e.target.value), onKeyDown: (e) => {
