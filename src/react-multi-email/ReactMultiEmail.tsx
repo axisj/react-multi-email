@@ -65,7 +65,8 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
     if (value !== '') {
       if (!value || value.indexOf('@') >= 0) {
-        result = [];
+        result = [''];
+        this.setState({ result });
       } else {
         result = ['gmail.com', 'naver.com', 'daum.net'].map(domain => `${value}@${domain}`);
         this.setState({ result });
@@ -182,7 +183,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
             }
           }}
         />
-        <ul className={`result_list ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`} style={style}><li
+        <ul className={`result_list ${inputValue === '' ? 'empty' : ''}`} style={style}><li
         onClick={(e: any) => {
           this.setState({inputValue: e.target.value , result:['']});
         }}

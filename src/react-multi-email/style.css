@@ -80,10 +80,6 @@ ul{
 li{
   border: black 1px solid;
 }
-.react-multi-email.focused > .rsult_list empty {
-  height: 0em;
+.result_list.empty {
+  display: none;
 }
-.react-multi-email.empty  > .rsult_list empty {
-  height: 0em;
-}
-
