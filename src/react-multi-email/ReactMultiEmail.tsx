@@ -135,7 +135,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     const { focused, emails, inputValue, result } = this.state;
     const { style, getLabel, className = '', placeholder } = this.props;
     const children = result.map((inputValue) => {
-      return <option key={inputValue}>{inputValue}</option>;
+      return <option className={'options'} key={inputValue}>{inputValue}</option>;
     });
 
     // removeEmail
