@@ -26,6 +26,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     focused: false,
     emails: [],
     inputValue: '',
+    result:[],
   };
 
   private emailInput: HTMLInputElement;
@@ -60,8 +61,16 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
       validEmails.push(email);
       return true;
     };
+    let result;
 
     if (value !== '') {
+      if (!value || value.indexOf('@') >= 0) {
+        result = [];
+      } else {
+        result = ['gmail.com', 'naver.com', 'daum.net'].map(domain => `${value}@${domain}`);
+        this.setState({ result });
+      }
+
       if (re.test(value)) {
         let arr = value.split(re).filter(n => {
           return n !== '' && n !== undefined && n !== null;
@@ -80,7 +89,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
           }
         } while (arr.length);
       } else {
-        if (isEnter) {
+        if (isEnter) { 
           if (isEmail(value)) {
             addEmails(value);
           } else {
@@ -90,6 +99,10 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
           inputValue = value;
         }
       }
+    }
+    else{
+      result = [''];
+      this.setState({ result });
     }
 
     this.setState({
@@ -118,8 +131,11 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
   };
 
   render() {
-    const { focused, emails, inputValue } = this.state;
+    const { focused, emails, inputValue, result } = this.state;
     const { style, getLabel, className = '', placeholder } = this.props;
+    const children = result.map((inputValue) => {
+      return <option key={inputValue}>{inputValue}</option>;
+    });
 
     // removeEmail
 
@@ -166,6 +182,11 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
             }
           }}
         />
+        <ul className={`result_list ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`} style={style}><li
+        onClick={(e: any) => {
+          this.setState({inputValue: e.target.value , result:['']});
+        }}
+        >{children}</li></ul>
       </div>
     );
   }

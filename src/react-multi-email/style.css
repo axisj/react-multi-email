@@ -74,3 +74,16 @@
   margin-left: 0.833em;
   cursor: pointer;
 }
+ul{
+  list-style: none;
+}
+li{
+  border: black 1px solid;
+}
+.react-multi-email.focused > .rsult_list empty {
+  height: 0em;
+}
+.react-multi-email.empty  > .rsult_list empty {
+  height: 0em;
+}
+
