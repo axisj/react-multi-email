@@ -183,9 +183,10 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
             }
           }}
         />
-        <ul className={`result_list ${inputValue === '' ? 'empty' : ''}`} style={style}><li
+        <ul className={`result_list ${inputValue === '' || result === [''] ? 'empty' : ''}`} style={style}><li
         onClick={(e: any) => {
           this.setState({inputValue: e.target.value , result:['']});
+          console.log(result);
         }}
         >{children}</li></ul>
       </div>
