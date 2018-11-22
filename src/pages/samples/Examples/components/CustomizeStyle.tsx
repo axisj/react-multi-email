@@ -44,7 +44,7 @@ class CustomizeStyle extends React.Component<IProps, IState> {
         />
         <br />
         <h4>react-multi-email value</h4>
-        <p>{emails.join('... ') || 'empty'}</p>
+        <p>{emails.join(', ') || 'empty'}</p>
       </>
     );
   }
