@@ -66,8 +66,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
     if (value !== '') {
       if (!value || value.indexOf('@') >= 0) {
-        result = [''];
-        this.setState({ result });
+        result=[]
       } else {
         result = ['gmail.com', 'naver.com', 'daum.net'].map(domain => `${value}@${domain}`);
         this.setState({ result });
