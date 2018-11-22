@@ -47,7 +47,7 @@ function isByteLength(str: string, options: { min?: number; max?: number }) {
 }
 
 function isFQDN(str: string, options?: IFqdnOptions) {
-  options = { ...options, ...defaultFqdnOptions };
+  options = { ...defaultFqdnOptions, ...options };
 
   /* Remove the optional trailing dot before checking validity */
   if (options.allowTrailingDot && str[str.length - 1] === '.') {
