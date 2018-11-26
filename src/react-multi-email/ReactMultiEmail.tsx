@@ -17,11 +17,14 @@ export interface IReactMultiEmailProps {
 export interface IReactMultiEmailState {
   focused?: boolean;
   propsEmails?: string[];
-  emails?: string[];
+  emails: string[];
   inputValue?: string;
 }
 
-class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
+class ReactMultiEmail extends React.Component<
+  IReactMultiEmailProps,
+  IReactMultiEmailState
+> {
   state = {
     focused: false,
     emails: [],
@@ -107,14 +110,19 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
   };
 
   removeEmail = (index: number) => {
-    this.state.emails.splice(index, 1);
-    this.setState({
-      emails: this.state.emails,
-    });
-
-    if (this.props.onChange) {
-      this.props.onChange(this.state.emails);
-    }
+    this.setState(
+      prevState => {
+        prevState.emails.splice(index, 1);
+        return {
+          emails: prevState.emails,
+        };
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(this.state.emails);
+        }
+      },
+    );
   };
 
   render() {

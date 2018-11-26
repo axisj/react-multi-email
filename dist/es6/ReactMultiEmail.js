@@ -68,13 +68,16 @@ class ReactMultiEmail extends React.Component {
             this.findEmailAddress(value);
         };
         this.removeEmail = (index) => {
-            this.state.emails.splice(index, 1);
-            this.setState({
-                emails: this.state.emails,
+            this.setState(prevState => {
+                prevState.emails.splice(index, 1);
+                return {
+                    emails: prevState.emails,
+                };
+            }, () => {
+                if (this.props.onChange) {
+                    this.props.onChange(this.state.emails);
+                }
             });
-            if (this.props.onChange) {
-                this.props.onChange(this.state.emails);
-            }
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {

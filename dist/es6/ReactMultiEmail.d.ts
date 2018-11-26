@@ -10,10 +10,10 @@ export interface IReactMultiEmailProps {
 export interface IReactMultiEmailState {
     focused?: boolean;
     propsEmails?: string[];
-    emails?: string[];
+    emails: string[];
     inputValue?: string;
 }
-declare class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
+declare class ReactMultiEmail extends React.Component<IReactMultiEmailProps, IReactMultiEmailState> {
     state: {
         focused: boolean;
         emails: any[];
