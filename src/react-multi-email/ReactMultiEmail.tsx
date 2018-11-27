@@ -112,9 +112,11 @@ class ReactMultiEmail extends React.Component<
   removeEmail = (index: number) => {
     this.setState(
       prevState => {
-        prevState.emails.splice(index, 1);
         return {
-          emails: prevState.emails,
+          emails: [
+            ...prevState.emails.slice(0, index),
+            ...prevState.emails.slice(index + 1),
+          ],
         };
       },
       () => {

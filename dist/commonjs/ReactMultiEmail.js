@@ -82,9 +82,8 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         };
         _this.removeEmail = function (index) {
             _this.setState(function (prevState) {
-                prevState.emails.splice(index, 1);
                 return {
-                    emails: prevState.emails,
+                    emails: prevState.emails.slice(0, index).concat(prevState.emails.slice(index + 1)),
                 };
             }, function () {
                 if (_this.props.onChange) {
