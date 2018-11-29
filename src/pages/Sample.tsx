@@ -70,6 +70,8 @@ class Index extends React.Component<IProps, IState> {
                 namespace="axui"
                 repo="react-multi-email"
               />
+              <img src="https://badge.fury.io/js/react-multi-email.svg" />{' '}
+              <img src="https://img.shields.io/npm/dm/react-multi-email.svg" />{' '}
             </div>
           </StyledContainer>
         </header>
