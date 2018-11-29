@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "peerDependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
@@ -23,6 +23,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
+    "jsonfile": "^5.0.0",
     "less": "^3.5.3",
     "less-loader": "^4.1.0",
     "node-sass": "^4.8.3",
@@ -50,11 +51,14 @@
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
-    "build": "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME",
+    "build": "better-npm-run build:common && better-npm-run build:es5 && better-npm-run build:es6",
+    "docs": "react-app-rewired build --scripts-version react-scripts-ts && rm -rf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME && cp ./src/404.html ./docs/404.html  && git add -A",
     "dist-module": "better-npm-run build:common && better-npm-run build:es5 && better-npm-run build:es6",
     "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "publish": "cd dist && npm publish"
+    "prepublish": "npm run build",
+    "publish:patch": "cd dist && npm version patch && cd .. && node ./scripts/syncVersion.js && npm run docs",
+    "publish:minor": "cd dist && npm version minor && cd .. && node ./scripts/syncVersion.js && npm run docs"
   },
   "betterScripts": {
     "build:common": "cp ./src/react-multi-email/style.css ./dist/style.css && cp ./README.md ./dist/README.md",

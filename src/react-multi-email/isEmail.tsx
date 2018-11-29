@@ -47,7 +47,7 @@ function isByteLength(str: string, options: { min?: number; max?: number }) {
 }
 
 function isFQDN(str: string, options?: IFqdnOptions) {
-  options = { ...options, ...defaultFqdnOptions };
+  options = { ...defaultFqdnOptions, ...options };
 
   /* Remove the optional trailing dot before checking validity */
   if (options.allowTrailingDot && str[str.length - 1] === '.') {
@@ -89,7 +89,7 @@ function isFQDN(str: string, options?: IFqdnOptions) {
 }
 
 function isEmail(str: string, options?: IEmailOptions) {
-  options = { ...options, ...defaultEmailOptions };
+  options = { ...defaultEmailOptions, ...options };
 
   if (options.requireDisplayName || options.allowDisplayName) {
     const displayEmail = str.match(displayName);

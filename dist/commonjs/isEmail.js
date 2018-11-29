@@ -37,7 +37,7 @@ function isByteLength(str, options) {
     return len >= min && (typeof max === 'undefined' || len <= max);
 }
 function isFQDN(str, options) {
-    options = __assign({}, options, defaultFqdnOptions);
+    options = __assign({}, defaultFqdnOptions, options);
     /* Remove the optional trailing dot before checking validity */
     if (options.allowTrailingDot && str[str.length - 1] === '.') {
         str = str.substring(0, str.length - 1);
@@ -73,7 +73,7 @@ function isFQDN(str, options) {
     return true;
 }
 function isEmail(str, options) {
-    options = __assign({}, options, defaultEmailOptions);
+    options = __assign({}, defaultEmailOptions, options);
     if (options.requireDisplayName || options.allowDisplayName) {
         var displayEmail = str.match(displayName);
         if (displayEmail) {
