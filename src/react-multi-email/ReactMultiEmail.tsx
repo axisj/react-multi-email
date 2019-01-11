@@ -31,7 +31,7 @@ class ReactMultiEmail extends React.Component<
     inputValue: '',
   };
 
-  private emailInput: HTMLInputElement;
+  emailInputRef: React.RefObject<HTMLInputElement>;
 
   static getDerivedStateFromProps(
     nextProps: IReactMultiEmailProps,
@@ -46,6 +46,12 @@ class ReactMultiEmail extends React.Component<
       };
     }
     return null;
+  }
+
+  constructor(props: IReactMultiEmailProps) {
+    super(props);
+
+    this.emailInputRef = React.createRef();
   }
 
   findEmailAddress = (value: string, isEnter?: boolean) => {
@@ -127,6 +133,42 @@ class ReactMultiEmail extends React.Component<
     );
   };
 
+  handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.which) {
+      case 13:
+        e.preventDefault();
+        break;
+      case 8:
+        if (!e.currentTarget.value) {
+          this.removeEmail(this.state.emails.length - 1);
+        }
+        break;
+      default:
+    }
+  };
+
+  handleOnKeyup = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.which) {
+      case 13:
+        this.findEmailAddress(e.currentTarget.value, true);
+        break;
+      default:
+    }
+  };
+
+  handleOnChange = (e: React.SyntheticEvent<HTMLInputElement>) =>
+    this.onChangeInputValue(e.currentTarget.value);
+
+  handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    this.setState({ focused: false });
+    this.findEmailAddress(e.currentTarget.value, true);
+  };
+
+  handleOnFocus = () =>
+    this.setState({
+      focused: true,
+    });
+
   render() {
     const { focused, emails, inputValue } = this.state;
     const { style, getLabel, className = '', placeholder } = this.props;
@@ -140,7 +182,9 @@ class ReactMultiEmail extends React.Component<
         } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
         style={style}
         onClick={() => {
-          this.emailInput.focus();
+          if (this.emailInputRef.current) {
+            this.emailInputRef.current.focus();
+          }
         }}
       >
         {placeholder ? <span data-placeholder>{placeholder}</span> : null}
@@ -148,33 +192,14 @@ class ReactMultiEmail extends React.Component<
           getLabel(email, index, this.removeEmail),
         )}
         <input
-          ref={ref => {
-            if (ref) {
-              this.emailInput = ref;
-            }
-          }}
+          ref={this.emailInputRef}
           type="text"
           value={inputValue}
-          onFocus={() =>
-            this.setState({
-              focused: true,
-            })
-          }
-          onBlur={(e: any) => {
-            this.setState({ focused: false });
-            this.findEmailAddress(e.target.value, true);
-          }}
-          onChange={(e: any) => this.onChangeInputValue(e.target.value)}
-          onKeyDown={(e: any) => {
-            if (e.which === 8 && !e.target.value) {
-              this.removeEmail(this.state.emails.length - 1);
-            }
-          }}
-          onKeyUp={(e: any) => {
-            if (e.which === 13) {
-              this.findEmailAddress(e.target.value, true);
-            }
-          }}
+          onFocus={this.handleOnFocus}
+          onBlur={this.handleOnBlur}
+          onChange={this.handleOnChange}
+          onKeyDown={this.handleOnKeydown}
+          onKeyUp={this.handleOnKeyup}
         />
       </div>
     );

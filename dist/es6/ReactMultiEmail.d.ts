@@ -19,16 +19,22 @@ declare class ReactMultiEmail extends React.Component<IReactMultiEmailProps, IRe
         emails: any[];
         inputValue: string;
     };
-    private emailInput;
+    emailInputRef: React.RefObject<HTMLInputElement>;
     static getDerivedStateFromProps(nextProps: IReactMultiEmailProps, prevState: IReactMultiEmailState): {
         propsEmails: string[];
         emails: string[];
         inputValue: string;
         focused: boolean;
     };
+    constructor(props: IReactMultiEmailProps);
     findEmailAddress: (value: string, isEnter?: boolean) => void;
     onChangeInputValue: (value: string) => void;
     removeEmail: (index: number) => void;
+    handleOnKeydown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    handleOnKeyup: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    handleOnChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+    handleOnBlur: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+    handleOnFocus: () => void;
     render(): JSX.Element;
 }
 export default ReactMultiEmail;

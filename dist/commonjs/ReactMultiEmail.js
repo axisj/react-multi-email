@@ -14,8 +14,8 @@ var React = require("react");
 var isEmail_1 = require("./isEmail");
 var ReactMultiEmail = /** @class */ (function (_super) {
     __extends(ReactMultiEmail, _super);
-    function ReactMultiEmail() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function ReactMultiEmail(props) {
+        var _this = _super.call(this, props) || this;
         _this.state = {
             focused: false,
             emails: [],
@@ -91,6 +91,40 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }
             });
         };
+        _this.handleOnKeydown = function (e) {
+            switch (e.which) {
+                case 13:
+                    e.preventDefault();
+                    break;
+                case 8:
+                    if (!e.currentTarget.value) {
+                        _this.removeEmail(_this.state.emails.length - 1);
+                    }
+                    break;
+                default:
+            }
+        };
+        _this.handleOnKeyup = function (e) {
+            switch (e.which) {
+                case 13:
+                    _this.findEmailAddress(e.currentTarget.value, true);
+                    break;
+                default:
+            }
+        };
+        _this.handleOnChange = function (e) {
+            return _this.onChangeInputValue(e.currentTarget.value);
+        };
+        _this.handleOnBlur = function (e) {
+            _this.setState({ focused: false });
+            _this.findEmailAddress(e.currentTarget.value, true);
+        };
+        _this.handleOnFocus = function () {
+            return _this.setState({
+                focused: true,
+            });
+        };
+        _this.emailInputRef = React.createRef();
         return _this;
     }
     ReactMultiEmail.getDerivedStateFromProps = function (nextProps, prevState) {
@@ -110,32 +144,15 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         var _b = this.props, style = _b.style, getLabel = _b.getLabel, _c = _b.className, className = _c === void 0 ? '' : _c, placeholder = _b.placeholder;
         // removeEmail
         return (React.createElement("div", { className: className + " react-multi-email " + (focused ? 'focused' : '') + " " + (inputValue === '' && emails.length === 0 ? 'empty' : ''), style: style, onClick: function () {
-                _this.emailInput.focus();
+                if (_this.emailInputRef.current) {
+                    _this.emailInputRef.current.focus();
+                }
             } },
             placeholder ? React.createElement("span", { "data-placeholder": true }, placeholder) : null,
             emails.map(function (email, index) {
                 return getLabel(email, index, _this.removeEmail);
             }),
-            React.createElement("input", { ref: function (ref) {
-                    if (ref) {
-                        _this.emailInput = ref;
-                    }
-                }, type: "text", value: inputValue, onFocus: function () {
-                    return _this.setState({
-                        focused: true,
-                    });
-                }, onBlur: function (e) {
-                    _this.setState({ focused: false });
-                    _this.findEmailAddress(e.target.value, true);
-                }, onChange: function (e) { return _this.onChangeInputValue(e.target.value); }, onKeyDown: function (e) {
-                    if (e.which === 8 && !e.target.value) {
-                        _this.removeEmail(_this.state.emails.length - 1);
-                    }
-                }, onKeyUp: function (e) {
-                    if (e.which === 13) {
-                        _this.findEmailAddress(e.target.value, true);
-                    }
-                } })));
+            React.createElement("input", { ref: this.emailInputRef, type: "text", value: inputValue, onFocus: this.handleOnFocus, onBlur: this.handleOnBlur, onChange: this.handleOnChange, onKeyDown: this.handleOnKeydown, onKeyUp: this.handleOnKeyup })));
     };
     return ReactMultiEmail;
 }(React.Component));
