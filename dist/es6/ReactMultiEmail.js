@@ -63,6 +63,9 @@ class ReactMultiEmail extends React.Component {
             if (validEmails.length && this.props.onChange) {
                 this.props.onChange([...this.state.emails, ...validEmails]);
             }
+            if (this.props.onChangeInput && this.state.inputValue !== inputValue) {
+                this.props.onChangeInput(inputValue);
+            }
         };
         this.onChangeInputValue = (value) => {
             if (this.props.onChangeInput) {

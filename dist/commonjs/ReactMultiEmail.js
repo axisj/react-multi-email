@@ -76,6 +76,9 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             if (validEmails.length && _this.props.onChange) {
                 _this.props.onChange(_this.state.emails.concat(validEmails));
             }
+            if (_this.props.onChangeInput && _this.state.inputValue !== inputValue) {
+                _this.props.onChangeInput(inputValue);
+            }
         };
         _this.onChangeInputValue = function (value) {
             if (_this.props.onChangeInput) {
