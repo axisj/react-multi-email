@@ -4,6 +4,7 @@ import isEmail from './isEmail';
 export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
+  onChangeInput?: (value: string) => void;
   style?: object;
   getLabel: (
     email: string,
@@ -112,6 +113,9 @@ class ReactMultiEmail extends React.Component<
   };
 
   onChangeInputValue = (value: string) => {
+    if (this.props.onChangeInput) {
+      this.props.onChangeInput(value);
+    }
     this.findEmailAddress(value);
   };
 

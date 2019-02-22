@@ -65,6 +65,9 @@ class ReactMultiEmail extends React.Component {
             }
         };
         this.onChangeInputValue = (value) => {
+            if (this.props.onChangeInput) {
+                this.props.onChangeInput(value);
+            }
             this.findEmailAddress(value);
         };
         this.removeEmail = (index) => {

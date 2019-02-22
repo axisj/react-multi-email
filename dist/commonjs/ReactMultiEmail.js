@@ -78,6 +78,9 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             }
         };
         _this.onChangeInputValue = function (value) {
+            if (_this.props.onChangeInput) {
+                _this.props.onChangeInput(value);
+            }
             _this.findEmailAddress(value);
         };
         _this.removeEmail = function (index) {
