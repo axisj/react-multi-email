@@ -124,11 +124,17 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.handleOnBlur = function (e) {
             _this.setState({ focused: false });
             _this.findEmailAddress(e.currentTarget.value, true);
+            if (_this.props.onBlur) {
+                _this.props.onBlur();
+            }
         };
         _this.handleOnFocus = function () {
-            return _this.setState({
+            _this.setState({
                 focused: true,
             });
+            if (_this.props.onFocus) {
+                _this.props.onFocus();
+            }
         };
         _this.emailInputRef = React.createRef();
         return _this;

@@ -5,6 +5,8 @@ export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
   onChangeInput?: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   style?: object;
   getLabel: (
     email: string,
@@ -170,12 +172,20 @@ class ReactMultiEmail extends React.Component<
   handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({ focused: false });
     this.findEmailAddress(e.currentTarget.value, true);
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   };
 
-  handleOnFocus = () =>
+  handleOnFocus = () => {
     this.setState({
       focused: true,
     });
+    if (this.props.onFocus) {
+      this.props.onFocus();
+    }
+  };
 
   render() {
     const { focused, emails, inputValue } = this.state;

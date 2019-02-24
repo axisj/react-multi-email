@@ -112,10 +112,18 @@ class ReactMultiEmail extends React.Component {
         this.handleOnBlur = (e) => {
             this.setState({ focused: false });
             this.findEmailAddress(e.currentTarget.value, true);
+            if (this.props.onBlur) {
+                this.props.onBlur();
+            }
         };
-        this.handleOnFocus = () => this.setState({
-            focused: true,
-        });
+        this.handleOnFocus = () => {
+            this.setState({
+                focused: true,
+            });
+            if (this.props.onFocus) {
+                this.props.onFocus();
+            }
+        };
         this.emailInputRef = React.createRef();
     }
     static getDerivedStateFromProps(nextProps, prevState) {
