@@ -1,5 +1,5 @@
 import * as React from 'react';
-import isEmail from './isEmail';
+import isEmailFn from './isEmail';
 class ReactMultiEmail extends React.Component {
     constructor(props) {
         super(props);
@@ -9,9 +9,11 @@ class ReactMultiEmail extends React.Component {
             inputValue: '',
         };
         this.findEmailAddress = (value, isEnter) => {
+            const { validateEmail } = this.props;
             let validEmails = [];
             let inputValue = '';
             const re = /[ ,;]/g;
+            const isEmail = validateEmail || isEmailFn;
             const addEmails = (email) => {
                 const emails = this.state.emails;
                 for (let i = 0, l = emails.length; i < l; i++) {

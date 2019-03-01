@@ -1,9 +1,10 @@
 import * as React from 'react';
-import isEmail from './isEmail';
+import isEmailFn from './isEmail';
 
 export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
+  validateEmail?: (email: string) => boolean;
   style?: object;
   getLabel: (
     email: string,
@@ -55,9 +56,11 @@ class ReactMultiEmail extends React.Component<
   }
 
   findEmailAddress = (value: string, isEnter?: boolean) => {
+    const { validateEmail } = this.props;
     let validEmails: string[] = [];
     let inputValue: string = '';
     const re = /[ ,;]/g;
+    const isEmail = validateEmail || isEmailFn;
 
     const addEmails = (email: string) => {
       const emails: string[] = this.state.emails;

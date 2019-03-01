@@ -22,9 +22,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             inputValue: '',
         };
         _this.findEmailAddress = function (value, isEnter) {
+            var validateEmail = _this.props.validateEmail;
             var validEmails = [];
             var inputValue = '';
             var re = /[ ,;]/g;
+            var isEmail = validateEmail || isEmail_1.default;
             var addEmails = function (email) {
                 var emails = _this.state.emails;
                 for (var i = 0, l = emails.length; i < l; i++) {
@@ -41,7 +43,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                         return n !== '' && n !== undefined && n !== null;
                     });
                     do {
-                        if (isEmail_1.default('' + arr[0])) {
+                        if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
                         }
                         else {
@@ -57,7 +59,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }
                 else {
                     if (isEnter) {
-                        if (isEmail_1.default(value)) {
+                        if (isEmail(value)) {
                             addEmails(value);
                         }
                         else {

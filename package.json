@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "peerDependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0"

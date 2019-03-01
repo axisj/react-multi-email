@@ -2,6 +2,7 @@ import * as React from 'react';
 export interface IReactMultiEmailProps {
     emails?: string[];
     onChange?: (emails: string[]) => void;
+    validateEmail?: (email: string) => boolean;
     style?: object;
     getLabel: (email: string, index: number, removeEmail: (index: number) => void) => void;
     className?: string;
