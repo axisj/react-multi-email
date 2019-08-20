@@ -183,7 +183,7 @@ class ReactMultiEmail extends React.Component<
 
     return (
       <div
-        className={`${className} ${noClass ? '' : react-multi-email} ${
+        className={`${className} ${noClass ? '' : 'react-multi-email'} ${
           focused ? 'focused' : ''
         } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
         style={style}
