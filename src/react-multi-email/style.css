@@ -17,6 +17,10 @@
   transition: box-shadow 0.1s ease, border-color 0.1s ease;
   font-size: 13px;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
 }
 .react-multi-email > span[data-placeholder] {
   display: none;
@@ -50,10 +54,9 @@
 }
 
 .react-multi-email [data-tag] {
-  display: inline-block;
   line-height: 1;
   vertical-align: baseline;
-  margin: 0 0.14285714em;
+  margin: 0.14285714em;
   background-color: #f3f3f3;
   background-image: none;
   padding: 0.5833em 0.833em;
@@ -66,6 +69,15 @@
   -o-transition: background 0.1s ease;
   transition: background 0.1s ease;
   font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 100%;
+
+}
+.react-multi-email [data-tag] [data-tag-item] {
+  max-width: 100%;
+  overflow: hidden;
 }
 .react-multi-email [data-tag]:first-child {
   margin-left: 0;
