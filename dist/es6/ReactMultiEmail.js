@@ -86,6 +86,7 @@ class ReactMultiEmail extends React.Component {
         this.handleOnKeydown = (e) => {
             switch (e.which) {
                 case 13:
+                case 9:
                     e.preventDefault();
                     break;
                 case 8:
@@ -99,6 +100,7 @@ class ReactMultiEmail extends React.Component {
         this.handleOnKeyup = (e) => {
             switch (e.which) {
                 case 13:
+                case 9:
                     this.findEmailAddress(e.currentTarget.value, true);
                     break;
                 default:
@@ -127,9 +129,9 @@ class ReactMultiEmail extends React.Component {
     }
     render() {
         const { focused, emails, inputValue } = this.state;
-        const { style, getLabel, className = '', placeholder } = this.props;
+        const { style, getLabel, className = '', noClass, placeholder } = this.props;
         // removeEmail
-        return (React.createElement("div", { className: `${className} react-multi-email ${focused ? 'focused' : ''} ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`, style: style, onClick: () => {
+        return (React.createElement("div", { className: `${className} ${noClass ? '' : 'react-multi-email'} ${focused ? 'focused' : ''} ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`, style: style, onClick: () => {
                 if (this.emailInputRef.current) {
                     this.emailInputRef.current.focus();
                 }
