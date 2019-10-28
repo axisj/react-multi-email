@@ -43,6 +43,7 @@ class Basic extends React.Component<IProps, IState> {
       <>
         <h3>Email</h3>
         <ReactMultiEmail
+          label="label"
           placeholder="placeholder"
           emails={emails}
           onChange={(_emails: string[]) => {

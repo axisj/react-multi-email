@@ -22,7 +22,7 @@
   align-items: center;
   align-content: flex-start;
 }
-.react-multi-email > span[data-placeholder] {
+.react-multi-email > span[data-label] {
   display: none;
   position: absolute;
   left: 0.5em;
@@ -35,11 +35,11 @@
   background: #fff;
 }
 
-.react-multi-email.empty > span[data-placeholder] {
+.react-multi-email.empty > span[data-label] {
   display: inline;
   color: #ccc;
 }
-.react-multi-email.focused > span[data-placeholder] {
+.react-multi-email.focused > span[data-label] {
   display: none;
 }
 
