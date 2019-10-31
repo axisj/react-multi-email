@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Javascript UI Components with React",
   "main": "index.js",
   "scripts": {
