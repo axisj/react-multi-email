@@ -1,5 +1,6 @@
 import * as React from 'react';
 import isEmailFn from './isEmail';
+import { useState, createRef } from 'react';
 
 interface IProps {
   emails?: string[];
@@ -16,45 +17,13 @@ interface IProps {
   placeholder?: string | React.ReactNode;
 }
 
-export interface IReactMultiEmailState {
-  focused?: boolean;
-  propsEmails?: string[];
-  emails: string[];
-  inputValue?: string;
-}
+const ReactMultiEmail: React.FC<IProps> = props => {
 
-class ReactMultiEmail extends React.Component<
-  IReactMultiEmailProps,
-  IReactMultiEmailState
-> {
-  state = {
-    focused: false,
-    emails: [],
-    inputValue: '',
-  };
+  const [focused, setFocused] = useState<boolean>(false);
+  const [emails, setEmails] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  emailInputRef: React.RefObject<HTMLInputElement>;
-
-  static getDerivedStateFromProps(
-    nextProps: IReactMultiEmailProps,
-    prevState: IReactMultiEmailState,
-  ) {
-    if (prevState.propsEmails !== nextProps.emails) {
-      return {
-        propsEmails: nextProps.emails || [],
-        emails: nextProps.emails || [],
-        inputValue: '',
-        focused: false,
-      };
-    }
-    return null;
-  }
-
-  constructor(props: IReactMultiEmailProps) {
-    super(props);
-
-    this.emailInputRef = React.createRef();
-  }
+  const emailInputRef = createRef<HTMLInputElement>();
 
   findEmailAddress = (value: string, isEnter?: boolean) => {
     const { validateEmail } = this.props;
