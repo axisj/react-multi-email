@@ -1,7 +1,7 @@
 import * as React from 'react';
 import isEmailFn from './isEmail';
 
-export interface IReactMultiEmailProps {
+interface IProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
   noClass?: boolean;
