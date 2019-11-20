@@ -29,7 +29,8 @@
     ]
   },
   "dependencies": {
-    "next": "^9.0.3"
+    "next": "^9.0.3",
+    "react-hot-loader": "^4.12.18"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
