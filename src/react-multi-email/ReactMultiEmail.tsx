@@ -1,27 +1,7 @@
 import * as React from 'react';
 import isEmailFn from './isEmail';
-
-export interface IReactMultiEmailProps {
-  emails?: string[];
-  onChange?: (emails: string[]) => void;
-  noClass?: boolean;
-  validateEmail?: (email: string) => boolean;
-  style?: object;
-  getLabel: (
-    email: string,
-    index: number,
-    removeEmail: (index: number) => void,
-  ) => void;
-  className?: string;
-  placeholder?: string | React.ReactNode;
-}
-
-export interface IReactMultiEmailState {
-  focused?: boolean;
-  propsEmails?: string[];
-  emails: string[];
-  inputValue?: string;
-}
+import IReactMultiEmailProps from './IReactMultiEmailProps';
+import IReactMultiEmailState from './IReactMultiEmailState';
 
 class ReactMultiEmail extends React.Component<
   IReactMultiEmailProps,
@@ -65,12 +45,13 @@ class ReactMultiEmail extends React.Component<
 
     const addEmails = (email: string) => {
       const emails: string[] = this.state.emails;
-      for (let i = 0, l = emails.length; i < l; i++) {
-        if (emails[i] === email) {
-          return false;
-        }
+      const sameEmail = emails.find((eachEmailData) => eachEmailData === email);
+      
+      if(sameEmail){
+        return false;
       }
       validEmails.push(email);
+
       return true;
     };
 
