@@ -1,7 +1,7 @@
 import * as React from 'react';
 import isEmailFn from './isEmail';
 import { useState, createRef } from 'react';
-import IProps from './IProps';
+import { IProps } from './PropsInterfaces';
 
 const ReactMultiEmail: React.FC<IProps> = props => {
   const [focused, setFocused] = useState<boolean>(false);
