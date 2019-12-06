@@ -1,17 +1,5 @@
 // forked from https://github.com/chriso/validator.js
-
-export interface IFqdnOptions {
-  requireTld?: boolean;
-  allowUnderscores?: boolean;
-  allowTrailingDot?: boolean;
-}
-
-export interface IEmailOptions {
-  allowDisplayName?: boolean;
-  requireDisplayName?: boolean;
-  allowUtf8LocalPart?: boolean;
-  requireTld?: boolean;
-}
+import { IFqdnOptions, IEmailOptions } from './PropsInterfaces';
 
 const defaultFqdnOptions = {
   requireTld: true,
@@ -69,23 +57,17 @@ function isFQDN(str: string, options?: IFqdnOptions) {
     }
   }
 
-  for (let part, i = 0; i < parts.length; i++) {
-    part = parts[i];
-    if (options.allowUnderscores) {
+  return !parts.some(part => {
+    if (options && options.allowUnderscores) {
       part = part.replace(/_/g, '');
     }
-    if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
-      return false;
-    }
-    // disallow full-width chars
-    if (/[\uff01-\uff5e]/.test(part)) {
-      return false;
-    }
-    if (part[0] === '-' || part[part.length - 1] === '-') {
-      return false;
-    }
-  }
-  return true;
+
+    return !(
+      /^[a-z\u00a1-\uffff0-9-]+$/i.test(part) &&
+      !/[\uff01-\uff5e]/.test(part) &&
+      !(part[0] === '-' || part[part.length - 1] === '-')
+    );
+  });
 }
 
 function isEmail(str: string, options?: IEmailOptions) {
@@ -129,13 +111,7 @@ function isEmail(str: string, options?: IEmailOptions) {
     : emailUserPart;
   const userParts = user.split('.');
 
-  for (let i = 0; i < userParts.length; i++) {
-    if (!pattern.test(userParts[i])) {
-      return false;
-    }
-  }
-
-  return true;
+  return !userParts.some(userPart => !pattern.test(userPart));
 }
 
 export default isEmail;
