@@ -6,9 +6,11 @@ import React, {
   Reducer,
 } from 'react';
 import 'styles/global';
+import '@babel/polyfill';
 import { ISettings } from 'common/interfaces';
 import { settingsReducer } from 'store';
 import ToolBar from 'components/ToolBar';
+// import { ReactMultiEmail } from '@axui/react-multi-email/ReactMultiEmail';
 
 const initialSettings: ISettings = {
   width: 300,

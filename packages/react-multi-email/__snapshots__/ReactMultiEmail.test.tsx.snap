@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactMultiEmail Component Makes matches snapshot 1`] = `
+<div
+  className=" react-multi-email  empty"
+  onClick={[Function]}
+>
+  <input
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value=""
+  />
+</div>
+`;

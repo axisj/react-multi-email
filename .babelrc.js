@@ -6,6 +6,7 @@ module.exports = {
     [
       '@babel/preset-env',
       {
+        useBuiltIns: false,
         targets: 'ie >= 11, cover 99%',
         modules: false,
       },
@@ -15,7 +16,7 @@ module.exports = {
   plugins: [
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
-    // ['transform-define', env],
+    ['@babel/plugin-transform-runtime'],
     [
       'styled-components',
       {
