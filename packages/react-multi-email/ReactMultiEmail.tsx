@@ -9,8 +9,9 @@ const ReactMultiEmail: React.FC<IProps> = props => {
   const [inputValue, setInputValue] = useState<string>('');
 
   const emailInputRef = createRef<HTMLInputElement>();
+  const { style, getLabel, className = '', noClass, placeholder } = props;
 
-  const findEmailAddress = (value: string, isEnter?: boolean) => {
+  function findEmailAddress(value: string, isEnter?: boolean) {
     const { validateEmail } = props;
     let validEmails: string[] = [];
     let findingInputValue: string = '';
@@ -69,22 +70,22 @@ const ReactMultiEmail: React.FC<IProps> = props => {
     if (validEmails.length && props.onChange) {
       props.onChange([...emails, ...validEmails]);
     }
-  };
+  }
 
-  const onChangeInputValue = (value: string) => {
+  function onChangeInputValue(value: string) {
     findEmailAddress(value);
-  };
+  }
 
-  const removeEmail = (index: number) => {
+  function removeEmail(index: number) {
     setEmails([...emails.slice(0, index), ...emails.slice(index + 1)]),
       () => {
         if (props.onChange) {
           props.onChange(emails);
         }
       };
-  };
+  }
 
-  const handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  function handleOnKeydown(e: React.KeyboardEvent<HTMLInputElement>) {
     switch (e.which) {
       case 13:
       case 9:
@@ -97,9 +98,9 @@ const ReactMultiEmail: React.FC<IProps> = props => {
         break;
       default:
     }
-  };
+  }
 
-  const handleOnKeyup = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  function handleOnKeyup(e: React.KeyboardEvent<HTMLInputElement>) {
     switch (e.which) {
       case 13:
       case 9:
@@ -107,20 +108,18 @@ const ReactMultiEmail: React.FC<IProps> = props => {
         break;
       default:
     }
-  };
+  }
 
-  const handleOnChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+  function handleOnChange(e: React.SyntheticEvent<HTMLInputElement>) {
     onChangeInputValue(e.currentTarget.value);
-  };
+  }
 
-  const handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
+  function handleOnBlur(e: React.SyntheticEvent<HTMLInputElement>) {
     setFocused(false);
     findEmailAddress(e.currentTarget.value, true);
-  };
+  }
 
   const handleOnFocus = () => setFocused(true);
-
-  const { style, getLabel, className = '', noClass, placeholder } = props;
 
   return (
     <div
