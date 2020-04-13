@@ -24,7 +24,7 @@ npm install react-multi-email -S
 
 ```typescript jsx
 import * as React from 'react';
-import { ReactMultiEmail } from 'react-multi-email';
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import 'react-multi-email/style.css';
 
 interface IProps {}
@@ -47,6 +47,9 @@ class Basic extends React.Component<IProps, IState> {
           emails={emails}
           onChange={(_emails: string[]) => {
             this.setState({ emails: _emails });
+          }}
+          validateEmail={email => {
+            return isEmail(email); // return boolean
           }}
           getLabel={(
             email: string,

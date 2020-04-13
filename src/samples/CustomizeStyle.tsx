@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactMultiEmail } from 'react-multi-email';
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
 
 interface IProps {}
 interface IState {
@@ -27,6 +27,9 @@ class CustomizeStyle extends React.Component<IProps, IState> {
           onChange={(_emails: string[]) => {
             this.setState({ emails: _emails });
           }}
+          validateEmail={email => {
+            return isEmail(email);
+          }}
           getLabel={(
             email: string,
             index: number,
@@ -34,7 +37,9 @@ class CustomizeStyle extends React.Component<IProps, IState> {
           ) => {
             return (
               <div data-tag key={index}>
-                {email}
+                <div data-tag-item>
+                  {email}
+                </div>
                 <span data-tag-handle onClick={() => removeEmail(index)}>
                   ×
                 </span>

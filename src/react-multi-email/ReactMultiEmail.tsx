@@ -1,5 +1,5 @@
 import * as React from 'react';
-import isEmail from './isEmail';
+import isEmailFn from './isEmail';
 
 export interface IReactMultiEmailProps {
   emails?: string[];
@@ -7,6 +7,8 @@ export interface IReactMultiEmailProps {
   onChangeInput?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  noClass?: boolean;
+  validateEmail?: (email: string) => boolean;
   style?: object;
   getLabel: (
     email: string,
@@ -58,9 +60,11 @@ class ReactMultiEmail extends React.Component<
   }
 
   findEmailAddress = (value: string, isEnter?: boolean) => {
+    const { validateEmail } = this.props;
     let validEmails: string[] = [];
     let inputValue: string = '';
     const re = /[ ,;]/g;
+    const isEmail = validateEmail || isEmailFn;
 
     const addEmails = (email: string) => {
       const emails: string[] = this.state.emails;
@@ -75,9 +79,12 @@ class ReactMultiEmail extends React.Component<
 
     if (value !== '') {
       if (re.test(value)) {
-        let arr = value.split(re).filter(n => {
+        let splitData = value.split(re).filter(n => {
           return n !== '' && n !== undefined && n !== null;
         });
+
+        const setArr = new Set(splitData);
+        let arr = [...setArr];
 
         do {
           if (isEmail('' + arr[0])) {
@@ -146,6 +153,7 @@ class ReactMultiEmail extends React.Component<
   handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.which) {
       case 13:
+      case 9:
         e.preventDefault();
         break;
       case 8:
@@ -160,6 +168,7 @@ class ReactMultiEmail extends React.Component<
   handleOnKeyup = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.which) {
       case 13:
+      case 9:
         this.findEmailAddress(e.currentTarget.value, true);
         break;
       default:
@@ -189,13 +198,13 @@ class ReactMultiEmail extends React.Component<
 
   render() {
     const { focused, emails, inputValue } = this.state;
-    const { style, getLabel, className = '', placeholder } = this.props;
+    const { style, getLabel, className = '', noClass, placeholder } = this.props;
 
     // removeEmail
 
     return (
       <div
-        className={`${className} react-multi-email ${
+        className={`${className} ${noClass ? '' : 'react-multi-email'} ${
           focused ? 'focused' : ''
         } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
         style={style}

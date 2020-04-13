@@ -5,6 +5,8 @@ export interface IReactMultiEmailProps {
     onChangeInput?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
+    noClass?: boolean;
+    validateEmail?: (email: string) => boolean;
     style?: object;
     getLabel: (email: string, index: number, removeEmail: (index: number) => void) => void;
     className?: string;

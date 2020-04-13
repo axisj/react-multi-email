@@ -22,9 +22,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             inputValue: '',
         };
         _this.findEmailAddress = function (value, isEnter) {
+            var validateEmail = _this.props.validateEmail;
             var validEmails = [];
             var inputValue = '';
             var re = /[ ,;]/g;
+            var isEmail = validateEmail || isEmail_1.default;
             var addEmails = function (email) {
                 var emails = _this.state.emails;
                 for (var i = 0, l = emails.length; i < l; i++) {
@@ -37,11 +39,13 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             };
             if (value !== '') {
                 if (re.test(value)) {
-                    var arr = value.split(re).filter(function (n) {
+                    var splitData = value.split(re).filter(function (n) {
                         return n !== '' && n !== undefined && n !== null;
                     });
+                    var setArr = new Set(splitData);
+                    var arr = setArr.slice();
                     do {
-                        if (isEmail_1.default('' + arr[0])) {
+                        if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
                         }
                         else {
@@ -57,7 +61,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }
                 else {
                     if (isEnter) {
-                        if (isEmail_1.default(value)) {
+                        if (isEmail(value)) {
                             addEmails(value);
                         }
                         else {
@@ -100,6 +104,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.handleOnKeydown = function (e) {
             switch (e.which) {
                 case 13:
+                case 9:
                     e.preventDefault();
                     break;
                 case 8:
@@ -113,6 +118,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.handleOnKeyup = function (e) {
             switch (e.which) {
                 case 13:
+                case 9:
                     _this.findEmailAddress(e.currentTarget.value, true);
                     break;
                 default:
@@ -153,9 +159,9 @@ var ReactMultiEmail = /** @class */ (function (_super) {
     ReactMultiEmail.prototype.render = function () {
         var _this = this;
         var _a = this.state, focused = _a.focused, emails = _a.emails, inputValue = _a.inputValue;
-        var _b = this.props, style = _b.style, getLabel = _b.getLabel, _c = _b.className, className = _c === void 0 ? '' : _c, placeholder = _b.placeholder;
+        var _b = this.props, style = _b.style, getLabel = _b.getLabel, _c = _b.className, className = _c === void 0 ? '' : _c, noClass = _b.noClass, placeholder = _b.placeholder;
         // removeEmail
-        return (React.createElement("div", { className: className + " react-multi-email " + (focused ? 'focused' : '') + " " + (inputValue === '' && emails.length === 0 ? 'empty' : ''), style: style, onClick: function () {
+        return (React.createElement("div", { className: className + " " + (noClass ? '' : 'react-multi-email') + " " + (focused ? 'focused' : '') + " " + (inputValue === '' && emails.length === 0 ? 'empty' : ''), style: style, onClick: function () {
                 if (_this.emailInputRef.current) {
                     _this.emailInputRef.current.focus();
                 }
