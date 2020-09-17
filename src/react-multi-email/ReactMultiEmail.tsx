@@ -4,6 +4,8 @@ import isEmailFn from './isEmail';
 export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
+  enable?: ({ emailCnt }: { emailCnt: number }) => boolean;
+  onDisabled?: () => void; 
   noClass?: boolean;
   validateEmail?: (email: string) => boolean;
   style?: object;
@@ -57,7 +59,8 @@ class ReactMultiEmail extends React.Component<
   }
 
   findEmailAddress = (value: string, isEnter?: boolean) => {
-    const { validateEmail } = this.props;
+    const { enable, onDisabled, validateEmail } = this.props;
+
     let validEmails: string[] = [];
     let inputValue: string = '';
     const re = /[ ,;]/g;
@@ -96,6 +99,11 @@ class ReactMultiEmail extends React.Component<
           }
         } while (arr.length);
       } else {
+        if(enable && enable({ emailCnt: this.state.emails.length }) === false) {
+          onDisabled && onDisabled();
+          return;
+        }
+
         if (isEnter) {
           if (isEmail(value)) {
             addEmails(value);
