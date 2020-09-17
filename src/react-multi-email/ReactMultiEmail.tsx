@@ -5,7 +5,7 @@ export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
   noClass?: boolean;
-  validateEmail?: (email: string) => boolean;
+  validateEmail?: (email: string) => boolean | Promise<boolean>;
   style?: object;
   getLabel: (
     email: string,
@@ -56,7 +56,8 @@ class ReactMultiEmail extends React.Component<
     this.emailInputRef = React.createRef();
   }
 
-  findEmailAddress = (value: string, isEnter?: boolean) => {
+  findEmailAddress = async (value: string, isEnter?: boolean) => {
+    let asyncFlag = false;
     const { validateEmail } = this.props;
     let validEmails: string[] = [];
     let inputValue: string = '';
@@ -84,23 +85,49 @@ class ReactMultiEmail extends React.Component<
         let arr = [...setArr];
 
         do {
-          if (isEmail('' + arr[0])) {
-            addEmails('' + arr.shift());
-          } else {
-            if (arr.length === 1) {
-              /// 마지막 아이템이면 inputValue로 남겨두기
-              inputValue = '' + arr.shift();
+          const validateResult = isEmail('' + arr[0]);
+
+          if (typeof validateResult === 'boolean') {
+            if (validateResult === true) {
+              addEmails('' + arr.shift());
             } else {
-              arr.shift();
+              if (arr.length === 1) {
+                inputValue = '' + arr.shift();
+              } else {
+                arr.shift();
+              }
+            }
+          } else {
+            // handle promise
+            asyncFlag = true;
+            if ((await validateEmail!(value)) === true) {
+              addEmails('' + arr.shift());
+            } else {
+              if (arr.length === 1) {
+                inputValue = '' + arr.shift();
+              } else {
+                arr.shift();
+              }
             }
           }
         } while (arr.length);
       } else {
         if (isEnter) {
-          if (isEmail(value)) {
-            addEmails(value);
+          const validateResult = isEmail(value);
+          if (typeof validateResult === 'boolean') {
+            if (validateResult === true) {
+              addEmails(value);
+            } else {
+              inputValue = value;
+            }
           } else {
-            inputValue = value;
+            // handle promise
+            asyncFlag = true;
+            if ((await validateEmail!(value)) === true) {
+              addEmails(value);
+            } else {
+              inputValue = value;
+            }
           }
         } else {
           inputValue = value;
@@ -114,12 +141,16 @@ class ReactMultiEmail extends React.Component<
     });
 
     if (validEmails.length && this.props.onChange) {
-      this.props.onChange([...this.state.emails, ...validEmails]);
+      // In async, input email is merged.
+      if (asyncFlag) this.props.onChange([...this.state.emails]);
+      else {
+        this.props.onChange([...this.state.emails, ...validEmails]);
+      }
     }
   };
 
-  onChangeInputValue = (value: string) => {
-    this.findEmailAddress(value);
+  onChangeInputValue = async (value: string) => {
+    await this.findEmailAddress(value);
   };
 
   removeEmail = (index: number) => {
@@ -165,8 +196,8 @@ class ReactMultiEmail extends React.Component<
     }
   };
 
-  handleOnChange = (e: React.SyntheticEvent<HTMLInputElement>) =>
-    this.onChangeInputValue(e.currentTarget.value);
+  handleOnChange = async (e: React.SyntheticEvent<HTMLInputElement>) =>
+    await this.onChangeInputValue(e.currentTarget.value);
 
   handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({ focused: false });
