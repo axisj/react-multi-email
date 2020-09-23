@@ -234,34 +234,38 @@ class ReactMultiEmail extends React.Component<
     } = this.props;
 
     return (
-      <div style={{ opacity: spinning ? 0.45 : 1.0 }}>
+      <div
+        className={`${className} ${noClass ? '' : 'react-multi-email'} ${
+          focused ? 'focused' : ''
+        } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
+        style={style}
+        onClick={() => {
+          if (this.emailInputRef.current) {
+            this.emailInputRef.current.focus();
+          }
+        }}
+      >
+        {spinning && <Spinner />}
+        {placeholder ? <span data-placeholder>{placeholder}</span> : null}
         <div
-          className={`${className} ${noClass ? '' : 'react-multi-email'} ${
-            focused ? 'focused' : ''
-          } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
-          style={style}
-          onClick={() => {
-            if (this.emailInputRef.current) {
-              this.emailInputRef.current.focus();
-            }
-          }}
+          className={'data-labels'}
+          style={{ opacity: spinning ? 0.45 : 1.0, display: 'inherit' }}
         >
-          {spinning && <Spinner />}
-          {placeholder ? <span data-placeholder>{placeholder}</span> : null}
           {emails.map((email: string, index: number) =>
             getLabel(email, index, this.removeEmail),
           )}
-          <input
-            ref={this.emailInputRef}
-            type="text"
-            value={inputValue}
-            onFocus={this.handleOnFocus}
-            onBlur={this.handleOnBlur}
-            onChange={this.handleOnChange}
-            onKeyDown={this.handleOnKeydown}
-            onKeyUp={this.handleOnKeyup}
-          />
         </div>
+        <input
+          style={{ opacity: spinning ? 0.45 : 1.0 }}
+          ref={this.emailInputRef}
+          type="text"
+          value={inputValue}
+          onFocus={this.handleOnFocus}
+          onBlur={this.handleOnBlur}
+          onChange={this.handleOnChange}
+          onKeyDown={this.handleOnKeydown}
+          onKeyUp={this.handleOnKeyup}
+        />
       </div>
     );
   }
