@@ -122,7 +122,10 @@ class ReactMultiEmail extends React.Component<
     this.findEmailAddress(value);
   };
 
-  removeEmail = (index: number) => {
+  removeEmail = (index: number, isDisabled: boolean) => {
+    if(isDisabled) {
+        return;
+    }
     this.setState(
       prevState => {
         return {
@@ -148,7 +151,7 @@ class ReactMultiEmail extends React.Component<
         break;
       case 8:
         if (!e.currentTarget.value) {
-          this.removeEmail(this.state.emails.length - 1);
+          this.removeEmail(this.state.emails.length - 1, false);
         }
         break;
       default:
