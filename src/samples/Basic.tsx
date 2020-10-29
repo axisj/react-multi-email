@@ -23,6 +23,7 @@ class Basic extends React.Component<IProps, IState> {
             onChange={(_emails: string[]) => {
               this.setState({ emails: _emails });
             }}
+            autoFocus={true}
             getLabel={(
               email: string,
               index: number,
