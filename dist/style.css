@@ -44,7 +44,7 @@
 }
 
 .react-multi-email > input {
-  width: auto !important;
+  width: 100% !important;
   outline: none !important;
   border: 0 none !important;
   display: inline-block !important;
