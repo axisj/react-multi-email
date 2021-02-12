@@ -9,7 +9,10 @@ class ReactMultiEmail extends React.Component {
             inputValue: '',
         };
         this.findEmailAddress = (value, isEnter) => {
-            const { validateEmail } = this.props;
+            const { enable, validateEmail } = this.props;
+            if (enable && enable(this.state.emails.length) === false) {
+                return;
+            }
             let validEmails = [];
             let inputValue = '';
             const re = /[ ,;]/g;
