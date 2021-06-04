@@ -146,7 +146,6 @@ class ReactMultiEmail extends React.Component<
   handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.which) {
       case 13:
-      case 9:
         e.preventDefault();
         break;
       case 8:
