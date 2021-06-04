@@ -10,7 +10,7 @@ export interface IReactMultiEmailProps {
   getLabel: (
     email: string,
     index: number,
-    removeEmail: (index: number) => void,
+    removeEmail: (index: number, isDisabled: boolean) => void,
   ) => void;
   className?: string;
   placeholder?: string | React.ReactNode;
