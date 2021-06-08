@@ -207,7 +207,7 @@ class ReactMultiEmail extends React.Component<
           ref={this.emailInputRef}
           type="text"
           value={inputValue}
-	  autoFocus={true}
+          autoFocus={true}
           onFocus={this.handleOnFocus}
           onBlur={this.handleOnBlur}
           onChange={this.handleOnChange}
