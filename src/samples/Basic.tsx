@@ -39,6 +39,7 @@ class Basic extends React.Component<IProps, IState> {
                 </div>
               );
             }}
+            inputId="input-id-here"
           />
           <br />
           <h4>react-multi-email value</h4>

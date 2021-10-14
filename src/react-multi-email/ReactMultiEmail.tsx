@@ -14,6 +14,7 @@ export interface IReactMultiEmailProps {
   ) => void;
   className?: string;
   placeholder?: string | React.ReactNode;
+  inputId?: string;
 }
 
 export interface IReactMultiEmailState {
@@ -183,7 +184,7 @@ class ReactMultiEmail extends React.Component<
 
   render() {
     const { focused, emails, inputValue } = this.state;
-    const { style, getLabel, className = '', noClass, placeholder } = this.props;
+    const { style, getLabel, className = '', noClass, placeholder, inputId } = this.props;
 
     // removeEmail
 
@@ -206,6 +207,7 @@ class ReactMultiEmail extends React.Component<
         <input
           ref={this.emailInputRef}
           type="text"
+          id={inputId}
           value={inputValue}
           onFocus={this.handleOnFocus}
           onBlur={this.handleOnBlur}
