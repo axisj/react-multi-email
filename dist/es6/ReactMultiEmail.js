@@ -26,9 +26,11 @@ class ReactMultiEmail extends React.Component {
             };
             if (value !== '') {
                 if (re.test(value)) {
-                    let arr = value.split(re).filter(n => {
+                    let splitData = value.split(re).filter(n => {
                         return n !== '' && n !== undefined && n !== null;
                     });
+                    const setArr = new Set(splitData);
+                    let arr = Array.from(setArr);
                     do {
                         if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
@@ -69,7 +71,10 @@ class ReactMultiEmail extends React.Component {
         this.onChangeInputValue = (value) => {
             this.findEmailAddress(value);
         };
-        this.removeEmail = (index) => {
+        this.removeEmail = (index, isDisabled) => {
+            if (isDisabled) {
+                return;
+            }
             this.setState(prevState => {
                 return {
                     emails: [
@@ -91,7 +96,7 @@ class ReactMultiEmail extends React.Component {
                     break;
                 case 8:
                     if (!e.currentTarget.value) {
-                        this.removeEmail(this.state.emails.length - 1);
+                        this.removeEmail(this.state.emails.length - 1, false);
                     }
                     break;
                 default:

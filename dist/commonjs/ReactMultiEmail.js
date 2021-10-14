@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -39,9 +42,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             };
             if (value !== '') {
                 if (re.test(value)) {
-                    var arr = value.split(re).filter(function (n) {
+                    var splitData = value.split(re).filter(function (n) {
                         return n !== '' && n !== undefined && n !== null;
                     });
+                    var setArr = new Set(splitData);
+                    var arr = Array.from(setArr);
                     do {
                         if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
@@ -82,7 +87,10 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.onChangeInputValue = function (value) {
             _this.findEmailAddress(value);
         };
-        _this.removeEmail = function (index) {
+        _this.removeEmail = function (index, isDisabled) {
+            if (isDisabled) {
+                return;
+            }
             _this.setState(function (prevState) {
                 return {
                     emails: prevState.emails.slice(0, index).concat(prevState.emails.slice(index + 1)),
@@ -101,7 +109,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                     break;
                 case 8:
                     if (!e.currentTarget.value) {
-                        _this.removeEmail(_this.state.emails.length - 1);
+                        _this.removeEmail(_this.state.emails.length - 1, false);
                     }
                     break;
                 default:

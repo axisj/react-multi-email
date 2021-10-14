@@ -81,7 +81,7 @@ class ReactMultiEmail extends React.Component<
         });
         
         const setArr = new Set(splitData);
-        let arr = [...setArr];
+        let arr = Array.from(setArr);
 
         do {
           if (isEmail('' + arr[0])) {
@@ -122,7 +122,7 @@ class ReactMultiEmail extends React.Component<
     this.findEmailAddress(value);
   };
 
-  removeEmail = (index: number, isDisabled: boolean) => {
+  removeEmail = (index: number, isDisabled?: boolean) => {
     if(isDisabled) {
         return;
     }
