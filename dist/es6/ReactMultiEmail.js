@@ -6,7 +6,7 @@ class ReactMultiEmail extends React.Component {
         this.state = {
             focused: false,
             emails: [],
-            inputValue: '',
+            inputValue: this.props.inputValue || '',
         };
         this.findEmailAddress = (value, isEnter) => {
             let validEmails = [];
@@ -68,9 +68,6 @@ class ReactMultiEmail extends React.Component {
             }
         };
         this.onChangeInputValue = (value) => {
-            if (this.props.onChangeInput) {
-                this.props.onChangeInput(value);
-            }
             this.findEmailAddress(value);
         };
         this.removeEmail = (index) => {
@@ -131,7 +128,7 @@ class ReactMultiEmail extends React.Component {
             return {
                 propsEmails: nextProps.emails || [],
                 emails: nextProps.emails || [],
-                inputValue: '',
+                inputValue: nextProps.inputValue || '',
                 focused: false,
             };
         }
