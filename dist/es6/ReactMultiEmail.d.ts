@@ -2,6 +2,7 @@ import * as React from 'react';
 export interface IReactMultiEmailProps {
     emails?: string[];
     onChange?: (emails: string[]) => void;
+    enable?: (emailCnt: number) => boolean;
     onChangeInput?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
