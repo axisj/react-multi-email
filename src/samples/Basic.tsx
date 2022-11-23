@@ -25,6 +25,7 @@ class Basic extends React.Component<IProps, IState> {
             onChange={(_emails: string[]) => {
               this.setState({ emails: _emails });
             }}
+            autoFocus={true}
             onFocus={() => this.setState({ focused: true })}
             onBlur={() => this.setState({ focused: false })}
             getLabel={(
