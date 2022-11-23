@@ -38,7 +38,7 @@
     "react-hot-loader": "^4.12.20",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.15.1",
+    "react-scripts-ts": "4.0.8",
     "react-syntax-highlighter": "^7.0.4",
     "react-test-renderer": "^16.13.1",
     "sass-loader": "^7.3.1",
