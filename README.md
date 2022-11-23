@@ -45,10 +45,10 @@ class Basic extends React.Component<IProps, IState> {
         <ReactMultiEmail
           placeholder="placeholder"
           emails={emails}
-          onChange={(_emails: string[]) => {
-            this.setState({ emails: _emails });
+          onChange={(emails: Array<string>) => {
+            this.setState({ emails: emails });
           }}
-          validateEmail={email => {
+          validateEmail={(email: string) => {
             return isEmail(email); // return boolean
           }}
           getLabel={(

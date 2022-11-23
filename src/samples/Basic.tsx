@@ -4,10 +4,12 @@ import { ReactMultiEmail } from 'react-multi-email';
 interface IProps {}
 interface IState {
   emails: string[];
+  focused: boolean;
 }
 class Basic extends React.Component<IProps, IState> {
   state = {
     emails: [],
+    focused: false,
   };
 
   render() {
@@ -24,6 +26,8 @@ class Basic extends React.Component<IProps, IState> {
               this.setState({ emails: _emails });
             }}
             autoFocus={true}
+            onFocus={() => this.setState({ focused: true })}
+            onBlur={() => this.setState({ focused: false })}
             getLabel={(
               email: string,
               index: number,
@@ -43,6 +47,7 @@ class Basic extends React.Component<IProps, IState> {
           />
           <br />
           <h4>react-multi-email value</h4>
+          <h3>Focused: {this.state.focused ? 'true' : 'false'}</h3>
           <p>{emails.join(', ') || 'empty'}</p>
         </form>
       </>
