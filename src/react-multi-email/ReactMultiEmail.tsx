@@ -4,6 +4,9 @@ import isEmailFn from './isEmail';
 export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
+  onChangeInput?: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   noClass?: boolean;
   validateEmail?: (email: string) => boolean;
   style?: object;
@@ -79,7 +82,7 @@ class ReactMultiEmail extends React.Component<
         let splitData = value.split(re).filter(n => {
           return n !== '' && n !== undefined && n !== null;
         });
-        
+
         const setArr = new Set(splitData);
         let arr = [...setArr];
 
@@ -120,9 +123,16 @@ class ReactMultiEmail extends React.Component<
     if (validEmails.length && this.props.onChange) {
       this.props.onChange([...this.state.emails, ...validEmails]);
     }
+
+    if (this.props.onChangeInput && this.state.inputValue !== inputValue) {
+      this.props.onChangeInput(inputValue);
+    }
   };
 
   onChangeInputValue = (value: string) => {
+    if (this.props.onChangeInput) {
+      this.props.onChangeInput(value);
+    }
     this.findEmailAddress(value);
   };
 
@@ -178,12 +188,20 @@ class ReactMultiEmail extends React.Component<
   handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({ focused: false });
     this.findEmailAddress(e.currentTarget.value, true);
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   };
 
-  handleOnFocus = () =>
+  handleOnFocus = () => {
     this.setState({
       focused: true,
     });
+    if (this.props.onFocus) {
+      this.props.onFocus();
+    }
+  };
 
   render() {
     const { focused, emails, inputValue } = this.state;

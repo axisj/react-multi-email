@@ -26,9 +26,11 @@ class ReactMultiEmail extends React.Component {
             };
             if (value !== '') {
                 if (re.test(value)) {
-                    let arr = value.split(re).filter(n => {
+                    let splitData = value.split(re).filter(n => {
                         return n !== '' && n !== undefined && n !== null;
                     });
+                    const setArr = new Set(splitData);
+                    let arr = [...setArr];
                     do {
                         if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
@@ -65,8 +67,14 @@ class ReactMultiEmail extends React.Component {
             if (validEmails.length && this.props.onChange) {
                 this.props.onChange([...this.state.emails, ...validEmails]);
             }
+            if (this.props.onChangeInput && this.state.inputValue !== inputValue) {
+                this.props.onChangeInput(inputValue);
+            }
         };
         this.onChangeInputValue = (value) => {
+            if (this.props.onChangeInput) {
+                this.props.onChangeInput(value);
+            }
             this.findEmailAddress(value);
         };
         this.removeEmail = (index) => {
@@ -110,10 +118,18 @@ class ReactMultiEmail extends React.Component {
         this.handleOnBlur = (e) => {
             this.setState({ focused: false });
             this.findEmailAddress(e.currentTarget.value, true);
+            if (this.props.onBlur) {
+                this.props.onBlur();
+            }
         };
-        this.handleOnFocus = () => this.setState({
-            focused: true,
-        });
+        this.handleOnFocus = () => {
+            this.setState({
+                focused: true,
+            });
+            if (this.props.onFocus) {
+                this.props.onFocus();
+            }
+        };
         this.emailInputRef = React.createRef();
     }
     static getDerivedStateFromProps(nextProps, prevState) {
