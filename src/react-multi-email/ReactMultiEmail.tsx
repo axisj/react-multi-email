@@ -17,7 +17,7 @@ export interface IReactMultiEmailProps {
   getLabel: (
     email: string,
     index: number,
-    removeEmail: (index: number) => void,
+    removeEmail: (index: number, isDisabled: boolean) => void,
   ) => void;
   className?: string;
   placeholder?: string | React.ReactNode;
@@ -225,7 +225,6 @@ class ReactMultiEmail extends React.Component<
   handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.which) {
       case 13:
-      case 9:
         e.preventDefault();
         break;
       case 8:
