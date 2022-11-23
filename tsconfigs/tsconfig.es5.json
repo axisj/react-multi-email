@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.build.json",
+  "compilerOptions": {
+    "outDir": "../dist/commonjs",
+    "module": "commonjs",
+    "target": "es5",
+    "downlevelIteration": true,
+    "allowJs": false,
+    "declaration": true,
+    "sourceMap": false,
+    "noEmit": false,
+    "jsx": "react",
+    "jsxImportSource": ""
+  },
+  "include": [
+    "../@axframe-datagrid/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/tree.ts"
+  ]
+}

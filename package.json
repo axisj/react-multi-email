@@ -1,0 +1,53 @@
+{
+  "name": "react-multi-email",
+  "version": "0.5.3",
+  "jsnext:main": "dist/es6/index.js",
+  "module": "dist/es6/index.js",
+  "main": "dist/commonjs/index.js",
+  "repository": "https://github.com/jsdevkr/react-multi-email",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "build:common": "ncp react-multi-email/style.css ./dist/style.css",
+    "build:es5": "rimraf ./dist/commonjs && tsc --p tsconfigs/tsconfig.es5.json",
+    "build:es6": "rimraf ./dist/es6 && tsc --p tsconfigs/tsconfig.es6.json",
+    "build:library": "npm run build:common && npm run build:es5 && npm run build:es6",
+    "prepublishOnly": "npm run build:library",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@emotion/styled": "^11.10.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "antd": "^4.22.8",
+    "eslint": "8.22.0",
+    "eslint-config-next": "12.2.5",
+    "jest": "^29.0.1",
+    "jest-environment-jsdom": "^29.0.1",
+    "less": "^4.1.3",
+    "ncp": "^2.0.0",
+    "next": "^12.2.5",
+    "next-with-less": "^2.0.5",
+    "prettier": "^2.7.1",
+    "typescript": "4.8.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}
