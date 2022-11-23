@@ -2,29 +2,24 @@ import * as React from 'react';
 
 import { styled, StyledContainer } from 'styledComponents';
 import 'react-multi-email/style.css';
-import { Basic, CustomizeStyle } from './Examples';
+import { Basic, CustomizeStyle } from 'samples';
 import { CodeViewer } from 'components';
 
-const basicRaw = require('!raw-loader!./Examples/components/Basic.tsx');
-const customizeStyleRaw = require('!raw-loader!./Examples/components/CustomizeStyle.tsx');
+const basicRaw = require('!raw-loader!../samples/Basic.tsx');
+const customizeStyleRaw = require('!raw-loader!../samples/CustomizeStyle.tsx');
 const axuiLogo = require('assets/axui-logo.png');
 const GitHubButton = require('react-github-button');
 
 const Component = styled.div`
   .app-header {
-    background: rgb(19, 59, 93);
+    background: #333;
     color: #fff;
+    padding-top: 1em;
     padding-bottom: 3em;
     margin-bottom: 2em;
 
     .logo-img {
-      width: 120px;
-      background: #f3f3f3;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      padding-bottom: 5px;
-      overflow: hidden;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+      width: 100px;
       img {
         width: 100%;
         display: block;
@@ -35,6 +30,7 @@ const Component = styled.div`
       font-size: 36px;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
       font-family: 'Montserrat', sans-serif;
+      margin: 0.2em 0;
     }
 
     .github-btn {
@@ -66,16 +62,16 @@ class Index extends React.Component<IProps, IState> {
             <div>
               <GitHubButton
                 type="stargazers"
-                size="large"
                 namespace="axui"
                 repo="react-multi-email"
               />{' '}
               <GitHubButton
                 type="forks"
-                size="large"
                 namespace="axui"
                 repo="react-multi-email"
               />
+              <img src="https://badge.fury.io/js/react-multi-email.svg" />{' '}
+              <img src="https://img.shields.io/npm/dm/react-multi-email.svg" />{' '}
             </div>
           </StyledContainer>
         </header>

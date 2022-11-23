@@ -1,9 +1,16 @@
 import * as React from 'react';
-import isEmail from './isEmail';
+import isEmailFn from './isEmail';
 
 export interface IReactMultiEmailProps {
   emails?: string[];
   onChange?: (emails: string[]) => void;
+  enable?: ({ emailCnt }: { emailCnt: number }) => boolean;
+  onDisabled?: () => void; 
+  onChangeInput?: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  noClass?: boolean;
+  validateEmail?: (email: string) => boolean;
   style?: object;
   getLabel: (
     email: string,
@@ -17,11 +24,14 @@ export interface IReactMultiEmailProps {
 export interface IReactMultiEmailState {
   focused?: boolean;
   propsEmails?: string[];
-  emails?: string[];
+  emails: string[];
   inputValue?: string;
 }
 
-class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
+class ReactMultiEmail extends React.Component<
+  IReactMultiEmailProps,
+  IReactMultiEmailState
+> {
   state = {
     focused: false,
     emails: [],
@@ -29,7 +39,7 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     result:[],
   };
 
-  private emailInput: HTMLInputElement;
+  emailInputRef: React.RefObject<HTMLInputElement>;
 
   static getDerivedStateFromProps(
     nextProps: IReactMultiEmailProps,
@@ -46,11 +56,20 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     return null;
   }
 
+  constructor(props: IReactMultiEmailProps) {
+    super(props);
+
+    this.emailInputRef = React.createRef();
+  }
+
   findEmailAddress = (value: string, isEnter?: boolean) => {
+    const { enable, onDisabled, validateEmail } = this.props;
+
     let validEmails: string[] = [];
     let inputValue: string = '';
     const re = /[ ,;]/g;
-
+    const isEmail = validateEmail || isEmailFn;
+    
     const addEmails = (email: string) => {
       const emails: string[] = this.state.emails;
       for (let i = 0, l = emails.length; i < l; i++) {
@@ -71,9 +90,16 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
         this.setState({ result });
       }
       if (re.test(value)) {
-        let arr = value.split(re).filter(n => {
+        let splitData = value.split(re).filter(n => {
           return n !== '' && n !== undefined && n !== null;
         });
+
+        const setArr = new Set(splitData);
+        let arr = [...setArr];
+
+        const setArr = new Set(splitData);
+        
+        let arr = [...setArr];
 
         do {
           if (isEmail('' + arr[0])) {
@@ -88,6 +114,11 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
           }
         } while (arr.length);
       } else {
+        if(enable && enable({ emailCnt: this.state.emails.length }) === false) {
+          onDisabled && onDisabled();
+          return;
+        }
+
         if (isEnter) {
           if (isEmail(value)) {
             addEmails(value);
@@ -111,26 +142,89 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
     if (validEmails.length && this.props.onChange) {
       this.props.onChange([...this.state.emails, ...validEmails]);
     }
+
+    if (this.props.onChangeInput && this.state.inputValue !== inputValue) {
+      this.props.onChangeInput(inputValue);
+    }
   };
 
   onChangeInputValue = (value: string) => {
+    if (this.props.onChangeInput) {
+      this.props.onChangeInput(value);
+    }
     this.findEmailAddress(value);
   };
 
-  removeEmail = (index: number) => {
-    this.state.emails.splice(index, 1);
-    this.setState({
-      emails: this.state.emails,
-    });
+  removeEmail = (index: number, isDisabled: boolean) => {
+    if(isDisabled) {
+        return;
+    }
+    this.setState(
+      prevState => {
+        return {
+          emails: [
+            ...prevState.emails.slice(0, index),
+            ...prevState.emails.slice(index + 1),
+          ],
+        };
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(this.state.emails);
+        }
+      },
+    );
+  };
 
-    if (this.props.onChange) {
-      this.props.onChange(this.state.emails);
+  handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.which) {
+      case 13:
+      case 9:
+        e.preventDefault();
+        break;
+      case 8:
+        if (!e.currentTarget.value) {
+          this.removeEmail(this.state.emails.length - 1, false);
+        }
+        break;
+      default:
+    }
+  };
+
+  handleOnKeyup = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.which) {
+      case 13:
+      case 9:
+        this.findEmailAddress(e.currentTarget.value, true);
+        break;
+      default:
+    }
+  };
+
+  handleOnChange = (e: React.SyntheticEvent<HTMLInputElement>) =>
+    this.onChangeInputValue(e.currentTarget.value);
+
+  handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    this.setState({ focused: false });
+    this.findEmailAddress(e.currentTarget.value, true);
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
+  };
+
+  handleOnFocus = () => {
+    this.setState({
+      focused: true,
+    });
+    if (this.props.onFocus) {
+      this.props.onFocus();
     }
   };
 
   render() {
     const { focused, emails, inputValue, result } = this.state;
-    const { style, getLabel, className = '', placeholder } = this.props;
+    const { style, getLabel, className = '', noClass, placeholder } = this.props;
     const children = result.map((inputValue) => {
       return <option className={'options'} key={inputValue}>{inputValue}</option>;
     });
@@ -138,12 +232,14 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
 
     return (
       <div
-        className={`${className} react-multi-email ${
+        className={`${className} ${noClass ? '' : 'react-multi-email'} ${
           focused ? 'focused' : ''
         } ${inputValue === '' && emails.length === 0 ? 'empty' : ''}`}
         style={style}
         onClick={() => {
-          this.emailInput.focus();
+          if (this.emailInputRef.current) {
+            this.emailInputRef.current.focus();
+          }
         }}
       >
         {placeholder ? <span data-placeholder>{placeholder}</span> : null}
@@ -151,33 +247,15 @@ class ReactMultiEmail extends React.Component<IReactMultiEmailProps> {
           getLabel(email, index, this.removeEmail),
         )}
         <input
-          ref={ref => {
-            if (ref) {
-              this.emailInput = ref;
-            }
-          }}
+          ref={this.emailInputRef}
           type="text"
           value={inputValue}
-          onFocus={() =>
-            this.setState({
-              focused: true,
-            })
-          }
-          onBlur={(e: any) => {
-            this.setState({ focused: false });
-            this.findEmailAddress(e.target.value, true);
-          }}
-          onChange={(e: any) => this.onChangeInputValue(e.target.value)}
-          onKeyDown={(e: any) => {
-            if (e.which === 8 && !e.target.value) {
-              this.removeEmail(this.state.emails.length - 1);
-            }
-          }}
-          onKeyUp={(e: any) => {
-            if (e.which === 13) {
-              this.findEmailAddress(e.target.value, true);
-            }
-          }}
+          autoFocus={true}
+          onFocus={this.handleOnFocus}
+          onBlur={this.handleOnBlur}
+          onChange={this.handleOnChange}
+          onKeyDown={this.handleOnKeydown}
+          onKeyUp={this.handleOnKeyup}
         />
         <ul className={`result_list ${
           inputValue === '' ? 'empty' : ''}`} style={style}>

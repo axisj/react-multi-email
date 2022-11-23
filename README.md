@@ -1,11 +1,14 @@
+[![npm version](https://badge.fury.io/js/react-multi-email.svg)](https://badge.fury.io/js/react-multi-email)
+[![](https://img.shields.io/npm/dm/react-multi-email.svg)](https://www.npmjs.com/package/react-multi-email)
+
 # react-multi-email
 
 A simple react component to format multiple email as the user types.
 
-* Simple code
-* No dependency
-* Small size
-* Simple customization
+- Simple code
+- No dependency
+- Small size
+- Simple customization
 
 [See Demo](https://codesandbox.io/s/jpvjk8m5o9)
 
@@ -21,7 +24,7 @@ npm install react-multi-email -S
 
 ```typescript jsx
 import * as React from 'react';
-import { ReactMultiEmail } from 'react-multi-email';
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import 'react-multi-email/style.css';
 
 interface IProps {}
@@ -40,10 +43,13 @@ class Basic extends React.Component<IProps, IState> {
       <>
         <h3>Email</h3>
         <ReactMultiEmail
-          placeholder='placeholder'
+          placeholder="placeholder"
           emails={emails}
-          onChange={(_emails: string[]) => {
-            this.setState({ emails: _emails });
+          onChange={(emails: Array<string>) => {
+            this.setState({ emails: emails });
+          }}
+          validateEmail={(email: string) => {
+            return isEmail(email); // return boolean
           }}
           getLabel={(
             email: string,

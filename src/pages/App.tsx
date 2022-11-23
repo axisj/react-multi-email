@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { NoMatch, ErrorBoundary } from 'components';
 import 'styles/globals';
-import Samples from './samples';
+import Samples from './Sample';
 
 class App extends React.Component {
   render() {

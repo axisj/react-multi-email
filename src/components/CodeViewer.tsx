@@ -4,7 +4,7 @@ import SyntaxHighlighter, {
   registerLanguage,
 } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import prism from 'react-syntax-highlighter/styles/prism/prism';
+import prism from 'react-syntax-highlighter/styles/prism/darcula';
 
 function trimLineBreak(x: string) {
   return x.replace(/^\r?\n+/, '').replace(/\r?\n+\s*$/, '');
