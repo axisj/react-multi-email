@@ -1,14 +1,37 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var isEmail_1 = require("./isEmail");
@@ -39,9 +62,11 @@ var ReactMultiEmail = /** @class */ (function (_super) {
             };
             if (value !== '') {
                 if (re.test(value)) {
-                    var arr = value.split(re).filter(function (n) {
+                    var splitData = value.split(re).filter(function (n) {
                         return n !== '' && n !== undefined && n !== null;
                     });
+                    var setArr = new Set(splitData);
+                    var arr = __spread(setArr);
                     do {
                         if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
@@ -72,20 +97,26 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                 }
             }
             _this.setState({
-                emails: _this.state.emails.concat(validEmails),
+                emails: __spread(_this.state.emails, validEmails),
                 inputValue: inputValue,
             });
             if (validEmails.length && _this.props.onChange) {
-                _this.props.onChange(_this.state.emails.concat(validEmails));
+                _this.props.onChange(__spread(_this.state.emails, validEmails));
+            }
+            if (_this.props.onChangeInput && _this.state.inputValue !== inputValue) {
+                _this.props.onChangeInput(inputValue);
             }
         };
         _this.onChangeInputValue = function (value) {
+            if (_this.props.onChangeInput) {
+                _this.props.onChangeInput(value);
+            }
             _this.findEmailAddress(value);
         };
         _this.removeEmail = function (index) {
             _this.setState(function (prevState) {
                 return {
-                    emails: prevState.emails.slice(0, index).concat(prevState.emails.slice(index + 1)),
+                    emails: __spread(prevState.emails.slice(0, index), prevState.emails.slice(index + 1)),
                 };
             }, function () {
                 if (_this.props.onChange) {
@@ -122,11 +153,17 @@ var ReactMultiEmail = /** @class */ (function (_super) {
         _this.handleOnBlur = function (e) {
             _this.setState({ focused: false });
             _this.findEmailAddress(e.currentTarget.value, true);
+            if (_this.props.onBlur) {
+                _this.props.onBlur();
+            }
         };
         _this.handleOnFocus = function () {
-            return _this.setState({
+            _this.setState({
                 focused: true,
             });
+            if (_this.props.onFocus) {
+                _this.props.onFocus();
+            }
         };
         _this.emailInputRef = React.createRef();
         return _this;
