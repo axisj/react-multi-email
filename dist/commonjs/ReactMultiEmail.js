@@ -66,7 +66,7 @@ var ReactMultiEmail = /** @class */ (function (_super) {
                         return n !== '' && n !== undefined && n !== null;
                     });
                     var setArr = new Set(splitData);
-                    var arr = __spread(setArr);
+                    var arr = setArr.slice();
                     do {
                         if (isEmail('' + arr[0])) {
                             addEmails('' + arr.shift());
