@@ -7,6 +7,9 @@ export interface IReactMultiEmailProps {
   onChange?: (emails: string[]) => void;
   enable?: ({ emailCnt }: { emailCnt: number }) => boolean;
   onDisabled?: () => void; 
+  onChangeInput?: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   noClass?: boolean;
   validateEmail?: (email: string) => boolean | Promise<boolean>;
   enableSpinner?: boolean;
@@ -37,6 +40,7 @@ class ReactMultiEmail extends React.Component<
     emails: [],
     inputValue: '',
     spinning: false,
+    result:[],
   };
 
   emailInputRef: React.RefObject<HTMLInputElement>;
@@ -69,7 +73,7 @@ class ReactMultiEmail extends React.Component<
     let inputValue: string = '';
     const re = /[ ,;]/g;
     const isEmail = validateEmail || isEmailFn;
-
+    
     const addEmails = (email: string) => {
       const emails: string[] = this.state.emails;
       for (let i = 0, l = emails.length; i < l; i++) {
@@ -81,13 +85,24 @@ class ReactMultiEmail extends React.Component<
       return true;
     };
 
+    let result;
     if (value !== '') {
+      if (!value || value.indexOf('@') >= 0) {
+        result=[]
+      } else {
+        result = ['gmail.com', 'naver.com', 'daum.net'].map(domain => `${value}@${domain}`);
+        this.setState({ result });
+      }
       if (re.test(value)) {
         let splitData = value.split(re).filter(n => {
           return n !== '' && n !== undefined && n !== null;
         });
 
         const setArr = new Set(splitData);
+        let arr = [...setArr];
+
+        const setArr = new Set(splitData);
+        
         let arr = [...setArr];
 
         do {
@@ -154,6 +169,9 @@ class ReactMultiEmail extends React.Component<
           inputValue = value;
         }
       }
+    }else{
+      result = [''];
+      this.setState({ result });
     }
 
     this.setState({
@@ -168,13 +186,23 @@ class ReactMultiEmail extends React.Component<
         this.props.onChange([...this.state.emails, ...validEmails]);
       }
     }
+
+    if (this.props.onChangeInput && this.state.inputValue !== inputValue) {
+      this.props.onChangeInput(inputValue);
+    }
   };
 
   onChangeInputValue = async (value: string) => {
+    if (this.props.onChangeInput) {
+      this.props.onChangeInput(value);
+    }
     await this.findEmailAddress(value);
   };
 
-  removeEmail = (index: number) => {
+  removeEmail = (index: number, isDisabled: boolean) => {
+    if(isDisabled) {
+        return;
+    }
     this.setState(
       (prevState) => {
         return {
@@ -200,7 +228,7 @@ class ReactMultiEmail extends React.Component<
         break;
       case 8:
         if (!e.currentTarget.value) {
-          this.removeEmail(this.state.emails.length - 1);
+          this.removeEmail(this.state.emails.length - 1, false);
         }
         break;
       default:
@@ -223,15 +251,23 @@ class ReactMultiEmail extends React.Component<
   handleOnBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({ focused: false });
     this.findEmailAddress(e.currentTarget.value, true);
+
+    if (this.props.onBlur) {
+      this.props.onBlur();
+    }
   };
 
-  handleOnFocus = () =>
+  handleOnFocus = () => {
     this.setState({
       focused: true,
     });
+    if (this.props.onFocus) {
+      this.props.onFocus();
+    }
+  };
 
   render() {
-    const { focused, emails, inputValue, spinning } = this.state;
+    const { focused, emails, inputValue, spinning, result } = this.state;
     const {
       style,
       getLabel,
@@ -239,6 +275,10 @@ class ReactMultiEmail extends React.Component<
       noClass,
       placeholder,
     } = this.props;
+    const children = result.map((inputValue) => {
+      return <option className={'options'} key={inputValue}>{inputValue}</option>;
+    });
+    // removeEmail
 
     return (
       <div
@@ -267,12 +307,21 @@ class ReactMultiEmail extends React.Component<
           ref={this.emailInputRef}
           type="text"
           value={inputValue}
+          autoFocus={true}
           onFocus={this.handleOnFocus}
           onBlur={this.handleOnBlur}
           onChange={this.handleOnChange}
           onKeyDown={this.handleOnKeydown}
           onKeyUp={this.handleOnKeyup}
         />
+        <ul className={`result_list ${
+          inputValue === '' ? 'empty' : ''}`} style={style}>
+          <li
+            onClick={(e: any) => {
+              this.setState({inputValue:e.target.value, result:[]});
+            }}
+          >{children}</li>
+        </ul>
       </div>
     );
   }
