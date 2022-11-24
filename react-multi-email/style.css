@@ -15,7 +15,6 @@
   border-radius: 0.28571429rem;
   -webkit-transition: box-shadow 0.1s ease, border-color 0.1s ease;
   transition: box-shadow 0.1s ease, border-color 0.1s ease;
-  font-size: 13px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -44,7 +43,6 @@
 }
 
 .react-multi-email > input {
-  width: 100% !important;
   flex: 1;
   width: auto !important;
   outline: none !important;
@@ -61,7 +59,7 @@
   margin: 0.14285714em;
   background-color: #f3f3f3;
   background-image: none;
-  padding: 0.5833em 0.833em;
+  padding: 0.4em 0.8em;
   color: rgba(0, 0, 0, 0.6);
   text-transform: none;
   font-weight: 600;
@@ -75,8 +73,8 @@
   align-items: center;
   justify-content: flex-start;
   max-width: 100%;
-
 }
+
 .react-multi-email [data-tag] [data-tag-item] {
   max-width: 100%;
   overflow: hidden;
@@ -87,28 +85,4 @@
 .react-multi-email [data-tag] [data-tag-handle] {
   margin-left: 0.833em;
   cursor: pointer;
-}
-ul{
-  list-style: none;
-  padding: 0;
-}
-.result_list.empty {
-  display: none;
-}
-.options{
-  vertical-align: baseline;
-  margin: 0 0.14285714em;
-  margin-top: 0.2em;
-  background-color: #f3f3f3;
-  background-image: none;
-  padding: 0.5833em 0.833em;
-  color: rgba(0, 0, 0, 0.6);
-  text-transform: none;
-  font-weight: 600;
-  border: 0 solid transparent;
-  border-radius: 0.28571429rem;
-  -webkit-transition: background 0.1s ease;
-  -o-transition: background 0.1s ease;
-  transition: background 0.1s ease;
-  font-size: 0.8rem;
 }

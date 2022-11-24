@@ -1,3 +1,4 @@
+import * as React from 'react';
 import '../styles/globals.css';
 import '../react-multi-email/style.css';
 import 'antd/dist/antd.css';

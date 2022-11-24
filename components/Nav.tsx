@@ -7,7 +7,7 @@ import { GithubFilled } from '@ant-design/icons';
 
 interface Props {}
 
-function Nav(props: Props) {
+function Nav(_props: Props) {
   const router = useRouter();
 
   return (

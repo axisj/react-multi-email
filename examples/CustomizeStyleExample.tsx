@@ -4,23 +4,24 @@ import { ReactMultiEmail } from '../react-multi-email';
 
 interface Props {}
 
-function BasicExample(props: Props) {
+function CustomizeStyleExample(props: Props) {
   const [emails, setEmails] = React.useState<string[]>([]);
-  const [focused, setFocused] = React.useState(false);
 
   return (
     <Container>
       <form>
         <h3>Email</h3>
         <ReactMultiEmail
-          placeholder='Input your email'
+          placeholder={
+            <>
+              <b>I</b> am <u style={{ color: '#1890ff' }}>placeholder</u> !
+            </>
+          }
+          style={{ minHeight: '100px' }}
           emails={emails}
           onChange={(_emails: string[]) => {
             setEmails(_emails);
           }}
-          autoFocus={true}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
           getLabel={(email, index, removeEmail) => {
             return (
               <div data-tag key={index}>
@@ -34,7 +35,6 @@ function BasicExample(props: Props) {
         />
         <br />
         <h4>react-multi-email value</h4>
-        <h3>Focused: {focused ? 'true' : 'false'}</h3>
         <p>{emails.join(', ') || 'empty'}</p>
       </form>
     </Container>
@@ -45,4 +45,4 @@ const Container = styled.div`
   font-size: 13px;
 `;
 
-export default BasicExample;
+export default CustomizeStyleExample;
