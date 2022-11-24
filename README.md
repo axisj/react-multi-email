@@ -17,7 +17,7 @@ A simple react component to format multiple email as the user types.
 ## Installation
 
 ```shell-script
-npm install react-multi-email -S
+npm install react-multi-email
 ```
 
 ## Usage
@@ -27,54 +27,44 @@ import * as React from 'react';
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import 'react-multi-email/style.css';
 
-interface IProps {}
-interface IState {
-  emails: string[];
-}
-class Basic extends React.Component<IProps, IState> {
-  state = {
-    emails: [],
-  };
+interface Props {}
 
-  render() {
-    const { emails } = this.state;
+function BasicExample(props: Props) {
+  const [emails, setEmails] = React.useState<string[]>([]);
+  const [focused, setFocused] = React.useState(false);
 
-    return (
-      <>
-        <h3>Email</h3>
-        <ReactMultiEmail
-          placeholder="placeholder"
-          emails={emails}
-          onChange={(emails: Array<string>) => {
-            this.setState({ emails: emails });
-          }}
-          validateEmail={(email: string) => {
-            return isEmail(email); // return boolean
-          }}
-          getLabel={(
-            email: string,
-            index: number,
-            removeEmail: (index: number) => void,
-          ) => {
-            return (
-              <div data-tag key={index}>
-                {email}
-                <span data-tag-handle onClick={() => removeEmail(index)}>
-                  ×
-                </span>
-              </div>
-            );
-          }}
-        />
-        <br />
-        <h4>react-multi-email value</h4>
-        <p>{emails.join(', ') || 'empty'}</p>
-      </>
-    );
-  }
+  return (
+    <form>
+      <h3>Email</h3>
+      <ReactMultiEmail
+        placeholder='Input your email'
+        emails={emails}
+        onChange={(_emails: string[]) => {
+          setEmails(_emails);
+        }}
+        autoFocus={true}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        getLabel={(email, index, removeEmail) => {
+          return (
+            <div data-tag key={index}>
+              <div data-tag-item>{email}</div>
+              <span data-tag-handle onClick={() => removeEmail(index)}>
+                ×
+              </span>
+            </div>
+          );
+        }}
+      />
+      <br />
+      <h4>react-multi-email value</h4>
+      <h3>Focused: {focused ? 'true' : 'false'}</h3>
+      <p>{emails.join(', ') || 'empty'}</p>
+    </form>
+  );
 }
 
-export default Basic;
+export default BasicExample;
 ```
 
 ## License

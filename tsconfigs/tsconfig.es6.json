@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.build.json",
+  "compilerOptions": {
+    "outDir": "../dist/es6",
+    "module": "commonjs",
+    "target": "es6",
+    "allowJs": false,
+    "declaration": true,
+    "sourceMap": false,
+    "noEmit": false,
+    "jsx": "react",
+    "jsxImportSource": ""
+  },
+  "include": ["../react-multi-email/**/*"],
+  "exclude": ["node_modules", "**/tree.ts"]
+}
