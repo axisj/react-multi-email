@@ -2,6 +2,7 @@ import * as React from 'react';
 import { isEmail as isEmailFn } from './isEmail';
 
 export interface IReactMultiEmailProps {
+  id?: string;
   emails?: string[];
   onChange?: (emails: string[]) => void;
   enable?: ({ emailCnt }: { emailCnt: number }) => boolean;
@@ -26,6 +27,7 @@ export interface IReactMultiEmailProps {
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
+    id,
     style,
     getLabel,
     className = '',
@@ -235,6 +237,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         {emails.map((email: string, index: number) => getLabel(email, index, removeEmail))}
       </div>
       <input
+        id={id}
         style={{ opacity: spinning ? 0.45 : 1.0 }}
         ref={emailInputRef}
         type='text'
