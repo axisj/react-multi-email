@@ -10,6 +10,8 @@ export interface IReactMultiEmailProps {
   onChangeInput?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  onKeyDown?: (evt: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyUp?: (evt: React.KeyboardEvent<HTMLInputElement>) => void;
   noClass?: boolean;
   validateEmail?: (email: string) => boolean | Promise<boolean>;
   enableSpinner?: boolean;
@@ -41,6 +43,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onChangeInput,
     onFocus,
     onBlur,
+    onKeyDown,
+    onKeyUp,
     spinner,
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
@@ -172,6 +176,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
   const handleOnKeydown = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
+      onKeyDown?.(e);
+
       switch (e.key) {
         case 'Enter':
           e.preventDefault();
@@ -184,11 +190,13 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         default:
       }
     },
-    [emails.length, removeEmail],
+    [emails.length, onKeyDown, removeEmail],
   );
 
   const handleOnKeyup = React.useCallback(
     async (e: React.KeyboardEvent<HTMLInputElement>) => {
+      onKeyUp?.(e);
+
       switch (e.key) {
         case 'Enter':
         case 'Backspace':

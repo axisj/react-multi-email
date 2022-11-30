@@ -21,6 +21,12 @@ function BasicExample(props: Props) {
           autoFocus={true}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          onKeyDown={evt => {
+            console.log(evt);
+          }}
+          onKeyUp={evt => {
+            console.log(evt);
+          }}
           getLabel={(email, index, removeEmail) => {
             return (
               <div data-tag key={index}>
