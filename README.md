@@ -25,7 +25,7 @@ npm install react-multi-email
 ```typescript jsx
 import * as React from 'react';
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
-import 'react-multi-email/style.css';
+import 'react-multi-email/dist/style.css';
 
 interface Props {}
 
