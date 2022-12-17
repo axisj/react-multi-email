@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "jsnext:main": "dist/es6/index.js",
   "module": "dist/es6/index.js",
   "main": "dist/commonjs/index.js",
