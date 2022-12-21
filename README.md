@@ -110,11 +110,13 @@ export default BasicExample;
     <td>onChangeInput</td>
     <td>(value: string) => void;</td>
     <td></td>
+    <td></td>
   </tr>
   
   <tr>
     <td>onFocus</td>
     <td>() => void;</td>
+    <td></td>
     <td></td>
   </tr>
   
@@ -122,11 +124,13 @@ export default BasicExample;
     <td>onBlur</td>
     <td>() => void;</td>
     <td></td>
+    <td></td>
   </tr>
   
   <tr>
     <td>onKeyDown</td>
     <td>(evt: React.KeyboardEvent<HTMLInputElement>) => void;</td>
+    <td></td>
     <td></td>
   </tr>
   
@@ -134,11 +138,13 @@ export default BasicExample;
     <td>onKeyUp</td>
     <td>(evt: React.KeyboardEvent<HTMLInputElement>) => void;</td>
     <td></td>
+    <td></td>
   </tr>
   
   <tr>
     <td>noClass</td>
     <td>boolean</td>
+    <td></td>
     <td></td>
   </tr>
   
@@ -146,17 +152,20 @@ export default BasicExample;
     <td>validateEmail</td>
     <td>(email: string) => boolean | Promise<boolean>;</td>
     <td></td>
+    <td></td>
   </tr>
   
   <tr>
     <td>enableSpinner</td>
     <td>boolean</td>
     <td></td>
+    <td></td>
   </tr>
   
   <tr>
     <td>style</td>
     <td>React.CSSProperties</td>
+    <td></td>
     <td></td>
   </tr>
   <tr>
@@ -170,17 +179,20 @@ export default BasicExample;
   ) => React.ReactNode;
     </td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>
     className</td>
     <td>string</td>
     <td>''</td>
+    <td></td>
   </tr>
   <tr>
     <td>
     placeholder</td>
     <td>string | React.ReactNode;</td>
+    <td></td>
     <td></td>
   </tr>
   <tr>
@@ -188,11 +200,13 @@ export default BasicExample;
     autoFocus</td>
     <td>boolean;</td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>
     spinner</td>
     <td>() => React.ReactNode;</td>
+    <td></td>
     <td></td>
   </tr>
   <tr>
@@ -200,6 +214,7 @@ export default BasicExample;
     delimiter</td>
     <td>string;</td>
     <td>'[ ,;]'</td>
+    <td></td>
   </tr>
 </table>
 
