@@ -67,6 +67,142 @@ function BasicExample(props: Props) {
 export default BasicExample;
 ```
 
+## Props
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>string</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>emails</td>
+    <td>string[]</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>onChange</td>
+    <td>(emails: string[]) => void;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>enable</td>
+    <td>({ emailCnt }: { emailCnt: number }) => boolean;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>onDisabled</td>
+    <td>() => void;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>onChangeInput</td>
+    <td>(value: string) => void;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>onFocus</td>
+    <td>() => void;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>onBlur</td>
+    <td>() => void;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>onKeyDown</td>
+    <td>(evt: React.KeyboardEvent<HTMLInputElement>) => void;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>onKeyUp</td>
+    <td>(evt: React.KeyboardEvent<HTMLInputElement>) => void;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>noClass</td>
+    <td>boolean</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>validateEmail</td>
+    <td>(email: string) => boolean | Promise<boolean>;</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>enableSpinner</td>
+    <td>boolean</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>style</td>
+    <td>React.CSSProperties</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    getLabel</td>
+    <td>
+  (
+    email: string,
+    index: number,
+    removeEmail: (index: number, isDisabled?: boolean) => void,
+  ) => React.ReactNode;
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    className</td>
+    <td>string</td>
+    <td>''</td>
+  </tr>
+  <tr>
+    <td>
+    placeholder</td>
+    <td>string | React.ReactNode;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    autoFocus</td>
+    <td>boolean;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    spinner</td>
+    <td>() => React.ReactNode;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    delimiter</td>
+    <td>string;</td>
+    <td>'[ ,;]'</td>
+  </tr>
+</table>
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)

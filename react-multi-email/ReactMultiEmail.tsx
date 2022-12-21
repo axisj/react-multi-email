@@ -15,7 +15,7 @@ export interface IReactMultiEmailProps {
   noClass?: boolean;
   validateEmail?: (email: string) => boolean | Promise<boolean>;
   enableSpinner?: boolean;
-  style?: object;
+  style?: React.CSSProperties;
   getLabel: (
     email: string,
     index: number,
@@ -25,6 +25,7 @@ export interface IReactMultiEmailProps {
   placeholder?: string | React.ReactNode;
   autoFocus?: boolean;
   spinner?: () => React.ReactNode;
+  delimiter?: string;
 }
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
@@ -46,6 +47,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onKeyDown,
     onKeyUp,
     spinner,
+    delimiter = '[ ,;]',
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -58,7 +60,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     async (value: string, isEnter?: boolean) => {
       const validEmails: string[] = [];
       let inputValue: string = '';
-      const re = /[ ,;]/g;
+      const re = new RegExp(delimiter, 'g');
       const isEmail = validateEmail || isEmailFn;
 
       const addEmails = (email: string) => {
@@ -150,7 +152,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         onChangeInput?.(inputValue);
       }
     },
-    [emails, enable, onChange, onChangeInput, onDisabled, validateEmail],
+    [delimiter, emails, enable, onChange, onChangeInput, onDisabled, validateEmail],
   );
 
   const onChangeInputValue = React.useCallback(
@@ -205,7 +207,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         default:
       }
     },
-    [findEmailAddress],
+    [findEmailAddress, onKeyUp],
   );
 
   const handleOnChange = React.useCallback(

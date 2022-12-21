@@ -12,6 +12,7 @@ function CustomizeStyleExample(props: Props) {
       <form>
         <h3>Email</h3>
         <ReactMultiEmail
+          delimiter={'[ ,;]'}
           placeholder={
             <>
               <b>I</b> am <u style={{ color: '#1890ff' }}>placeholder</u> !
