@@ -245,7 +245,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       {placeholder ? <span data-placeholder>{placeholder}</span> : null}
       <div
         className={'data-labels'}
-        style={{ opacity: spinning ? 0.45 : 1.0, display: 'inherit', flexWrap: 'inherit' }}
+        style={{ opacity: spinning ? 0.45 : 1.0, display: 'contents', flexWrap: 'inherit' }}
       >
         {emails.map((email: string, index: number) => getLabel(email, index, removeEmail))}
       </div>
