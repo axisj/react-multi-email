@@ -26,6 +26,7 @@ export interface IReactMultiEmailProps {
   autoFocus?: boolean;
   spinner?: () => React.ReactNode;
   delimiter?: string;
+  initialInputValue?: string;
 }
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
@@ -48,12 +49,13 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onKeyUp,
     spinner,
     delimiter = '[ ,;]',
+    initialInputValue = '',
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
   const [focused, setFocused] = React.useState(false);
   const [emails, setEmails] = React.useState<string[]>([]);
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
 
   const findEmailAddress = React.useCallback(
@@ -157,7 +159,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
   const onChangeInputValue = React.useCallback(
     async (value: string) => {
-      onChangeInput?.(value);
       await findEmailAddress(value);
     },
     [findEmailAddress, onChangeInput],
