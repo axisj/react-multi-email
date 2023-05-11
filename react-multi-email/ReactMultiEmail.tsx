@@ -22,6 +22,7 @@ export interface IReactMultiEmailProps {
     removeEmail: (index: number, isDisabled?: boolean) => void,
   ) => React.ReactNode;
   className?: string;
+  inputClassName?: string;
   placeholder?: string | React.ReactNode;
   autoFocus?: boolean;
   spinner?: () => React.ReactNode;
@@ -50,6 +51,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     spinner,
     delimiter = '[ ,;]',
     initialInputValue = '',
+    inputClassName
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -262,6 +264,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         onKeyDown={handleOnKeydown}
         onKeyUp={handleOnKeyup}
         autoFocus={autoFocus}
+        className={inputClassName}
       />
     </div>
   );
