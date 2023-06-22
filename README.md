@@ -216,6 +216,13 @@ export default BasicExample;
     <td>'[ ,;]'</td>
     <td></td>
   </tr>
+   <tr>
+    <td>
+    autoComplete</td>
+    <td>string | undefined</td>
+    <td></td>
+    <td></td>
+  </tr>
 </table>
 
 ## License
