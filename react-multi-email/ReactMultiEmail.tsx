@@ -28,6 +28,7 @@ export interface IReactMultiEmailProps {
   spinner?: () => React.ReactNode;
   delimiter?: string;
   initialInputValue?: string;
+  autoComplete?: string;
 }
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
@@ -51,7 +52,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     spinner,
     delimiter = '[ ,;]',
     initialInputValue = '',
-    inputClassName
+    inputClassName,
+    autoComplete,
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -163,7 +165,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     async (value: string) => {
       await findEmailAddress(value);
     },
-    [findEmailAddress, onChangeInput],
+    [findEmailAddress],
   );
 
   const removeEmail = React.useCallback(
@@ -265,6 +267,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         onKeyUp={handleOnKeyup}
         autoFocus={autoFocus}
         className={inputClassName}
+        autoComplete={autoComplete}
       />
     </div>
   );
