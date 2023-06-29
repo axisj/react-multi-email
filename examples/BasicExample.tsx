@@ -37,6 +37,9 @@ function BasicExample(props: Props) {
               </div>
             );
           }}
+          onChangeInput={value => {
+            console.log(value);
+          }}
         />
         <br />
         <h4>react-multi-email value</h4>

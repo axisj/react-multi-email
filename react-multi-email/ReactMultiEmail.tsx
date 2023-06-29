@@ -164,8 +164,9 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const onChangeInputValue = React.useCallback(
     async (value: string) => {
       await findEmailAddress(value);
+      onChangeInput?.(value);
     },
-    [findEmailAddress],
+    [findEmailAddress, onChangeInput],
   );
 
   const removeEmail = React.useCallback(
