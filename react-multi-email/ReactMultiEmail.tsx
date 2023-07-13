@@ -29,6 +29,8 @@ export interface IReactMultiEmailProps {
   delimiter?: string;
   initialInputValue?: string;
   autoComplete?: string;
+  allowDisplayName?: boolean;
+  stripDisplayName?: boolean;
 }
 
 const initialEmailAddress = (emails?: string[]) => {
@@ -47,7 +49,9 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     noClass,
     placeholder,
     autoFocus,
-    delimiter = '[ ,;]',
+    allowDisplayName = false,
+    stripDisplayName = false,
+    delimiter = `[${allowDisplayName ? '' : ' '},;]`,
     initialInputValue = '',
     inputClassName,
     autoComplete,
@@ -104,7 +108,22 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                 addEmails('' + arr.shift());
               } else {
                 if (arr.length === 1) {
-                  inputValue = '' + arr.shift();
+                  if (allowDisplayName) {
+                    const validateResultWithDisplayName = isEmail('' + arr[0], { allowDisplayName });
+                    if (validateResultWithDisplayName) {
+                      // Strip display name from email formatted as such "First Last <first.last@domain.com>"
+                      const email = stripDisplayName ? arr.shift()?.split("<")[1].split(">")[0] : arr.shift();
+                      addEmails('' + email);
+                    } else {
+                      if (arr.length === 1) {
+                        inputValue = '' + arr.shift();
+                      } else {
+                        arr.shift();
+                      }
+                    }
+                  } else {
+                    inputValue = '' + arr.shift();
+                  }
                 } else {
                   arr.shift();
                 }
@@ -136,6 +155,15 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
             if (typeof validateResult === 'boolean') {
               if (validateResult) {
                 addEmails(value);
+              } else if (allowDisplayName) {
+                const validateResultWithDisplayName = isEmail(value, { allowDisplayName });
+                if (validateResultWithDisplayName) {
+                  // Strip display name from email formatted as such "First Last <first.last@domain.com>"
+                  const email = stripDisplayName ? value.split("<")[1].split(">")[0] : value;
+                  addEmails(email);
+                } else {
+                  inputValue = value;
+                }
               } else {
                 inputValue = value;
               }
