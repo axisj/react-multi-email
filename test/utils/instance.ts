@@ -1,6 +1,6 @@
 import { queries, render, RenderOptions, within } from '@testing-library/react';
 import { ReactElement } from 'react';
-import * as customQueries from './custom-queries/customDataset';
+import * as customQueries from './custom-queries';
 
 const allQueries = {
   ...queries,
