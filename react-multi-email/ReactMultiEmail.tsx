@@ -31,6 +31,13 @@ export interface IReactMultiEmailProps {
   autoComplete?: string;
 }
 
+const initialEmailAddress = (emails?: string[]) => {
+  if (typeof emails === 'undefined') return [];
+
+  const validEmails = emails.filter(email => isEmail(email));
+  return validEmails;
+};
+
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
@@ -62,13 +69,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const [emails, setEmails] = React.useState<string[]>(() => initialEmailAddress(propsEmails));
   const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
-
-  const initialEmailAddress = (emails?: string[]) => {
-    if (typeof emails === 'undefined') return [];
-
-    const validEmails = emails.filter(email => isEmail(email));
-    return validEmails;
-  };
 
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
