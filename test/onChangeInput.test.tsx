@@ -5,8 +5,11 @@ import React from 'react';
 afterEach(cleanup);
 
 it('ReactMultiEmail onChangeInput TEST', () => {
+  const mockhandleChangeInput = jest.fn();
+
   const { getByRole } = render(
     <ReactMultiEmail
+      onChangeInput={mockhandleChangeInput}
       getLabel={(email, index, removeEmail) => {
         return (
           <div data-tag key={index}>
@@ -23,6 +26,7 @@ it('ReactMultiEmail onChangeInput TEST', () => {
   const input = getByRole('textbox') as HTMLInputElement;
 
   fireEvent.change(input, { target: { value: 'react-multi-email' } });
+  mockhandleChangeInput.mockImplementation(value => value);
 
-  expect(input.value).toBe('react-multi-email');
+  expect(input.value).toBe(mockhandleChangeInput('react-multi-email'));
 });
