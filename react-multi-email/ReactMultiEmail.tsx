@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmail as isEmailFn } from './isEmail';
+import { isEmail, isEmail as isEmailFn } from './isEmail';
 
 export interface IReactMultiEmailProps {
   id?: string;
@@ -59,9 +59,16 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
   const [focused, setFocused] = React.useState(false);
-  const [emails, setEmails] = React.useState<string[]>(propsEmails ?? []);
+  const [emails, setEmails] = React.useState<string[]>(() => initialEmailAddress(propsEmails));
   const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
+
+  const initialEmailAddress = (emails?: string[]) => {
+    if (typeof emails === 'undefined') return [];
+
+    const validEmails = emails.filter(email => isEmail(email));
+    return validEmails;
+  };
 
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
