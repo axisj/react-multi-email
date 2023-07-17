@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmail as isEmailFn } from './isEmail';
+import { isEmail, isEmail as isEmailFn } from './isEmail';
 
 export interface IReactMultiEmailProps {
   id?: string;
@@ -31,15 +31,27 @@ export interface IReactMultiEmailProps {
   autoComplete?: string;
 }
 
+const initialEmailAddress = (emails?: string[]) => {
+  if (typeof emails === 'undefined') return [];
+
+  const validEmails = emails.filter(email => isEmail(email));
+  return validEmails;
+};
+
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
     style,
-    getLabel,
+    emails: propsEmails,
     className = '',
     noClass,
     placeholder,
     autoFocus,
+    delimiter = '[ ,;]',
+    initialInputValue = '',
+    inputClassName,
+    autoComplete,
+    getLabel,
     enable,
     onDisabled,
     validateEmail,
@@ -50,22 +62,18 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onKeyDown,
     onKeyUp,
     spinner,
-    delimiter = '[ ,;]',
-    initialInputValue = '',
-    inputClassName,
-    autoComplete,
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
   const [focused, setFocused] = React.useState(false);
-  const [emails, setEmails] = React.useState<string[]>([]);
+  const [emails, setEmails] = React.useState<string[]>(() => initialEmailAddress(propsEmails));
   const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
 
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
       const validEmails: string[] = [];
-      let inputValue: string = '';
+      let inputValue = '';
       const re = new RegExp(delimiter, 'g');
       const isEmail = validateEmail || isEmailFn;
 
@@ -234,10 +242,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     setFocused(true);
     onFocus?.();
   }, [onFocus]);
-
-  React.useEffect(() => {
-    setEmails(props.emails ?? []);
-  }, [props.emails]);
 
   return (
     <div
