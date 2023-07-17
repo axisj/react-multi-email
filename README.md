@@ -1,5 +1,6 @@
 [![npm version](https://badge.fury.io/js/react-multi-email.svg)](https://badge.fury.io/js/react-multi-email)
 [![](https://img.shields.io/npm/dm/react-multi-email.svg)](https://www.npmjs.com/package/react-multi-email)
+[![](https://github.com/axisj/react-multi-email/actions/workflows/npm-test.yml/badge.svg)](https://github.com/axisj/react-multi-email/actions/workflows)
 
 # react-multi-email
 
