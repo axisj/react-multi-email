@@ -24,6 +24,7 @@ function Nav(_props: Props) {
         items={[
           { label: `Basic`, key: '/' },
           { label: `CustomizeStyle`, key: '/customizeStyle' },
+          { label: `DisableOnBlurValidation`, key: '/disableOnBlurValidation' },
         ]}
         onTabClick={async activeKey => {
           await router.push(activeKey);
