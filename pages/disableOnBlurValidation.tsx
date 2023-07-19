@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { Container } from '../components/Layouts';
 import styled from '@emotion/styled';
 import BodyRoot from '../components/BodyRoot';
-import CustomizeStyleExample from '../examples/CustomizeStyleExample';
 import DisableOnBlurValidation from '../examples/DisableOnBlurValidation';
 
 const Custom: NextPage = () => {
