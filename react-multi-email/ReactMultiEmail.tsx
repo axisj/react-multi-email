@@ -29,6 +29,7 @@ export interface IReactMultiEmailProps {
   delimiter?: string;
   initialInputValue?: string;
   autoComplete?: string;
+  disableOnBlurValidation?: boolean;
 }
 
 const initialEmailAddress = (emails?: string[]) => {
@@ -62,6 +63,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onKeyDown,
     onKeyUp,
     spinner,
+    disableOnBlurValidation = false,
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -231,10 +233,12 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const handleOnBlur = React.useCallback(
     async (e: React.SyntheticEvent<HTMLInputElement>) => {
       setFocused(false);
-      await findEmailAddress(e.currentTarget.value, true);
+      if (!disableOnBlurValidation) {
+        await findEmailAddress(e.currentTarget.value, true);
+      }
       onBlur?.();
     },
-    [findEmailAddress, onBlur],
+    [disableOnBlurValidation, findEmailAddress, onBlur],
   );
 
   const handleOnFocus = React.useCallback(() => {
