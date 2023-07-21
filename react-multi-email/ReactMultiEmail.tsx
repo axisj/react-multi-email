@@ -89,13 +89,9 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
       if (value !== '') {
         if (re.test(value)) {
-          const splitData = value.split(re).filter(n => {
-            return n !== '' && n !== undefined && n !== null;
-          });
+          const setArr = new Set(value.split(re).filter(n => n));
 
-          const setArr = new Set(splitData);
           const arr = [...setArr];
-
           do {
             const validateResult = isEmail('' + arr[0]);
 
