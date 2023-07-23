@@ -170,8 +170,7 @@ export default BasicExample;
     <td></td>
   </tr>
   <tr>
-    <td>
-    getLabel</td>
+    <td>getLabel</td>
     <td>
   (
     email: string,
@@ -185,6 +184,13 @@ export default BasicExample;
   <tr>
     <td>
     className</td>
+    <td>string</td>
+    <td>''</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    inputClassName</td>
     <td>string</td>
     <td>''</td>
     <td></td>
@@ -217,11 +223,24 @@ export default BasicExample;
     <td>'[ ,;]'</td>
     <td></td>
   </tr>
-   <tr>
+  <tr>
     <td>
     autoComplete</td>
     <td>string | undefined</td>
     <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>initialInputValue</td>
+    <td>string | undefined</td>
+    <td>''</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+    disableOnBlurValidation</td>
+    <td>boolean | undefined</td>
+    <td>false</td>
     <td></td>
   </tr>
 </table>
