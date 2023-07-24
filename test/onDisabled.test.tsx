@@ -27,9 +27,9 @@ it('calls onDisabled when the email limit is reached', async () => {
 
   for (let i = 0; i < 5; i++) {
     fireEvent.change(input, { target: { value: `test${i}@example.com` } });
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    fireEvent.keyUp(input, { key: 'Enter', code: 'Enter' });
   }
   fireEvent.change(input, { target: { value: 'onDisabled@example.com' } });
-  fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+  fireEvent.keyUp(input, { key: 'Enter', code: 'Enter' });
   expect(onDisabled).toHaveBeenCalled();
 });
