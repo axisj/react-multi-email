@@ -110,7 +110,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                     const validateResultWithDisplayName = isEmail('' + arr[0], { allowDisplayName });
                     if (validateResultWithDisplayName) {
                       // Strip display name from email formatted as such "First Last <first.last@domain.com>"
-                      const email = stripDisplayName ? arr.shift()?.split("<")[1].split(">")[0] : arr.shift();
+                      const email = stripDisplayName ? arr.shift()?.split('<')[1].split('>')[0] : arr.shift();
                       addEmails('' + email);
                     } else {
                       if (arr.length === 1) {
@@ -157,7 +157,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                 const validateResultWithDisplayName = isEmail(value, { allowDisplayName });
                 if (validateResultWithDisplayName) {
                   // Strip display name from email formatted as such "First Last <first.last@domain.com>"
-                  const email = stripDisplayName ? value.split("<")[1].split(">")[0] : value;
+                  const email = stripDisplayName ? value.split('<')[1].split('>')[0] : value;
                   addEmails(email);
                 } else {
                   inputValue = value;
@@ -192,7 +192,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         onChangeInput?.(inputValue);
       }
     },
-    [delimiter, emails, enable, onChange, onChangeInput, onDisabled, validateEmail],
+    [allowDisplayName, delimiter, emails, enable, onChange, onChangeInput, onDisabled, stripDisplayName, validateEmail],
   );
 
   const onChangeInputValue = React.useCallback(
