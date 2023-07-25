@@ -30,7 +30,7 @@ describe('ReactMultEmail onKeyUp TEST', () => {
     expect(onKeyUp).toHaveBeenCalledWith(expect.objectContaining({ key: 'Enter' }));
   });
 
-  it('does not call onKeyUp when other keys are released', async () => {
+  it('does not call onKeyUp when other keys are released', () => {
     const onKeyUp = jest.fn<unknown, [React.KeyboardEvent]>();
     const { getByRole } = render(
       <ReactMultiEmail
