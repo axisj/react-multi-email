@@ -28,7 +28,6 @@ describe('ReactMultEmail onKeyUp TEST', () => {
     fireEvent.keyUp(input, { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 });
     expect(onKeyUp).toHaveBeenCalledTimes(1);
     expect(onKeyUp).toHaveBeenCalledWith(expect.objectContaining({ key: 'Enter' }));
-    // expect(onKeyUp).toHaveBeenCalled();
   });
 
   it('does not call onKeyUp when other keys are released', async () => {
