@@ -32,6 +32,7 @@ export interface IReactMultiEmailProps {
   disableOnBlurValidation?: boolean;
   allowDisplayName?: boolean;
   stripDisplayName?: boolean;
+  allowDuplicate?: boolean;
 }
 
 const initialEmailAddress = (emails?: string[]) => {
@@ -52,6 +53,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     autoFocus,
     allowDisplayName = false,
     stripDisplayName = false,
+    allowDuplicate = false,
     delimiter = `[${allowDisplayName ? '' : ' '},;]`,
     initialInputValue = '',
     inputClassName,
@@ -84,9 +86,11 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       const isEmail = validateEmail || isEmailFn;
 
       const addEmails = (email: string) => {
-        for (let i = 0, l = emails.length; i < l; i++) {
-          if (emails[i] === email) {
-            return false;
+        if (!allowDuplicate) {
+          for (let i = 0, l = emails.length; i < l; i++) {
+            if (emails[i] === email) {
+              return false;
+            }
           }
         }
         validEmails.push(email);
