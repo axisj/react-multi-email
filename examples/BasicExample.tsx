@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { ReactMultiEmail } from '../react-multi-email';
+import { Button } from 'antd';
 
 interface Props {}
 
@@ -45,6 +46,11 @@ function BasicExample(props: Props) {
         <h4>react-multi-email value</h4>
         <h3>Focused: {focused ? 'true' : 'false'}</h3>
         <p>{emails.join(', ') || 'empty'}</p>
+
+        <Button onClick={() => setEmails(['test', 'tt', 'test@gmail.com'])}>
+          {`setEmails("['test', 'tt', 'test@gmail.com']")`}
+        </Button>
+        <Button onClick={() => setEmails([])}>{`setEmails("[]")`}</Button>
       </form>
     </Container>
   );

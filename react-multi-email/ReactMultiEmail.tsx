@@ -39,7 +39,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
     style,
-    emails: propsEmails,
     className = '',
     noClass,
     placeholder,
@@ -279,8 +278,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   }, [onFocus]);
 
   React.useEffect(() => {
-    setEmails(propsEmails || []);
-  }, [propsEmails]);
+    setEmails((props.emails ?? []).filter(email => isEmailFn(email)));
+  }, [props.emails]);
 
   return (
     <div
