@@ -35,6 +35,13 @@ export interface IReactMultiEmailProps {
   allowDuplicate?: boolean;
 }
 
+const initialEmailAddress = (emails?: string[]) => {
+  if (typeof emails === 'undefined') return [];
+
+  const validEmails = emails.filter(email => isEmailFn(email));
+  return validEmails;
+};
+
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
@@ -278,7 +285,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   }, [onFocus]);
 
   React.useEffect(() => {
-    setEmails((props.emails ?? []).filter(email => isEmailFn(email)));
+    setEmails(initialEmailAddress(props.emails));
   }, [props.emails]);
 
   return (
