@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmail, isEmail as isEmailFn } from './isEmail';
+import { isEmail as isEmailFn } from './isEmail';
 
 export interface IReactMultiEmailProps {
   id?: string;
@@ -35,13 +35,6 @@ export interface IReactMultiEmailProps {
   allowDuplicate?: boolean;
 }
 
-const initialEmailAddress = (emails?: string[]) => {
-  if (typeof emails === 'undefined') return [];
-
-  const validEmails = emails.filter(email => isEmail(email));
-  return validEmails;
-};
-
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
@@ -74,7 +67,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
   const [focused, setFocused] = React.useState(false);
-  const [emails, setEmails] = React.useState<string[]>(() => initialEmailAddress(propsEmails));
+  const [emails, setEmails] = React.useState<string[]>([]);
   const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
 
@@ -196,7 +189,18 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         onChangeInput?.(inputValue);
       }
     },
-    [allowDisplayName, delimiter, emails, enable, onChange, onChangeInput, onDisabled, stripDisplayName, validateEmail],
+    [
+      allowDisplayName,
+      allowDuplicate,
+      delimiter,
+      emails,
+      enable,
+      onChange,
+      onChangeInput,
+      onDisabled,
+      stripDisplayName,
+      validateEmail,
+    ],
   );
 
   const onChangeInputValue = React.useCallback(
@@ -273,6 +277,10 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     setFocused(true);
     onFocus?.();
   }, [onFocus]);
+
+  React.useEffect(() => {
+    setEmails(propsEmails || []);
+  }, [propsEmails]);
 
   return (
     <div
