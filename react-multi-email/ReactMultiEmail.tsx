@@ -102,31 +102,27 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
           const arr = [...setArr];
           do {
-            const validateResult = isEmail('' + arr[0]);
+            const validateResult = isEmail('' + arr[0].trim());
 
             if (typeof validateResult === 'boolean') {
               if (validateResult) {
                 addEmails('' + arr.shift());
               } else {
-                if (arr.length === 1) {
-                  if (allowDisplayName) {
-                    const validateResultWithDisplayName = isEmail('' + arr[0], { allowDisplayName });
-                    if (validateResultWithDisplayName) {
-                      // Strip display name from email formatted as such "First Last <first.last@domain.com>"
-                      const email = stripDisplayName ? arr.shift()?.split('<')[1].split('>')[0] : arr.shift();
-                      addEmails('' + email);
-                    } else {
-                      if (arr.length === 1) {
-                        inputValue = '' + arr.shift();
-                      } else {
-                        arr.shift();
-                      }
-                    }
+                if (allowDisplayName) {
+                  const validateResultWithDisplayName = isEmail('' + arr[0].trim(), { allowDisplayName });
+                  if (validateResultWithDisplayName) {
+                    // Strip display name from email formatted as such "First Last <first.last@domain.com>"
+                    const email = stripDisplayName ? arr.shift()?.split("<")[1].split(">")[0] : arr.shift();
+                    addEmails('' + email);
                   } else {
-                    inputValue = '' + arr.shift();
+                    if (arr.length === 1) {
+                      inputValue = '' + arr.shift();
+                    } else {
+                      arr.shift();
+                    }
                   }
                 } else {
-                  arr.shift();
+                  inputValue = '' + arr.shift();
                 }
               }
             } else {
