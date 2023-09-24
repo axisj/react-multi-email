@@ -33,8 +33,9 @@ it('ReactMultiEmail validateEmail function works test', async () => {
   });
 });
 
-it('ReactMultiEmail validateEmail pass test', async () => {
-  const mockValidateEmailFunc = jest.fn().mockImplementation(email => email.endsWith('.com'));
+it('validateEmail = true , test code ending in .com', async () => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/;
+  const mockValidateEmailFunc = jest.fn().mockImplementation(email => regex.test(email));
 
   const { getByRole } = render(
     <ReactMultiEmail
@@ -58,6 +59,35 @@ it('ReactMultiEmail validateEmail pass test', async () => {
 
   await waitFor(() => {
     expect(mockValidateEmailFunc(input.value)).toBe(true);
+  });
+});
+
+it('validateEmail = false', async () => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/;
+  const mockValidateEmailFunc = jest.fn().mockImplementation(email => regex.test(email));
+
+  const { getByRole } = render(
+    <ReactMultiEmail
+      validateEmail={mockValidateEmailFunc}
+      getLabel={(email, index, removeEmail) => {
+        return (
+          <div data-tag key={index}>
+            <div data-tag-item>{email}</div>
+            <span data-tag-handle onClick={() => removeEmail(index)}>
+              ×
+            </span>
+          </div>
+        );
+      }}
+    />,
+  );
+
+  const input = getByRole('textbox') as HTMLInputElement;
+
+  fireEvent.change(input, { target: { value: 'abc@gmail.kr' } });
+
+  await waitFor(() => {
+    expect(mockValidateEmailFunc(input.value)).toBe(false);
   });
 });
 
