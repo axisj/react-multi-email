@@ -106,7 +106,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
             if (typeof validateResult === 'boolean') {
               if (validateResult) {
-                addEmails('' + arr.shift());
+                addEmails('' + arr.shift()?.trim());
               } else {
                 if (allowDisplayName) {
                   const validateResultWithDisplayName = isEmail('' + arr[0].trim(), { allowDisplayName });
