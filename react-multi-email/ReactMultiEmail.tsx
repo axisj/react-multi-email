@@ -102,6 +102,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
           const arr = [...setArr];
           do {
+            if (arr[0] === undefined) return;
             const validateResult = isEmail('' + arr[0].trim());
 
             if (typeof validateResult === 'boolean') {
@@ -112,7 +113,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                   const validateResultWithDisplayName = isEmail('' + arr[0].trim(), { allowDisplayName });
                   if (validateResultWithDisplayName) {
                     // Strip display name from email formatted as such "First Last <first.last@domain.com>"
-                    const email = stripDisplayName ? arr.shift()?.split("<")[1].split(">")[0] : arr.shift();
+                    const email = stripDisplayName ? arr.shift()?.split('<')[1].split('>')[0] : arr.shift();
                     addEmails('' + email);
                   } else {
                     if (arr.length === 1) {
