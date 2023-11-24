@@ -101,9 +101,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
           const setArr = new Set(value.split(re).filter(n => n));
 
           const arr = [...setArr];
-          do {
+          while (arr.length) {
             const validateResult = isEmail('' + arr[0].trim());
-
             if (typeof validateResult === 'boolean') {
               if (validateResult) {
                 addEmails('' + arr.shift()?.trim());
@@ -112,7 +111,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                   const validateResultWithDisplayName = isEmail('' + arr[0].trim(), { allowDisplayName });
                   if (validateResultWithDisplayName) {
                     // Strip display name from email formatted as such "First Last <first.last@domain.com>"
-                    const email = stripDisplayName ? arr.shift()?.split("<")[1].split(">")[0] : arr.shift();
+                    const email = stripDisplayName ? arr.shift()?.split('<')[1].split('>')[0] : arr.shift();
                     addEmails('' + email);
                   } else {
                     if (arr.length === 1) {
@@ -128,7 +127,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
             } else {
               // handle promise
               setSpinning(true);
-
               if ((await validateEmail?.(value)) === true) {
                 addEmails('' + arr.shift());
                 setSpinning(false);
@@ -140,7 +138,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                 }
               }
             }
-          } while (arr.length);
+          }
         } else {
           if (enable && !enable({ emailCnt: emails.length })) {
             onDisabled?.();
