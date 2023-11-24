@@ -101,10 +101,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
           const setArr = new Set(value.split(re).filter(n => n));
 
           const arr = [...setArr];
-          do {
-            if (arr[0] === undefined) return;
+          while (arr.length) {
             const validateResult = isEmail('' + arr[0].trim());
-
             if (typeof validateResult === 'boolean') {
               if (validateResult) {
                 addEmails('' + arr.shift()?.trim());
@@ -129,7 +127,6 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
             } else {
               // handle promise
               setSpinning(true);
-
               if ((await validateEmail?.(value)) === true) {
                 addEmails('' + arr.shift());
                 setSpinning(false);
@@ -141,7 +138,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                 }
               }
             }
-          } while (arr.length);
+          }
         } else {
           if (enable && !enable({ emailCnt: emails.length })) {
             onDisabled?.();
