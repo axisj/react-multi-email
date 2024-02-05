@@ -38,7 +38,7 @@
   display: inline;
   color: #ccc;
 }
-.react-multi-email.focused > span[data-placeholder] {
+.react-multi-email.fill > span[data-placeholder] {
   display: none;
 }
 

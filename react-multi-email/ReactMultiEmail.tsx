@@ -285,7 +285,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   return (
     <div
       className={`${className} ${noClass ? '' : 'react-multi-email'} ${focused ? 'focused' : ''} ${
-        inputValue === '' && emails.length === 0 ? 'empty' : ''
+        inputValue === '' && emails.length === 0 ? 'empty' : 'fill'
       }`}
       style={style}
       onClick={() => emailInputRef.current?.focus()}
