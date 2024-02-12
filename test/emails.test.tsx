@@ -77,8 +77,7 @@ describe('ReactMultEmail emails TEST', () => {
 
 
 it('Emails with custom validation', async () => {
-  
-  const emails = ['abc@gmail','abc','def', 'abc@def.com']
+
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]/;
   
   const mockValidateEmailFunc = jest.fn().mockImplementation((email) => regex.test(email));
@@ -86,7 +85,7 @@ it('Emails with custom validation', async () => {
   render(
     <ReactMultiEmail
       validateEmail={(mockValidateEmailFunc)}
-      emails={emails}
+      emails={['abc@gmail','abc','def', 'abc@def.com']}
       getLabel={(email, index) => {
         return (
           <div data-tag key={index}>
