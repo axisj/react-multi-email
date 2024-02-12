@@ -74,3 +74,30 @@ describe('ReactMultEmail emails TEST', () => {
     expect(emptyElement).toBeTruthy();
   });
 });
+
+
+it('Emails with custom validation', async () => {
+  
+  const emails = ['abc@gmail','abc','def', 'abc@def.com']
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]/;
+  
+  const mockValidateEmailFunc = jest.fn().mockImplementation((email) => regex.test(email));
+  
+  render(
+    <ReactMultiEmail
+      validateEmail={(mockValidateEmailFunc)}
+      emails={emails}
+      getLabel={(email, index) => {
+        return (
+          <div data-tag key={index}>
+            <div data-tag-item>{email}</div>
+          </div>
+        );
+      }}
+    />,
+  );
+
+  const emailsWrapper = document.querySelector('.data-labels');
+  // 4 emails are passed to the component, but only 2 are valid based on the custom validation.
+  expect(emailsWrapper?.childElementCount).toEqual(2);
+});
