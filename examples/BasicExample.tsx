@@ -14,7 +14,8 @@ function BasicExample(props: Props) {
       <form>
         <h3>Email</h3>
         <ReactMultiEmail
-          placeholder='Input your email'
+          label='Emails'
+          placeholder='Enter your email'
           emails={emails}
           onChange={(_emails: string[]) => {
             setEmails(_emails);

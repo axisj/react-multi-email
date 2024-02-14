@@ -198,6 +198,12 @@ export default BasicExample;
   <tr>
     <td>
     placeholder</td>
+    <td>string</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>label</td>
     <td>string | React.ReactNode;</td>
     <td></td>
     <td></td>
