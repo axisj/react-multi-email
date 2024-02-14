@@ -35,12 +35,6 @@ export interface IReactMultiEmailProps {
   allowDuplicate?: boolean;
 }
 
-const initialEmailAddress = (emails?: string[]) => {
-  if (typeof emails === 'undefined') return [];
-
-  const validEmails = emails.filter(email => isEmailFn(email));
-  return validEmails;
-};
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
@@ -76,6 +70,13 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const [emails, setEmails] = React.useState<string[]>([]);
   const [inputValue, setInputValue] = React.useState(initialInputValue);
   const [spinning, setSpinning] = React.useState(false);
+
+  const initialEmailAddress = (emails?: string[]) => {
+    if (typeof emails === 'undefined') return [];
+  
+    const validEmails = emails.filter(email => validateEmail ? validateEmail(email) : isEmailFn(email));
+    return validEmails;
+  };
 
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
