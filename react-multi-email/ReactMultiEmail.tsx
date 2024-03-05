@@ -88,7 +88,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       const addEmails = (email: string) => {
         if (!allowDuplicate) {
           for (let i = 0, l = emails.length; i < l; i++) {
-            if (emails[i] === email) {
+            if (emails[i].toLowerCase() === email.toLowerCase()) {
               return false;
             }
           }

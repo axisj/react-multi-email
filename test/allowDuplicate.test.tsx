@@ -62,3 +62,20 @@ it('allowDuplicate = undefined', async () => {
   const emailsWrapper = document.querySelector('.data-labels');
   expect(emailsWrapper?.childElementCount)?.toBe(1);
 });
+
+it('allowDuplicate = false, case sensitive', async () => {
+  const { getByRole } = render(createReactMultiEmail(false));
+  const textbox = getByRole('textbox');
+
+  const num = 3;
+  for (let i = 0; i < num; i++) {
+    fireEvent.change(textbox, { target: { value: `test@example.com` } });
+    fireEvent.keyUp(textbox, { key: 'Enter', code: 'Enter' });
+  }
+
+  fireEvent.change(textbox, { target: { value: `Test@example.com` } });
+  fireEvent.keyUp(textbox, { key: 'Enter', code: 'Enter' });
+
+  const emailsWrapper = document.querySelector('.data-labels');
+  expect(emailsWrapper?.childElementCount)?.toBe(1);
+});
