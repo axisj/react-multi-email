@@ -1,11 +1,13 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { ReactMultiEmail } from '../react-multi-email';
+import { isEmail, ReactMultiEmail } from '../react-multi-email';
 import { Button } from 'antd';
 
 interface Props {}
 
-function BasicExample(_props: Props) {
+export const delay = (ms: number) => new Promise(res => setTimeout(() => res(undefined), ms));
+
+function AsyncValidateExample(_props: Props) {
   const [emails, setEmails] = React.useState<string[]>([]);
   const [focused, setFocused] = React.useState(false);
 
@@ -41,6 +43,11 @@ function BasicExample(_props: Props) {
           onChangeInput={value => {
             console.log(value);
           }}
+          validateEmail={async email => {
+            await delay(100);
+            return isEmail(email);
+          }}
+          spinner={() => <Spinner>validating...</Spinner>}
         />
         <br />
         <h4>react-multi-email value</h4>
@@ -59,5 +66,14 @@ function BasicExample(_props: Props) {
 const Container = styled.div`
   font-size: 13px;
 `;
+const Spinner = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+`;
 
-export default BasicExample;
+export default AsyncValidateExample;
