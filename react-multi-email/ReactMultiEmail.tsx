@@ -160,10 +160,10 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
               setSpinning(true);
               if ((await validateEmail?.(value)) === true) {
                 addEmails(value);
-                setSpinning(false);
               } else {
                 inputValue = value;
               }
+              setSpinning(false);
             }
           } else {
             inputValue = value;
