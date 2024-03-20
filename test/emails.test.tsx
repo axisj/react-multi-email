@@ -1,6 +1,8 @@
 import { cleanup, render } from '@testing-library/react';
 import { ReactMultiEmail } from '../react-multi-email';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { sleep } from './utils/sleep';
 
 afterEach(cleanup);
 
@@ -75,26 +77,25 @@ describe('ReactMultEmail emails TEST', () => {
   });
 });
 
-
 it('Emails with custom validation', async () => {
-
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]/;
-  
-  const mockValidateEmailFunc = jest.fn().mockImplementation((email) => regex.test(email));
-  
-  render(
-    <ReactMultiEmail
-      validateEmail={(mockValidateEmailFunc)}
-      emails={['abc@gmail','abc','def', 'abc@def.com']}
-      getLabel={(email, index) => {
-        return (
-          <div data-tag key={index}>
-            <div data-tag-item>{email}</div>
-          </div>
-        );
-      }}
-    />,
-  );
+
+  await act(async () => {
+    render(
+      <ReactMultiEmail
+        validateEmail={email => regex.test(email)}
+        emails={['abc@gmail', 'abc', 'def', 'abc@def.com']}
+        getLabel={(email, index) => {
+          return (
+            <div data-tag key={index}>
+              <div data-tag-item>{email}</div>
+            </div>
+          );
+        }}
+      />,
+    );
+    await sleep(100);
+  });
 
   const emailsWrapper = document.querySelector('.data-labels');
   // 4 emails are passed to the component, but only 2 are valid based on the custom validation.

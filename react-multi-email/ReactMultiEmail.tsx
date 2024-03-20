@@ -35,7 +35,6 @@ export interface IReactMultiEmailProps {
   allowDuplicate?: boolean;
 }
 
-
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const {
     id,
@@ -68,15 +67,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
 
   const [focused, setFocused] = React.useState(false);
   const [emails, setEmails] = React.useState<string[]>([]);
-  const [inputValue, setInputValue] = React.useState(initialInputValue);
+  const [inputValue, setInputValue] = React.useState('');
   const [spinning, setSpinning] = React.useState(false);
-
-  const initialEmailAddress = (emails?: string[]) => {
-    if (typeof emails === 'undefined') return [];
-  
-    const validEmails = emails.filter(email => validateEmail ? validateEmail(email) : isEmailFn(email));
-    return validEmails;
-  };
 
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
@@ -168,10 +160,10 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
               setSpinning(true);
               if ((await validateEmail?.(value)) === true) {
                 addEmails(value);
-                setSpinning(false);
               } else {
                 inputValue = value;
               }
+              setSpinning(false);
             }
           } else {
             inputValue = value;
@@ -280,8 +272,31 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   }, [onFocus]);
 
   React.useEffect(() => {
-    setEmails(initialEmailAddress(props.emails));
-  }, [props.emails]);
+    setInputValue(initialInputValue);
+  }, [initialInputValue]);
+
+  React.useEffect(() => {
+    if (validateEmail) {
+      (async () => {
+        setSpinning(true);
+
+        const validEmails: string[] = [];
+        for await (const email of props.emails ?? []) {
+          if (await validateEmail(email)) {
+            validEmails.push(email);
+          }
+        }
+        setEmails(validEmails);
+
+        setSpinning(false);
+      })();
+    } else {
+      const validEmails = props.emails?.filter(email => {
+        return isEmailFn(email);
+      });
+      setEmails(validEmails ?? []);
+    }
+  }, [props.emails, validateEmail]);
 
   return (
     <div
