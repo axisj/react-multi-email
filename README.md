@@ -242,6 +242,12 @@ export default BasicExample;
     <td>boolean | undefined</td>
     <td>false</td>
     <td></td>
+  </tr>  
+  <tr>
+    <td>inputValue</td>
+    <td>string | undefined</td>
+    <td>undefined</td>
+    <td></td>
   </tr>
 </table>
 

@@ -33,6 +33,7 @@ export interface IReactMultiEmailProps {
   allowDisplayName?: boolean;
   stripDisplayName?: boolean;
   allowDuplicate?: boolean;
+  inputValue?: string;
 }
 
 export function ReactMultiEmail(props: IReactMultiEmailProps) {
@@ -62,12 +63,13 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     onKeyUp,
     spinner,
     disableOnBlurValidation = false,
+    inputValue,
   } = props;
   const emailInputRef = React.useRef<HTMLInputElement>(null);
 
   const [focused, setFocused] = React.useState(false);
   const [emails, setEmails] = React.useState<string[]>([]);
-  const [inputValue, setInputValue] = React.useState('');
+  const [inpValue, setInpValue] = React.useState('');
   const [spinning, setSpinning] = React.useState(false);
 
   const findEmailAddress = React.useCallback(
@@ -172,7 +174,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       }
 
       setEmails([...emails, ...validEmails]);
-      setInputValue(inputValue);
+      setInpValue(inputValue);
 
       if (validEmails.length) {
         onChange?.([...emails, ...validEmails]);
@@ -272,8 +274,12 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   }, [onFocus]);
 
   React.useEffect(() => {
-    setInputValue(initialInputValue);
+    setInpValue(initialInputValue);
   }, [initialInputValue]);
+
+  React.useEffect(() => {
+    setInpValue(inputValue ?? '');
+  }, [inputValue]);
 
   React.useEffect(() => {
     if (validateEmail) {
@@ -301,7 +307,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   return (
     <div
       className={`${className} ${noClass ? '' : 'react-multi-email'} ${focused ? 'focused' : ''} ${
-        inputValue === '' && emails.length === 0 ? 'empty' : 'fill'
+        inpValue === '' && emails.length === 0 ? 'empty' : 'fill'
       }`}
       style={style}
       onClick={() => emailInputRef.current?.focus()}
@@ -319,7 +325,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         style={{ opacity: spinning ? 0.45 : 1.0 }}
         ref={emailInputRef}
         type='text'
-        value={inputValue}
+        value={inpValue}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
