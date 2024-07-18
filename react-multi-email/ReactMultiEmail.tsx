@@ -75,7 +75,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const findEmailAddress = React.useCallback(
     async (value: string, isEnter?: boolean) => {
       const validEmails: string[] = [];
-      let inputValue = '';
+      let _inputValue = '';
       const re = new RegExp(delimiter, 'g');
       const isEmail = validateEmail || isEmailFn;
 
@@ -110,13 +110,13 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                     addEmails('' + email);
                   } else {
                     if (arr.length === 1) {
-                      inputValue = '' + arr.shift();
+                      _inputValue = '' + arr.shift();
                     } else {
                       arr.shift();
                     }
                   }
                 } else {
-                  inputValue = '' + arr.shift();
+                  _inputValue = '' + arr.shift();
                 }
               }
             } else {
@@ -127,7 +127,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                 setSpinning(false);
               } else {
                 if (arr.length === 1) {
-                  inputValue = '' + arr.shift();
+                  _inputValue = '' + arr.shift();
                 } else {
                   arr.shift();
                 }
@@ -152,10 +152,10 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
                   const email = stripDisplayName ? value.split('<')[1].split('>')[0] : value;
                   addEmails(email);
                 } else {
-                  inputValue = value;
+                  _inputValue = value;
                 }
               } else {
-                inputValue = value;
+                _inputValue = value;
               }
             } else {
               // handle promise
@@ -163,25 +163,25 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
               if ((await validateEmail?.(value)) === true) {
                 addEmails(value);
               } else {
-                inputValue = value;
+                _inputValue = value;
               }
               setSpinning(false);
             }
           } else {
-            inputValue = value;
+            _inputValue = value;
           }
         }
       }
 
       setEmails([...emails, ...validEmails]);
-      setInpValue(inputValue);
+      setInpValue(_inputValue);
 
       if (validEmails.length) {
         onChange?.([...emails, ...validEmails]);
       }
 
-      if (inputValue !== inputValue) {
-        onChangeInput?.(inputValue);
+      if (inputValue !== _inputValue) {
+        onChangeInput?.(_inputValue);
       }
     },
     [
@@ -190,6 +190,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       delimiter,
       emails,
       enable,
+      inputValue,
       onChange,
       onChangeInput,
       onDisabled,
@@ -201,9 +202,8 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
   const onChangeInputValue = React.useCallback(
     async (value: string) => {
       await findEmailAddress(value);
-      onChangeInput?.(value);
     },
-    [findEmailAddress, onChangeInput],
+    [findEmailAddress],
   );
 
   const removeEmail = React.useCallback(
