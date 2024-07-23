@@ -11,7 +11,9 @@ A simple react component to format multiple email as the user types.
 - Small size
 - Simple customization
 
-[See Demo](https://codesandbox.io/s/jpvjk8m5o9)
+[See Demo]([https://codesandbox.io/s/jpvjk8m5o9](https://codesandbox.io/p/sandbox/jpvjk8m5o9))
+
+
 
 <img src="https://cdn.rawgit.com/axui/react-multi-email/c3098f94/react-multi-email.gif" />
 
