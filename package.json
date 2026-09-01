@@ -17,7 +17,7 @@
     "build:common": "ncp react-multi-email/style.css ./dist/style.css",
     "build:es5": "rimraf ./dist/commonjs && tsc --p tsconfigs/tsconfig.es5.json",
     "build:es6": "rimraf ./dist/es6 && tsc --p tsconfigs/tsconfig.es6.json",
-    "build:library": "npm run build:common && npm run build:es5 && npm run build:es6",
+    "build:library": "npm run build:es5 && npm run build:es6 && npm run build:common",
     "prepublishOnly": "npm run build:library",
     "test": "jest"
   },
