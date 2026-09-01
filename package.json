@@ -1,6 +1,6 @@
 {
   "name": "react-multi-email",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "engines": {
     "node": ">=24.x"
   },
