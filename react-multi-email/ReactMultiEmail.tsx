@@ -23,7 +23,8 @@ export interface IReactMultiEmailProps {
   ) => React.ReactNode;
   className?: string;
   inputClassName?: string;
-  placeholder?: string | React.ReactNode;
+  label?: string | React.ReactNode;
+  placeholder?: string;
   autoFocus?: boolean;
   spinner?: () => React.ReactNode;
   delimiter?: string;
@@ -42,6 +43,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
     style,
     className = '',
     noClass,
+    label,
     placeholder,
     autoFocus,
     allowDisplayName = false,
@@ -313,7 +315,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
       onClick={() => emailInputRef.current?.focus()}
     >
       {spinning && spinner?.()}
-      {placeholder ? <span data-placeholder>{placeholder}</span> : null}
+      {label ? <span data-label>{label}</span> : null}
       <div
         className={'data-labels'}
         style={{ opacity: spinning ? 0.45 : 1.0, display: 'contents', flexWrap: 'inherit' }}
@@ -324,6 +326,7 @@ export function ReactMultiEmail(props: IReactMultiEmailProps) {
         id={id}
         style={{ opacity: spinning ? 0.45 : 1.0 }}
         ref={emailInputRef}
+        placeholder={placeholder}
         type='text'
         value={inpValue}
         onFocus={handleOnFocus}
